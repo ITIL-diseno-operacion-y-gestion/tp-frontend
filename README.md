@@ -5,9 +5,25 @@ Esta es una aplicación realizada en [Next.js](https://nextjs.org) utilizando [`
 ## Software necesario
 
 - Nodejs v20
-- Bunjs (opcional)
+- Bunjs (opcional, recomendado)
 
 ## Development
+
+### Descargar dependencias
+
+El primer paso es descargar las dependencias o `node_modules` usando **uno** de los siguientes comandos:
+
+```bash
+npm i
+# o
+yarn i
+# o
+pnpm i
+# o
+bun i
+```
+
+### Correr la aplicación
 
 Para correr el servidor, correr **uno** de los siguientes comandos:
 
@@ -23,19 +39,51 @@ bun dev
 
 Luego abrir [http://localhost:3000](http://localhost:3000) en el navegador para ver la aplicación.
 
+### Correr los tests
+
+#### Tests unitarios de componentes
+
+```bash
+npm test
+# o
+yarn dev
+# o
+pnpm dev
+```
+
+Con Bun no funciona
+
+#### Tests de aceptación
+
+TODO
+
 ## Variables de entorno
 
 El proyecto requiere la configuración de variables de entorno definidos en `src/env/client.ts` y `src/env/server.ts`. Sin aquellos, la aplicación no compila (TODO). Copiar del `env.example` en un `.env`.
 
 ## Extensiones de VSCode
 
-Hay recomendaciones de extensiones de Visual Studio Code para que el desarrollo sea más fluido. Te debería llegar un mensaje del estilo: *This workspace has extension recommendations.*
+Hay recomendaciones de extensiones de Visual Studio Code para que el desarrollo sea más fluido. Te debería llegar un mensaje del estilo: _This workspace has extension recommendations._
 
 - Eslint
 - Prettier
 - Tailwind CSS
 - React Snippets
 - Version Lens
+
+## Deployment
+
+Para buildear la aplicación se tiene que ejecutar **uno** de los siguientes comandos:
+
+```bash
+npm run build
+# o
+yarn build
+# o
+pnpm build
+# o
+bun build
+```
 
 ---
 
