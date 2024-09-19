@@ -1,8 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    experimental: {
-        typedRoutes: true,
-    },
+  experimental: {
+    // eslint-disable-next-line n/no-process-env
+    typedRoutes: process.env.TURBOPACK ? false : true,
+  },
 };
 
 export default nextConfig;

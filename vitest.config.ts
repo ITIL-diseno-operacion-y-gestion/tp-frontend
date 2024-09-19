@@ -6,7 +6,7 @@ export default defineConfig({
   plugins: [react()],
   test: {
     environment: "jsdom",
-    setupFiles: ["/e2e/setup.ts"],
+    setupFiles: ["/test/setup.ts"],
   },
   resolve: {
     alias: [{ find: "@", replacement: resolve(__dirname, "./src") }],
