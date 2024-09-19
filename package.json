@@ -44,7 +44,7 @@
   "lint-staged": {
     "*.{tsx,ts}": [
       "prettier --write",
-      "next lint --cache --fix --max-warnings 0 ."
+      "next lint --fix --max-warnings 0 ."
     ]
   }
 }
