@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "format": "prettier --write .",
-    "test": "vitest"
+    "test": "vitest",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@t3-oss/env-core": "^0.11.1",
@@ -30,12 +31,20 @@
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-check-file": "^2.8.0",
     "eslint-plugin-n": "^17.10.2",
+    "husky": "^9.1.6",
     "jsdom": "^25.0.0",
+    "lint-staged": "^15.2.10",
     "postcss": "^8",
     "prettier": "^3.3.3",
     "prettier-plugin-tailwindcss": "^0.6.6",
     "tailwindcss": "^3.4.1",
     "typescript": "^5",
     "vitest": "^2.1.1"
+  },
+  "lint-staged": {
+    "*.{tsx,ts,md}": [
+      "prettier --write",
+      "eslint --cache --fix --max-warnings 0 ."
+    ]
   }
 }
