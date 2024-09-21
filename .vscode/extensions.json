@@ -4,6 +4,14 @@
     "dbaeumer.vscode-eslint",
     "bradlc.vscode-tailwindcss",
     "pflannery.vscode-versionlens",
-    "dsznajder.es7-react-js-snippets"
+    "dsznajder.es7-react-js-snippets",
+    "usernamehw.errorlens",
+    "wix.vscode-import-cost",
+    "MariusAlchimavicius.json-to-ts",
+    "aaron-bond.better-comments",
+    "PulkitGangwar.nextjs-snippets",
+    "YoavBls.pretty-ts-errors",
+    "imgildev.vscode-nextjs-generator",
+    "Gruntfuggly.todo-tree"
   ]
 }
