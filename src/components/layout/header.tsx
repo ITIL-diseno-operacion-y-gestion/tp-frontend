@@ -8,9 +8,11 @@ import { cn } from "@/lib/utils";
 
 import { LogIn, LogOut, Menu, UserPlus, X } from "lucide-react";
 
+import { Logo } from "./logo";
+
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(true); // This should be managed by your auth system
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // This should be managed by your auth system
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
@@ -18,25 +20,7 @@ export default function Header() {
     <header className="bg-white shadow-md">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 justify-between">
-          <div className="flex items-center">
-            <Link href="/" className="flex flex-shrink-0 items-center">
-              <svg
-                className="h-8 w-8 text-blue-600"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M13 10V3L4 14h7v7l9-11h-7z"
-                />
-              </svg>
-              <span className="ml-2 text-xl font-bold text-gray-900">Logo</span>
-            </Link>
-          </div>
-
+          <Logo />
           <nav className="hidden items-center sm:ml-6 sm:flex sm:space-x-8">
             <NavLink href="/">Home</NavLink>
             <NavLink href="/">About</NavLink>
@@ -48,7 +32,7 @@ export default function Header() {
             {isLoggedIn ? (
               <button
                 onClick={() => setIsLoggedIn(false)}
-                className="flex items-center rounded-md px-3 py-2 text-sm font-medium text-gray-900 hover:text-blue-600"
+                className="flex items-center rounded-md px-3 py-2 text-sm font-medium text-gray-900 hover:bg-gray-50 hover:text-blue-600"
               >
                 <LogOut className="mr-2 h-5 w-5" />
                 Cerrar sesión
@@ -147,7 +131,7 @@ export const NavLink = ({
   <Link
     href={href}
     className={cn(
-      "rounded-md px-3 py-2 text-sm font-medium text-gray-900 hover:text-blue-600",
+      "rounded-md px-3 py-2 text-sm font-medium text-gray-900 hover:bg-gray-50 hover:text-blue-600",
       className,
     )}
   >

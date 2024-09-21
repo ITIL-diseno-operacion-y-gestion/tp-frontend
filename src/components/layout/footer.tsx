@@ -2,28 +2,15 @@ import Link from "next/link";
 
 import { Facebook, Instagram, Linkedin, Mail, Twitter } from "lucide-react";
 
+import { Logo } from "./logo";
+
 export default function Footer() {
   return (
     <footer className="bg-gray-100">
       <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 gap-8 md:grid-cols-4">
           <div className="space-y-4">
-            <Link href="/" className="flex items-center">
-              <svg
-                className="h-8 w-8 text-blue-600"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M13 10V3L4 14h7v7l9-11h-7z"
-                />
-              </svg>
-              <span className="ml-2 text-xl font-bold text-gray-900">Logo</span>
-            </Link>
+            <Logo />
             <p className="text-gray-600">
               We are dedicated to providing the best service to our customers.
             </p>
