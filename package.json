@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbo",
+    "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
@@ -13,9 +13,12 @@
   },
   "dependencies": {
     "@t3-oss/env-core": "^0.11.1",
+    "clsx": "^2.1.1",
+    "lucide-react": "^0.445.0",
     "next": "14.2.11",
     "react": "^18",
     "react-dom": "^18",
+    "tailwind-merge": "^2.5.2",
     "zod": "^3.23.8"
   },
   "devDependencies": {
