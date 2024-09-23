@@ -11,6 +11,7 @@
     "PulkitGangwar.nextjs-snippets",
     "YoavBls.pretty-ts-errors",
     "imgildev.vscode-nextjs-generator",
-    "Gruntfuggly.todo-tree"
+    "Gruntfuggly.todo-tree",
+    "vitest.explorer"
   ]
 }
