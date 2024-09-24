@@ -2,10 +2,11 @@
 
 import { redirect } from "next/navigation";
 
-import { userSchema } from "@/models/schemas";
+import { SignUpFormState, signUpSchema } from "@/models/schemas";
 
-export async function signUp(data: FormData) {
-  const user = userSchema.safeParse({
+export async function signUp(state: SignUpFormState, data: FormData) {
+  const user = signUpSchema.safeParse({
+    name: data.get("name"),
     email: data.get("email"),
     password: data.get("password"),
   });
