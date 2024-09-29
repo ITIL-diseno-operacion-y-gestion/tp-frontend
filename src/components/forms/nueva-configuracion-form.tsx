@@ -27,6 +27,9 @@ export function NuevaConfiguracionForm() {
       {
         method: "POST",
         body: JSON.stringify(data),
+        headers: {
+          "Content-Type": "application/json",
+        },
       },
     );
 
@@ -37,6 +40,7 @@ export function NuevaConfiguracionForm() {
       searchParams.set("message", "Configuración guardada correctamente!");
       redirect(`/configuracion?${searchParams.toString()}`);
     } else {
+      console.error(await req.text());
       const searchParams = new URLSearchParams();
       searchParams.set("success", "false");
       searchParams.set("message", "Hubo un error inesperado!");
