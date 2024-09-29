@@ -30,7 +30,7 @@ export default async function ConfiguaracionPage({
             Nuevo elemento
           </button>
         </Link>
-        <div className="flex gap-x-4">
+        <div className="flex flex-wrap gap-x-4">
           <ButtonActualizar path="/configuracion" />
           <SearchBox />
         </div>

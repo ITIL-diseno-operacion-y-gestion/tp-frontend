@@ -22,7 +22,7 @@ export function BreadCrumbNav() {
 
   return (
     <Breadcrumb>
-      <BreadcrumbList>
+      <BreadcrumbList className="mb-4 sm:mb-0">
         {paths.map((path, index) => (
           <PathItem
             path={(paths.slice(0, index + 1).join("/") || "/") as Route}
