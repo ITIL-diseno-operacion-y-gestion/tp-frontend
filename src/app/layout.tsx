@@ -1,9 +1,12 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 
+import { BreadCrumbNav } from "@/components/layout/breadcrumb-nav";
 import Footer from "@/components/layout/footer";
 import Header from "@/components/layout/header";
 import { MainContainer } from "@/components/layout/main-container";
+import { ToastOperacion } from "@/components/toast-operacion";
+import { Toaster } from "@/components/ui/sonner";
 
 import "./globals.css";
 
@@ -22,9 +25,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.className} antialiased`}>
-        <div className="flex min-h-screen flex-col bg-gray-600">
+        <div className="flex min-h-screen flex-col">
           <Header />
-          <MainContainer>{children}</MainContainer>
+          <MainContainer>
+            <BreadCrumbNav />
+            {children}
+          </MainContainer>
+          <ToastOperacion />
+          <Toaster richColors />
           <Footer />
         </div>
       </body>

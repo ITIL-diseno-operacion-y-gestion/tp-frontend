@@ -1,7 +1,14 @@
+"use client";
+
+import { Route } from "next";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+
+import { cn } from "@/lib/utils";
 
 export default function Header() {
   const loggedIn = true;
+  const pathname = usePathname();
 
   return (
     <header className="bg-gray-800 text-white">
@@ -11,18 +18,27 @@ export default function Header() {
         </h1>
         {loggedIn && (
           <nav className="flex flex-col gap-x-4 sm:flex-row">
-            <Link href="/" className="hover:text-blue-400">
+            <NavLink
+              href="/configuracion"
+              active={pathname.startsWith("/configuracion")}
+            >
               Configuración
-            </Link>
-            <Link href="/" className="hover:text-blue-400">
+            </NavLink>
+            <NavLink
+              href="/incidentes"
+              active={pathname.startsWith("/incidentes")}
+            >
               Incidentes
-            </Link>
-            <Link href="/" className="hover:text-blue-400">
+            </NavLink>
+            <NavLink
+              href="/problemas"
+              active={pathname.startsWith("/problemas")}
+            >
               Problemas
-            </Link>
-            <Link href="/" className="hover:text-blue-400">
+            </NavLink>
+            <NavLink href="/cambios" active={pathname.startsWith("/cambios")}>
               Cambios
-            </Link>
+            </NavLink>
           </nav>
         )}
         <div className="flex flex-col flex-wrap space-x-4 text-right sm:flex-row">
@@ -46,3 +62,25 @@ export default function Header() {
     </header>
   );
 }
+
+const NavLink = ({
+  href,
+  active,
+  children,
+}: {
+  href: Route;
+  active: boolean;
+  children: React.ReactNode;
+}) => {
+  return (
+    <Link
+      href={href}
+      className={cn(
+        "text-white hover:text-blue-400",
+        active && "rounded bg-slate-50/50 px-2",
+      )}
+    >
+      {children}
+    </Link>
+  );
+};
