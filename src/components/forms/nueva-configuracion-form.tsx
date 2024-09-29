@@ -20,6 +20,7 @@ export function NuevaConfiguracionForm() {
       localizacion: formData.get("localizacion") as string,
       relacion_items: formData.get("relacion_items") as string,
     };
+    console.log(data);
 
     const req = await fetch(
       `${env.NEXT_PUBLIC_API_URL}/configuracion/articulos`,
