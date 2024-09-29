@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { Suspense } from "react";
 
 import { BreadCrumbNav } from "@/components/layout/breadcrumb-nav";
 import Footer from "@/components/layout/footer";
@@ -31,7 +32,9 @@ export default function RootLayout({
             <BreadCrumbNav />
             {children}
           </MainContainer>
-          <ToastOperacion />
+          <Suspense>
+            <ToastOperacion />
+          </Suspense>
           <Toaster richColors />
           <Footer />
         </div>
