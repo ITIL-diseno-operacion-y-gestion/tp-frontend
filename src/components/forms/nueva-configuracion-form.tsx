@@ -1,20 +1,18 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
-import { ItemConfiguracion } from "@/app/configuracion/models";
+import { ItemConfiguracionCreate } from "@/app/configuracion/models";
 import { env } from "@/env/client";
 
 export function NuevaConfiguracionForm() {
   const handleSubmit = async (formData: FormData) => {
     "use server";
 
-    const data: Omit<ItemConfiguracion, "id"> = {
+    const data: ItemConfiguracionCreate = {
       nombre: formData.get("nombre") as string,
       descripcion: formData.get("descripcion") as string,
       tipo: formData.get("tipo") as string,
       version: +formData.get("version")! as number,
-      fecha_de_alta: formData.get("fecha_de_alta") as string,
-      esta_activo: formData.get("esta_activo") === "on",
       titular: formData.get("titular") as string,
       info_fabricacion: formData.get("info_fabricacion") as string,
       localizacion: formData.get("localizacion") as string,
@@ -59,6 +57,7 @@ export function NuevaConfiguracionForm() {
           id="nombre"
           name="nombre"
           className="w-full rounded border border-gray-300 px-3 py-2"
+          required
         />
       </div>
       <div>
@@ -69,6 +68,7 @@ export function NuevaConfiguracionForm() {
           id="descripcion"
           name="descripcion"
           className="w-full rounded border border-gray-300 px-3 py-2"
+          required
         />
       </div>
       <div>
@@ -80,6 +80,7 @@ export function NuevaConfiguracionForm() {
           id="tipo"
           name="tipo"
           className="w-full rounded border border-gray-300 px-3 py-2"
+          required
         />
       </div>
       <div>
@@ -91,28 +92,7 @@ export function NuevaConfiguracionForm() {
           id="version"
           name="version"
           className="w-full rounded border border-gray-300 px-3 py-2"
-        />
-      </div>
-      <div>
-        <label htmlFor="fecha_de_alta" className="block">
-          Fecha de alta
-        </label>
-        <input
-          type="date"
-          id="fecha_de_alta"
-          name="fecha_de_alta"
-          className="w-full rounded border border-gray-300 px-3 py-2"
-        />
-      </div>
-      <div>
-        <label htmlFor="esta_activo" className="block">
-          Activo
-        </label>
-        <input
-          type="checkbox"
-          id="esta_activo"
-          name="esta_activo"
-          className="rounded border border-gray-300 px-3 py-2"
+          required
         />
       </div>
       <div>
@@ -124,6 +104,7 @@ export function NuevaConfiguracionForm() {
           id="titular"
           name="titular"
           className="w-full rounded border border-gray-300 px-3 py-2"
+          required
         />
       </div>
       <div>

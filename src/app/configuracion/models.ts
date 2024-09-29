@@ -11,3 +11,8 @@ export interface ItemConfiguracion {
   localizacion: string;
   relacion_items: string;
 }
+
+export type ItemConfiguracionCreate = Omit<
+  ItemConfiguracion,
+  "id" | "fecha_de_alta" | "esta_activo"
+>;
