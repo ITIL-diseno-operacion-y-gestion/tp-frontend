@@ -20,7 +20,7 @@ export function NuevoIncidenteForm() {
     };
     console.log(data);
 
-    const req = await fetch(`${env.NEXT_PUBLIC_API_URL}/incidentes/tickets`, {
+    const req = await fetch(`${env.NEXT_PUBLIC_API_URL}/incidentes`, {
       method: "POST",
       body: JSON.stringify(data),
       headers: {
