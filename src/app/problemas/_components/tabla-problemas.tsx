@@ -1,19 +1,28 @@
+import { uppercaseFirst } from "@/lib/utils";
+
 import { Problema } from "../models";
 
 export function TablaProblemas({ problemas }: { problemas: Problema[] }) {
-  // I want to make a kanban board with the problems
-  // I want to group the problems by their state
-
-  const detectados = problemas.filter((p) => p.estado === "detectado");
-  const analizandose = problemas.filter((p) => p.estado === "analizandose");
-  const asignados = problemas.filter((p) => p.estado === "asignado");
-  const resueltos = problemas.filter((p) => p.estado === "resuelto");
-  const cerrados = problemas.filter((p) => p.estado === "cerrado");
+  const detectados = problemas
+    .filter((p) => p.estado === "detectado")
+    .sort(sortByPrioridad);
+  const analizandose = problemas
+    .filter((p) => p.estado === "analizandose")
+    .sort(sortByPrioridad);
+  const asignados = problemas
+    .filter((p) => p.estado === "asignado")
+    .sort(sortByPrioridad);
+  const resueltos = problemas
+    .filter((p) => p.estado === "resuelto")
+    .sort(sortByPrioridad);
+  const cerrados = problemas
+    .filter((p) => p.estado === "cerrado")
+    .sort(sortByPrioridad);
 
   return (
-    <div className="grid border-collapse grid-cols-5 gap-4 overflow-x-auto border">
+    <div className="grid border-collapse grid-cols-5 overflow-x-auto border pb-4 [&>div>ul]:border-r-2 [&>div>ul]:border-dashed [&>div]:space-y-6">
       <div>
-        <h2 className="text-center text-lg font-bold">Detectados</h2>
+        <ChipEstado estado="detectado" />
         <ul>
           {detectados.map((p) => (
             <ProblemaView problema={p} key={p.id} />
@@ -21,15 +30,15 @@ export function TablaProblemas({ problemas }: { problemas: Problema[] }) {
         </ul>
       </div>
       <div>
-        <h2 className="text-center text-lg font-bold">Analizandose</h2>
-        <ul>
+        <ChipEstado estado="analizandose" />
+        <ul className="mt-6">
           {analizandose.map((p) => (
             <ProblemaView problema={p} key={p.id} />
           ))}
         </ul>
       </div>
       <div>
-        <h2 className="text-center text-lg font-bold">Asignados</h2>
+        <ChipEstado estado="asignado" />
         <ul>
           {asignados.map((p) => (
             <ProblemaView problema={p} key={p.id} />
@@ -37,7 +46,7 @@ export function TablaProblemas({ problemas }: { problemas: Problema[] }) {
         </ul>
       </div>
       <div>
-        <h2 className="text-center text-lg font-bold">Resueltos</h2>
+        <ChipEstado estado="resuelto" />
         <ul>
           {resueltos.map((p) => (
             <ProblemaView problema={p} key={p.id} />
@@ -45,7 +54,7 @@ export function TablaProblemas({ problemas }: { problemas: Problema[] }) {
         </ul>
       </div>
       <div>
-        <h2 className="text-center text-lg font-bold">Cerrados</h2>
+        <ChipEstado estado="cerrado" />
         <ul>
           {cerrados.map((p) => (
             <ProblemaView problema={p} key={p.id} />
@@ -56,12 +65,16 @@ export function TablaProblemas({ problemas }: { problemas: Problema[] }) {
   );
 }
 
+const sortByPrioridad = (a: Problema, b: Problema) => {
+  const prioridades = ["alta", "media", "baja"];
+  return prioridades.indexOf(a.prioridad) - prioridades.indexOf(b.prioridad);
+};
+
 export function ProblemaView({ problema }: { problema: Problema }) {
-  const { estado, categoria, sintomas, id_usuario, prioridad } = problema;
+  const { categoria, sintomas, id_usuario, prioridad } = problema;
   return (
-    <div className="m-2 p-4 shadow">
+    <div className="m-2 min-w-max p-4 shadow">
       <h1 className="text-xl font-bold">{categoria}</h1>
-      <ChipEstado estado={estado} />
       <p>{sintomas}</p>
       <p>{id_usuario}</p>
       <ChipPrioridad prioridad={prioridad} />
@@ -72,16 +85,18 @@ export function ProblemaView({ problema }: { problema: Problema }) {
 export function ChipEstado({ estado }: { estado: Problema["estado"] }) {
   const colorEstado: Record<Problema["estado"], string> = {
     analizandose: "bg-yellow-500",
-    asignado: "bg-blue-500",
+    asignado: "bg-cyan-500",
     cerrado: "bg-green-500",
     detectado: "bg-red-500",
     resuelto: "bg-purple-500",
   };
 
   return (
-    <span className={`rounded px-2 py-1 text-white ${colorEstado[estado]}`}>
-      {estado}
-    </span>
+    <h3
+      className={`px-2 py-1 text-center text-lg font-semibold text-white ${colorEstado[estado]}`}
+    >
+      {uppercaseFirst(estado)}
+    </h3>
   );
 }
 
