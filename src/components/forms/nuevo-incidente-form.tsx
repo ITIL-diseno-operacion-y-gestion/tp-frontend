@@ -35,7 +35,7 @@ export function NuevoIncidenteForm() {
       searchParams.set("message", "Incidente guardado correctamente!");
       redirect(`/incidentes?${searchParams.toString()}`);
     } else {
-      console.error(await req.text());
+      console.error("ERROR: ", await req.json());
       const searchParams = new URLSearchParams();
       searchParams.set("success", "false");
       searchParams.set("message", "Hubo un error inesperado!");

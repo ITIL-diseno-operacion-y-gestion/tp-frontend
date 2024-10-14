@@ -32,7 +32,7 @@ export function NuevoProblemaForm() {
       searchParams.set("message", "Problema guardado correctamente!");
       redirect(`/problemas?${searchParams.toString()}`);
     } else {
-      console.error(await req.json());
+      console.error("ERROR: ", await req.json());
       const searchParams = new URLSearchParams();
       searchParams.set("success", "false");
       searchParams.set("message", "Hubo un error inesperado!");
