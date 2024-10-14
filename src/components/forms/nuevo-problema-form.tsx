@@ -58,13 +58,6 @@ export function NuevoProblemaForm() {
           <option value="de datos">Datos</option>
           <option value="legal">Legal</option>
         </select>
-        <input
-          type="text"
-          id="categoria"
-          name="categoria"
-          className="w-full rounded border border-gray-300 px-3 py-2"
-          required
-        />
       </div>
       <div>
         <label htmlFor="sintomas" className="block">
