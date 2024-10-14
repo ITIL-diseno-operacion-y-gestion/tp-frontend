@@ -20,47 +20,42 @@ export function TablaProblemas({ problemas }: { problemas: Problema[] }) {
     .sort(sortByPrioridad);
 
   return (
-    <div className="grid border-collapse grid-cols-5 overflow-x-auto border pb-4 [&>div>ul]:border-r-2 [&>div>ul]:border-dashed [&>div]:space-y-6">
-      <div>
-        <ChipEstado estado="detectado" />
+    <div className="grid border-collapse grid-flow-col overflow-x-auto border">
+      <SectionEstado estado="detectado">
         <ul>
           {detectados.map((p) => (
             <ProblemaView problema={p} key={p.id} />
           ))}
         </ul>
-      </div>
-      <div>
-        <ChipEstado estado="analizandose" />
+      </SectionEstado>
+      <SectionEstado estado="analizandose">
         <ul className="mt-6">
           {analizandose.map((p) => (
             <ProblemaView problema={p} key={p.id} />
           ))}
         </ul>
-      </div>
-      <div>
-        <ChipEstado estado="asignado" />
+      </SectionEstado>
+      <SectionEstado estado="asignado">
         <ul>
           {asignados.map((p) => (
             <ProblemaView problema={p} key={p.id} />
           ))}
         </ul>
-      </div>
-      <div>
-        <ChipEstado estado="resuelto" />
+      </SectionEstado>
+      <SectionEstado estado="resuelto">
         <ul>
           {resueltos.map((p) => (
             <ProblemaView problema={p} key={p.id} />
           ))}
         </ul>
-      </div>
-      <div>
-        <ChipEstado estado="cerrado" />
+      </SectionEstado>
+      <SectionEstado estado="cerrado">
         <ul>
           {cerrados.map((p) => (
             <ProblemaView problema={p} key={p.id} />
           ))}
         </ul>
-      </div>
+      </SectionEstado>
     </div>
   );
 }
@@ -73,7 +68,7 @@ const sortByPrioridad = (a: Problema, b: Problema) => {
 export function ProblemaView({ problema }: { problema: Problema }) {
   const { categoria, sintomas, id_usuario, prioridad } = problema;
   return (
-    <div className="m-2 min-w-max p-4 shadow">
+    <div className="mx-4 my-2 bg-gray-50 p-4 shadow-lg">
       <h1 className="text-xl font-bold">{categoria}</h1>
       <p>{sintomas}</p>
       <p>{id_usuario}</p>
@@ -82,21 +77,44 @@ export function ProblemaView({ problema }: { problema: Problema }) {
   );
 }
 
-export function ChipEstado({ estado }: { estado: Problema["estado"] }) {
-  const colorEstado: Record<Problema["estado"], string> = {
-    analizandose: "bg-yellow-500",
-    asignado: "bg-cyan-500",
-    cerrado: "bg-green-500",
-    detectado: "bg-red-500",
-    resuelto: "bg-purple-500",
-  };
+const colorEstado: Record<Problema["estado"], string> = {
+  analizandose: "bg-yellow-500",
+  asignado: "bg-cyan-500",
+  cerrado: "bg-green-500",
+  detectado: "bg-red-500",
+  resuelto: "bg-purple-500",
+};
 
+export function ChipEstado({ estado }: { estado: Problema["estado"] }) {
   return (
     <h3
-      className={`px-2 py-1 text-center text-lg font-semibold text-white ${colorEstado[estado]}`}
+      className={`min-w-52 px-2 py-1 text-center text-lg font-semibold text-white ${colorEstado[estado]}`}
     >
       {uppercaseFirst(estado)}
     </h3>
+  );
+}
+
+const bgEstado: Record<Problema["estado"], string> = {
+  analizandose: "bg-yellow-200",
+  asignado: "bg-cyan-200",
+  cerrado: "bg-green-200",
+  detectado: "bg-red-200",
+  resuelto: "bg-purple-200",
+};
+
+export function SectionEstado({
+  estado,
+  children,
+}: {
+  estado: Problema["estado"];
+  children: React.ReactNode;
+}) {
+  return (
+    <section className={`${bgEstado[estado]} space-y-6 pb-4`}>
+      <ChipEstado estado={estado} />
+      {children}
+    </section>
   );
 }
 
