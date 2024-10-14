@@ -32,7 +32,7 @@ export function NuevoProblemaForm() {
       searchParams.set("message", "Problema guardado correctamente!");
       redirect(`/problemas?${searchParams.toString()}`);
     } else {
-      console.error(await req.text());
+      console.error(await req.json());
       const searchParams = new URLSearchParams();
       searchParams.set("success", "false");
       searchParams.set("message", "Hubo un error inesperado!");
@@ -46,6 +46,18 @@ export function NuevoProblemaForm() {
         <label htmlFor="categoria" className="block">
           Categoría
         </label>
+        <select
+          name="categoria"
+          id="categoria"
+          className="w-full rounded border border-gray-300 px-3 py-2"
+          required
+        >
+          <option value="de seguridad">Seguridad</option>
+          <option value="tecnico">Técnico</option>
+          <option value="de disponibilidad">Disponibilidad</option>
+          <option value="de datos">Datos</option>
+          <option value="legal">Legal</option>
+        </select>
         <input
           type="text"
           id="categoria"
