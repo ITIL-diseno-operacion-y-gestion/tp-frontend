@@ -1,3 +1,5 @@
+import { Prioridad } from "@/models/types";
+
 export interface ProblemaCreate {
   id_usuario: number;
   sintomas: string;
@@ -9,8 +11,6 @@ export interface ProblemaCreate {
 export interface Problema extends ProblemaCreate {
   id: number;
 }
-
-export type Prioridad = "baja" | "media" | "alta";
 
 export type Estado =
   | "detectado"

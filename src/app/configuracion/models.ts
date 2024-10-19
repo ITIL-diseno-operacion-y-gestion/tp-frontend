@@ -1,6 +1,18 @@
+export const tiposItemConfiguracion = [
+  "hardware",
+  "software",
+  "network",
+  "documentacion",
+  "instalacion",
+  "proveedor",
+  "servicio tecnico",
+] as const;
+
+export type TipoItemConfiguracion = (typeof tiposItemConfiguracion)[number];
+
 export interface ItemConfiguracion {
   descripcion: string;
-  tipo: string;
+  tipo: TipoItemConfiguracion;
   version: number;
   fecha_de_alta: string;
   esta_activo: boolean;
