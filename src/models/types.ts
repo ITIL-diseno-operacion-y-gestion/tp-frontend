@@ -8,6 +8,14 @@ export const categoriasProblema = [
   "legal",
 ] as const;
 
-export type Prioridad = (typeof prioridades)[number];
+export const estadosProblema = [
+  "detectado",
+  "analizandose",
+  "asignado",
+  "resuelto",
+  "cerrado",
+] as const;
 
+export type Prioridad = (typeof prioridades)[number];
 export type CategoriaProblema = (typeof categoriasProblema)[number];
+export type EstadoProblema = (typeof estadosProblema)[number];

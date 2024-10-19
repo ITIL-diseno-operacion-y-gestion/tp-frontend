@@ -10,13 +10,18 @@ import {
   prioridades,
 } from "@/models/types";
 
+import { SelectField } from "../form/select-field";
+import { SubmitButton } from "../form/submit-button";
+import { TextField } from "../form/text-field";
+import { TextAreaField } from "../form/textarea-field";
+
 export function NuevoIncidenteForm() {
   const handleSubmit = async (formData: FormData) => {
     "use server";
 
     const data: IncidenteCreate = {
       categoria: formData.get("categoria") as CategoriaProblema,
-      forma_de_notificacion: formData.get("forma_de_notificacion") as string,
+      forma_de_notificacion: formData.get("forma_de_notificacion") as string, // TODO: Tipar forma de notificacion
       id_usuario: +formData.get("id_usuario")! as number,
       informacion_adicional: formData.get("informacion_adicional") as string,
       prioridad: formData.get("prioridad") as Prioridad,
@@ -51,117 +56,47 @@ export function NuevoIncidenteForm() {
 
   return (
     <form className="space-y-4" action={handleSubmit}>
-      <div>
-        <label htmlFor="categoria" className="block">
-          Categoría
-        </label>
-        <select
-          name="categoria"
-          id="categoria"
-          className="w-full rounded border border-gray-300 px-3 py-2"
-          required
-        >
-          {categoriasProblema.map((categoria) => (
-            <option key={categoria} value={categoria}>
-              {categoria}
-            </option>
-          ))}
-        </select>
-      </div>
-      <div>
-        <label htmlFor="forma_de_notificacion" className="block">
-          Forma de notificación
-        </label>
-        <input
-          type="text"
-          id="forma_de_notificacion"
-          name="forma_de_notificacion"
-          className="w-full rounded border border-gray-300 px-3 py-2"
-          required
-        />
-      </div>
-      <div>
-        <label htmlFor="id_usuario" className="block">
-          ID de usuario
-        </label>
-        <input
-          type="number"
-          id="id_usuario"
-          name="id_usuario"
-          className="w-full rounded border border-gray-300 px-3 py-2"
-          required
-        />
-      </div>
-      <div>
-        <label htmlFor="informacion_adicional" className="block">
-          Información adicional
-        </label>
-        <input
-          type="text"
-          id="informacion_adicional"
-          name="informacion_adicional"
-          className="w-full rounded border border-gray-300 px-3 py-2"
-        />
-      </div>
-      <div>
-        <label htmlFor="prioridad" className="block">
-          Prioridad
-        </label>
-        <select
-          id="prioridad"
-          name="prioridad"
-          className="w-full rounded border border-gray-300 px-3 py-2"
-          required
-        >
-          {prioridades.map((prioridad) => (
-            <option key={prioridad} value={prioridad}>
-              {prioridad}
-            </option>
-          ))}
-        </select>
-      </div>
-      <div>
-        <label htmlFor="reportador" className="block">
-          Reportador
-        </label>
-        <input
-          type="text"
-          id="reportador"
-          name="reportador"
-          className="w-full rounded border border-gray-300 px-3 py-2"
-          required
-        />
-      </div>
-      <div>
-        <label htmlFor="servicios_afectados" className="block">
-          Servicios afectados
-        </label>
-        <input
-          type="text"
-          id="servicios_afectados"
-          name="servicios_afectados"
-          className="w-full rounded border border-gray-300 px-3 py-2"
-          required
-        />
-      </div>
-      <div>
-        <label htmlFor="usuarios_afectados" className="block">
-          Usuarios afectados
-        </label>
-        <input
-          type="text"
-          id="usuarios_afectados"
-          name="usuarios_afectados"
-          className="w-full rounded border border-gray-300 px-3 py-2"
-          required
-        />
-      </div>
-      <button
-        type="submit"
-        className="w-full rounded bg-blue-500 px-3 py-2 text-white"
-      >
-        Crear incidente
-      </button>
+      <SelectField name="categoria" label="Categoría" required>
+        {categoriasProblema.map((categoria) => (
+          <option key={categoria} value={categoria}>
+            {categoria}
+          </option>
+        ))}
+      </SelectField>
+      <TextField
+        name="forma_de_notificacion"
+        label="Forma de notificación"
+        required
+      />
+      <TextField
+        name="id_usuario"
+        label="ID de usuario"
+        type="number"
+        required
+      />
+      <TextAreaField
+        name="informacion_adicional"
+        label="Información adicional"
+      />
+      <SelectField name="prioridad" label="Prioridad" required>
+        {prioridades.map((prioridad) => (
+          <option key={prioridad} value={prioridad}>
+            {prioridad}
+          </option>
+        ))}
+      </SelectField>
+      <TextField name="reportador" label="Reportador" required />
+      <TextField
+        name="servicios_afectados"
+        label="Servicios afectados"
+        required
+      />
+      <TextField
+        name="usuarios_afectados"
+        label="Usuarios afectados"
+        required
+      />
+      <SubmitButton label="Crear Incidente" />
     </form>
   );
 }

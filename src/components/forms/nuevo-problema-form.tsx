@@ -6,8 +6,13 @@ import { env } from "@/env/client";
 import {
   CategoriaProblema,
   categoriasProblema,
+  estadosProblema,
   prioridades,
 } from "@/models/types";
+
+import { SelectField } from "../form/select-field";
+import { SubmitButton } from "../form/submit-button";
+import { TextField } from "../form/text-field";
 
 export function NuevoProblemaForm() {
   const handleSubmit = async (formData: FormData) => {
@@ -47,87 +52,30 @@ export function NuevoProblemaForm() {
 
   return (
     <form className="space-y-4" action={handleSubmit}>
-      <div>
-        <label htmlFor="categoria" className="block">
-          Categoría
-        </label>
-        <select
-          name="categoria"
-          id="categoria"
-          className="w-full rounded border border-gray-300 px-3 py-2"
-          required
-        >
-          {categoriasProblema.map((categoria) => (
-            <option key={categoria} value={categoria}>
-              {categoria}
-            </option>
-          ))}
-        </select>
-      </div>
-      <div>
-        <label htmlFor="sintomas" className="block">
-          Síntomas
-        </label>
-        <input
-          type="text"
-          id="sintomas"
-          name="sintomas"
-          className="w-full rounded border border-gray-300 px-3 py-2"
-          required
-        />
-      </div>
-      <div>
-        <label htmlFor="id_usuario" className="block">
-          ID de usuario
-        </label>
-        <input
-          type="number"
-          id="id_usuario"
-          name="id_usuario"
-          className="w-full rounded border border-gray-300 px-3 py-2"
-          required
-        />
-      </div>
-      <div>
-        <label htmlFor="prioridad" className="block">
-          Prioridad
-        </label>
-        <select
-          name="prioridad"
-          id="prioridad"
-          className="w-full rounded border border-gray-300 px-3 py-2"
-          required
-        >
-          {prioridades.map((prioridad) => (
-            <option key={prioridad} value={prioridad}>
-              {prioridad}
-            </option>
-          ))}
-        </select>
-      </div>
-      <div>
-        <label htmlFor="estado" className="block">
-          Estado
-        </label>
-        <select
-          id="estado"
-          name="estado"
-          className="w-full rounded border border-gray-300 px-3 py-2"
-          required
-        >
-          <option value="detectado">Detectado</option>
-          <option value="analizandose">Analizándose</option>
-          <option value="asignado">Asignado</option>
-          <option value="resuelto">Resuelto</option>
-          <option value="cerrado">Cerrado</option>
-        </select>
-      </div>
-      <button
-        type="submit"
-        className="w-full rounded bg-blue-500 px-3 py-2 text-white"
-      >
-        Crear problema
-      </button>
+      <SelectField label="Categoría" name="categoria" required>
+        {categoriasProblema.map((categoria) => (
+          <option key={categoria} value={categoria}>
+            {categoria}
+          </option>
+        ))}
+      </SelectField>
+      <TextField name="sintomas" label="Síntomas" required />
+      <TextField name="id_usuario" label="ID usuario" type="number" required />
+      <SelectField label="Prioridad" name="prioridad" required>
+        {prioridades.map((prioridad) => (
+          <option key={prioridad} value={prioridad}>
+            {prioridad}
+          </option>
+        ))}
+      </SelectField>
+      <SelectField label="Estado" name="estado" required>
+        {estadosProblema.map((estado) => (
+          <option key={estado} value={estado}>
+            {estado}
+          </option>
+        ))}
+      </SelectField>
+      <SubmitButton label="Crear Problema" />
     </form>
   );
 }

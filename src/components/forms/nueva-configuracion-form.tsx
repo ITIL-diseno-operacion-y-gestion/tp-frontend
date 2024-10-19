@@ -8,6 +8,11 @@ import {
 } from "@/app/configuracion/models";
 import { env } from "@/env/client";
 
+import { SelectField } from "../form/select-field";
+import { SubmitButton } from "../form/submit-button";
+import { TextField } from "../form/text-field";
+import { TextAreaField } from "../form/textarea-field";
+
 export function NuevaConfiguracionForm() {
   const handleSubmit = async (formData: FormData) => {
     "use server";
@@ -52,108 +57,24 @@ export function NuevaConfiguracionForm() {
 
   return (
     <form className="space-y-4" action={handleSubmit}>
-      <div>
-        <label htmlFor="nombre" className="block">
-          Nombre
-        </label>
-        <input
-          type="text"
-          id="nombre"
-          name="nombre"
-          className="w-full rounded border border-gray-300 px-3 py-2"
-          required
-        />
-      </div>
-      <div>
-        <label htmlFor="descripcion" className="block">
-          Descripción
-        </label>
-        <textarea
-          id="descripcion"
-          name="descripcion"
-          className="w-full rounded border border-gray-300 px-3 py-2"
-          required
-        />
-      </div>
-      <div>
-        <label htmlFor="tipo" className="block">
-          Tipo
-        </label>
-        <select
-          id="tipo"
-          name="tipo"
-          className="w-full rounded border border-gray-300 px-3 py-2"
-          required
-        >
-          {tiposItemConfiguracion.map((tipo) => (
-            <option key={tipo} value={tipo}>
-              {tipo}
-            </option>
-          ))}
-        </select>
-      </div>
-      <div>
-        <label htmlFor="version" className="block">
-          Versión
-        </label>
-        <input
-          type="text"
-          id="version"
-          name="version"
-          className="w-full rounded border border-gray-300 px-3 py-2"
-          required
-        />
-      </div>
-      <div>
-        <label htmlFor="titular" className="block">
-          Titular
-        </label>
-        <input
-          type="text"
-          id="titular"
-          name="titular"
-          className="w-full rounded border border-gray-300 px-3 py-2"
-          required
-        />
-      </div>
-      <div>
-        <label htmlFor="info_fabricacion" className="block">
-          Información de fabricación
-        </label>
-        <textarea
-          id="info_fabricacion"
-          name="info_fabricacion"
-          className="w-full rounded border border-gray-300 px-3 py-2"
-        />
-      </div>
-      <div>
-        <label htmlFor="localizacion" className="block">
-          Localización
-        </label>
-        <input
-          type="text"
-          id="localizacion"
-          name="localizacion"
-          className="w-full rounded border border-gray-300 px-3 py-2"
-        />
-      </div>
-      <div>
-        <label htmlFor="relacion_items" className="block">
-          Relación de items
-        </label>
-        <input
-          type="text"
-          id="relacion_items"
-          name="relacion_items"
-          className="w-full rounded border border-gray-300 px-3 py-2"
-        />
-      </div>
-      <button
-        type="submit"
-        className="w-full max-w-xs rounded bg-green-500 px-3 py-2 text-white"
-      >
-        Guardar
-      </button>
+      <TextField name="nombre" label="Nombre" required />
+      <TextAreaField name="descripcion" label="Descripción" required />
+      <SelectField name="tipo" label="Tipo" required>
+        {tiposItemConfiguracion.map((tipo) => (
+          <option key={tipo} value={tipo}>
+            {tipo}
+          </option>
+        ))}
+      </SelectField>
+      <TextField name="version" label="Versión" type="number" required />
+      <TextField name="titular" label="Titular" required />
+      <TextAreaField
+        name="info_fabricacion"
+        label="Información de fabricación"
+      />
+      <TextField name="localizacion" label="Localización" />
+      <TextField name="relacion_items" label="Relación de items" />
+      <SubmitButton label="Crear articulo de configuracion" />
     </form>
   );
 }
