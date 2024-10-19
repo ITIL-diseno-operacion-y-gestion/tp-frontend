@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 
 import { ProblemaCreate } from "@/app/problemas/models";
 import { env } from "@/env/client";
+import { prioridades } from "@/models/types";
 
 export function NuevoProblemaForm() {
   const handleSubmit = async (formData: FormData) => {
@@ -93,9 +94,11 @@ export function NuevoProblemaForm() {
           className="w-full rounded border border-gray-300 px-3 py-2"
           required
         >
-          <option value="baja">Baja</option>
-          <option value="media">Media</option>
-          <option value="alta">Alta</option>
+          {prioridades.map((prioridad) => (
+            <option key={prioridad} value={prioridad}>
+              {prioridad}
+            </option>
+          ))}
         </select>
       </div>
       <div>

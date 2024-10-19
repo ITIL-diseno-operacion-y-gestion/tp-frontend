@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 
 import { IncidenteCreate } from "@/app/incidentes/models";
 import { env } from "@/env/client";
+import { Prioridad, prioridades } from "@/models/types";
 
 export function NuevoIncidenteForm() {
   const handleSubmit = async (formData: FormData) => {
@@ -13,7 +14,7 @@ export function NuevoIncidenteForm() {
       forma_de_notificacion: formData.get("forma_de_notificacion") as string,
       id_usuario: +formData.get("id_usuario")! as number,
       informacion_adicional: formData.get("informacion_adicional") as string,
-      prioridad: formData.get("prioridad") as string,
+      prioridad: formData.get("prioridad") as Prioridad,
       reportador: formData.get("reportador") as string,
       servicios_afectados: formData.get("servicios_afectados") as string,
       usuarios_afectados: formData.get("usuarios_afectados") as string,
@@ -96,13 +97,18 @@ export function NuevoIncidenteForm() {
         <label htmlFor="prioridad" className="block">
           Prioridad
         </label>
-        <input
-          type="text"
+        <select
           id="prioridad"
           name="prioridad"
           className="w-full rounded border border-gray-300 px-3 py-2"
           required
-        />
+        >
+          {prioridades.map((prioridad) => (
+            <option key={prioridad} value={prioridad}>
+              {prioridad}
+            </option>
+          ))}
+        </select>
       </div>
       <div>
         <label htmlFor="reportador" className="block">
