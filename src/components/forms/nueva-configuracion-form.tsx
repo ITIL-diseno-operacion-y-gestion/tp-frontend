@@ -1,7 +1,11 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
-import { ItemConfiguracionCreate } from "@/app/configuracion/models";
+import {
+  ItemConfiguracionCreate,
+  TipoItemConfiguracion,
+  tiposItemConfiguracion,
+} from "@/app/configuracion/models";
 import { env } from "@/env/client";
 
 export function NuevaConfiguracionForm() {
@@ -11,7 +15,7 @@ export function NuevaConfiguracionForm() {
     const data: ItemConfiguracionCreate = {
       nombre: formData.get("nombre") as string,
       descripcion: formData.get("descripcion") as string,
-      tipo: formData.get("tipo") as string,
+      tipo: formData.get("tipo") as TipoItemConfiguracion,
       version: +formData.get("version")! as number,
       titular: formData.get("titular") as string,
       info_fabricacion: formData.get("info_fabricacion") as string,
@@ -75,13 +79,18 @@ export function NuevaConfiguracionForm() {
         <label htmlFor="tipo" className="block">
           Tipo
         </label>
-        <input
-          type="text"
+        <select
           id="tipo"
           name="tipo"
           className="w-full rounded border border-gray-300 px-3 py-2"
           required
-        />
+        >
+          {tiposItemConfiguracion.map((tipo) => (
+            <option key={tipo} value={tipo}>
+              {tipo}
+            </option>
+          ))}
+        </select>
       </div>
       <div>
         <label htmlFor="version" className="block">
