@@ -1,4 +1,4 @@
-import { Prioridad } from "@/models/types";
+import { CategoriaProblema, Prioridad } from "@/models/types";
 
 export const formasNotificacion = [
   "llamada telefonica",
@@ -19,7 +19,7 @@ export interface Incidente {
   usuarios_afectados: string;
   servicios_afectados: string;
   prioridad: Prioridad;
-  categoria: string;
+  categoria: CategoriaProblema;
   informacion_adicional: string;
 }
 

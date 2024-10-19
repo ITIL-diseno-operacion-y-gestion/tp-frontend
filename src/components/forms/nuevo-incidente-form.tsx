@@ -3,14 +3,19 @@ import { redirect } from "next/navigation";
 
 import { IncidenteCreate } from "@/app/incidentes/models";
 import { env } from "@/env/client";
-import { Prioridad, prioridades } from "@/models/types";
+import {
+  CategoriaProblema,
+  Prioridad,
+  categoriasProblema,
+  prioridades,
+} from "@/models/types";
 
 export function NuevoIncidenteForm() {
   const handleSubmit = async (formData: FormData) => {
     "use server";
 
     const data: IncidenteCreate = {
-      categoria: formData.get("categoria") as string,
+      categoria: formData.get("categoria") as CategoriaProblema,
       forma_de_notificacion: formData.get("forma_de_notificacion") as string,
       id_usuario: +formData.get("id_usuario")! as number,
       informacion_adicional: formData.get("informacion_adicional") as string,
@@ -50,13 +55,18 @@ export function NuevoIncidenteForm() {
         <label htmlFor="categoria" className="block">
           Categoría
         </label>
-        <input
-          type="text"
-          id="categoria"
+        <select
           name="categoria"
+          id="categoria"
           className="w-full rounded border border-gray-300 px-3 py-2"
           required
-        />
+        >
+          {categoriasProblema.map((categoria) => (
+            <option key={categoria} value={categoria}>
+              {categoria}
+            </option>
+          ))}
+        </select>
       </div>
       <div>
         <label htmlFor="forma_de_notificacion" className="block">

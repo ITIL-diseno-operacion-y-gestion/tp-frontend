@@ -1,10 +1,10 @@
-import { Prioridad } from "@/models/types";
+import { CategoriaProblema, Prioridad } from "@/models/types";
 
 export interface ProblemaCreate {
   id_usuario: number;
   sintomas: string;
   prioridad: Prioridad;
-  categoria: string;
+  categoria: CategoriaProblema;
   estado: Estado;
 }
 

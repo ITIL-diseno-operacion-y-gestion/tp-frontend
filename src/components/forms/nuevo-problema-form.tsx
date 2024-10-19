@@ -3,14 +3,18 @@ import { redirect } from "next/navigation";
 
 import { ProblemaCreate } from "@/app/problemas/models";
 import { env } from "@/env/client";
-import { prioridades } from "@/models/types";
+import {
+  CategoriaProblema,
+  categoriasProblema,
+  prioridades,
+} from "@/models/types";
 
 export function NuevoProblemaForm() {
   const handleSubmit = async (formData: FormData) => {
     "use server";
 
     const data: ProblemaCreate = {
-      categoria: formData.get("categoria") as string,
+      categoria: formData.get("categoria") as CategoriaProblema,
       id_usuario: +formData.get("id_usuario")! as number,
       prioridad: formData.get("prioridad") as ProblemaCreate["prioridad"],
       sintomas: formData.get("sintomas") as string,
@@ -53,11 +57,11 @@ export function NuevoProblemaForm() {
           className="w-full rounded border border-gray-300 px-3 py-2"
           required
         >
-          <option value="de seguridad">Seguridad</option>
-          <option value="tecnico">Técnico</option>
-          <option value="de disponibilidad">Disponibilidad</option>
-          <option value="de datos">Datos</option>
-          <option value="legal">Legal</option>
+          {categoriasProblema.map((categoria) => (
+            <option key={categoria} value={categoria}>
+              {categoria}
+            </option>
+          ))}
         </select>
       </div>
       <div>
