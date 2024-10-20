@@ -9,16 +9,17 @@ interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
 }
 
 export const TextField = forwardRef<HTMLInputElement, Props>(
-  ({ label, id, error, className, ...props }, ref) => {
+  ({ label, id, error, className, name, ...props }, ref) => {
     return (
       <div className={className}>
-        <label htmlFor={id} className="mb-2 font-semibold">
+        <label htmlFor={id || name} className="mb-2 font-semibold">
           {label}
         </label>
         <input
           className="w-full rounded border border-gray-300 px-3 py-2"
           ref={ref}
-          id={id}
+          id={id || name}
+          name={name}
           {...props}
         />
         <ErrorDisplay error={error} />

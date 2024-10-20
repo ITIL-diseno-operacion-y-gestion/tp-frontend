@@ -10,16 +10,17 @@ interface Props extends React.SelectHTMLAttributes<HTMLSelectElement> {
 }
 
 export const SelectField = forwardRef<HTMLSelectElement, Props>(
-  ({ label, id, error, className, children, ...props }, ref) => {
+  ({ label, id, error, className, name, children, ...props }, ref) => {
     return (
       <div className={className}>
-        <label htmlFor={id} className="mb-2 font-semibold">
+        <label htmlFor={id || name} className="mb-2 font-semibold">
           {label}
         </label>
         <select
           className="w-full rounded border border-gray-300 px-3 py-2"
           ref={ref}
-          id={id}
+          id={id || name}
+          name={name}
           {...props}
         >
           {children}
