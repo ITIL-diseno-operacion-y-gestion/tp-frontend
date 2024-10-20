@@ -2,6 +2,8 @@
 
 import { useEffect } from "react";
 
+import { Title } from "@/components/common/title";
+
 export default function ErrorPage({
   error,
 }: {
@@ -12,5 +14,5 @@ export default function ErrorPage({
     console.error(error);
   }, [error]);
 
-  return <h1>500 - Server-side error occurred</h1>;
+  return <Title>500 - Server-side error occurred</Title>;
 }

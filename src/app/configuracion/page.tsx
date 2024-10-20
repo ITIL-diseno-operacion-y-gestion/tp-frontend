@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 import { ButtonActualizar } from "@/components/button-actualizar";
+import { Title } from "@/components/common/title";
 import { SearchBox } from "@/components/search-box";
 
 import { ItemConfiguracionPreview } from "./_components/item-configuracion";
@@ -23,7 +24,7 @@ export default async function ConfiguaracionPage({
 
   return (
     <div className="space-y-8">
-      <h1 className="text-center text-xl font-bold">Configuracion</h1>
+      <Title>Configuracion</Title>
       <div className="flex justify-between">
         <Link href="/configuracion/new">
           <button className="rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600">

@@ -1,3 +1,5 @@
+import { Title } from "@/components/common/title";
+
 export default function NotFoundPage() {
-  return <h1>404 - Not Found</h1>;
+  return <Title>404 - Not Found</Title>;
 }
