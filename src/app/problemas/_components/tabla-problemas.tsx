@@ -20,7 +20,7 @@ export function TablaProblemas({ problemas }: { problemas: Problema[] }) {
     .sort(sortByPrioridad);
 
   return (
-    <div className="grid border-collapse grid-flow-col overflow-x-auto border">
+    <div className="grid grid-flow-col overflow-x-auto border 2xl:grid-cols-5">
       <SectionEstado problemas={detectados} estado="detectado" />
       <SectionEstado problemas={analizandose} estado="analizandose" />
       <SectionEstado problemas={asignados} estado="asignado" />
@@ -41,8 +41,8 @@ export function ProblemaView({ problema }: { problema: Problema }) {
   return (
     <div className="px-4">
       <div className="h-56 w-full overflow-clip bg-gray-50 px-4 py-3 shadow-lg">
-        <h1 className="text-xl font-bold">{categoria}</h1>
-        <p>{sintomas}</p>
+        <h4 className="text-xl font-bold">{categoria}</h4>
+        <p className="line-clamp-3">{sintomas}</p>
         <p>{id_usuario}</p>
         <ChipPrioridad prioridad={prioridad} />
       </div>
@@ -84,7 +84,7 @@ export function SectionEstado({
   estado: Problema["estado"];
 }) {
   return (
-    <section className={`${bgEstado[estado]} mb-4 min-w-60 pb-4`}>
+    <section className={`${bgEstado[estado]} mb-4 min-w-64 pb-4`}>
       <ChipEstado estado={estado} />
       <ul className="mt-4 space-y-4 pb-10">
         {problemas.map((p) => (
