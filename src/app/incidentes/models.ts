@@ -1,14 +1,8 @@
-import { CategoriaProblema, Prioridad } from "@/models/types";
-
-export const formasNotificacion = [
-  "llamada telefonica",
-  "email",
-  "sms",
-  "formulario web",
-  "chat en vivo",
-];
-
-export type FormaNotificacion = (typeof formasNotificacion)[number];
+import {
+  CategoriaProblema,
+  FormaNotificacion,
+  Prioridad,
+} from "@/models/types";
 
 export interface Incidente {
   id: number;

@@ -6,8 +6,10 @@ import { IncidenteCreate } from "@/app/incidentes/models";
 import { User } from "@/models/interfaces";
 import {
   CategoriaProblema,
+  FormaNotificacion,
   Prioridad,
   categoriasProblema,
+  formasNotificacion,
   prioridades,
 } from "@/models/types";
 
@@ -22,7 +24,9 @@ export function NuevoIncidenteForm({ usuarios }: { usuarios: User[] }) {
 
     const data: IncidenteCreate = {
       categoria: formData.get("categoria") as CategoriaProblema,
-      forma_de_notificacion: formData.get("forma_de_notificacion") as string, // TODO: Tipar forma de notificacion
+      forma_de_notificacion: formData.get(
+        "forma_de_notificacion",
+      ) as FormaNotificacion,
       id_usuario: +formData.get("id_usuario")! as number,
       informacion_adicional: formData.get("informacion_adicional") as string,
       prioridad: formData.get("prioridad") as Prioridad,
@@ -63,11 +67,17 @@ export function NuevoIncidenteForm({ usuarios }: { usuarios: User[] }) {
           </option>
         ))}
       </SelectField>
-      <TextField
+      <SelectField
         name="forma_de_notificacion"
         label="Forma de notificación"
         required
-      />
+      >
+        {formasNotificacion.map((forma) => (
+          <option key={forma} value={forma}>
+            {forma}
+          </option>
+        ))}
+      </SelectField>
       <SelectField name="id_usuario" label="Usuario" required>
         {usuarios.map((usuario) => (
           <option key={usuario.id} value={usuario.id}>
@@ -92,11 +102,18 @@ export function NuevoIncidenteForm({ usuarios }: { usuarios: User[] }) {
         label="Servicios afectados"
         required
       />
-      <TextField
+      <SelectField
         name="usuarios_afectados"
         label="Usuarios afectados"
         required
-      />
+        multiple
+      >
+        {usuarios.map((usuario) => (
+          <option key={usuario.id} value={usuario.id}>
+            {usuario.nombre} {usuario.apellido}
+          </option>
+        ))}
+      </SelectField>
       <SubmitButton label="Crear Incidente" />
     </form>
   );

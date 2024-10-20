@@ -16,6 +16,15 @@ export const estadosProblema = [
   "cerrado",
 ] as const;
 
+export const formasNotificacion = [
+  "llamada telefonica",
+  "email",
+  "sms",
+  "formulario web",
+  "chat en vivo",
+] as const;
+
 export type Prioridad = (typeof prioridades)[number];
 export type CategoriaProblema = (typeof categoriasProblema)[number];
 export type EstadoProblema = (typeof estadosProblema)[number];
+export type FormaNotificacion = (typeof formasNotificacion)[number];
