@@ -1,8 +1,9 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
+import { createProblema } from "@/api/problemas";
 import { ProblemaCreate } from "@/app/problemas/models";
-import { env } from "@/env/client";
+import { User } from "@/models/interfaces";
 import {
   CategoriaProblema,
   categoriasProblema,
@@ -14,7 +15,7 @@ import { SelectField } from "../form/select-field";
 import { SubmitButton } from "../form/submit-button";
 import { TextField } from "../form/text-field";
 
-export function NuevoProblemaForm() {
+export function NuevoProblemaForm({ usuarios }: { usuarios: User[] }) {
   const handleSubmit = async (formData: FormData) => {
     "use server";
 
@@ -27,25 +28,24 @@ export function NuevoProblemaForm() {
     };
     console.log(data);
 
-    const req = await fetch(`${env.NEXT_PUBLIC_API_URL}/problemas`, {
-      method: "POST",
-      body: JSON.stringify(data),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    let success = false;
+    let message = "Hubo un error inesperado!";
+    try {
+      await createProblema(data);
+      success = true;
+      message = "Problema guardado correctamente!";
+    } catch (error) {
+      console.error("ERROR: ", error);
+    }
 
-    if (req.ok) {
+    const searchParams = new URLSearchParams();
+    searchParams.set("success", success.toString());
+    searchParams.set("message", message);
+
+    if (success) {
       revalidatePath("/problemas");
-      const searchParams = new URLSearchParams();
-      searchParams.set("success", "true");
-      searchParams.set("message", "Problema guardado correctamente!");
       redirect(`/problemas?${searchParams.toString()}`);
     } else {
-      console.error("ERROR: ", await req.json());
-      const searchParams = new URLSearchParams();
-      searchParams.set("success", "false");
-      searchParams.set("message", "Hubo un error inesperado!");
       redirect(`/problemas/new?${searchParams.toString()}`);
     }
   };
@@ -60,7 +60,13 @@ export function NuevoProblemaForm() {
         ))}
       </SelectField>
       <TextField name="sintomas" label="Síntomas" required />
-      <TextField name="id_usuario" label="ID usuario" type="number" required />
+      <SelectField name="id_usuario" label="Usuario" required>
+        {usuarios.map((usuario) => (
+          <option key={usuario.id} value={usuario.id}>
+            {usuario.nombre} {usuario.apellido}
+          </option>
+        ))}
+      </SelectField>
       <SelectField label="Prioridad" name="prioridad" required>
         {prioridades.map((prioridad) => (
           <option key={prioridad} value={prioridad}>

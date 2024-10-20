@@ -1,6 +1,10 @@
-import { ItemConfiguracion } from "../../models";
+import { ArticuloConfiguracion } from "../../models";
 
-export function ItemConfiguracionView({ item }: { item: ItemConfiguracion }) {
+export function ItemConfiguracionView({
+  item,
+}: {
+  item: ArticuloConfiguracion;
+}) {
   const {
     descripcion,
     tipo,

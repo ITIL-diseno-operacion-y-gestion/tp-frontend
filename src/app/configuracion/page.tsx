@@ -1,11 +1,11 @@
 import Link from "next/link";
 
+import { getArticulosConfiguracion } from "@/api/configuracion";
 import { ButtonActualizar } from "@/components/button-actualizar";
 import { Title } from "@/components/common/title";
 import { SearchBox } from "@/components/search-box";
 
 import { ItemConfiguracionPreview } from "./_components/item-configuracion";
-import { getElementosConfiguracion } from "./actions";
 
 export default async function ConfiguaracionPage({
   searchParams,
@@ -15,7 +15,7 @@ export default async function ConfiguaracionPage({
   };
 }) {
   const query = searchParams?.q || "";
-  let elementos = await getElementosConfiguracion();
+  let elementos = await getArticulosConfiguracion();
   if (query) {
     elementos = elementos.filter((elemento) =>
       elemento.nombre.toLowerCase().includes(query.toLowerCase()),

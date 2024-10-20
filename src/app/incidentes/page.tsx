@@ -1,14 +1,14 @@
 import Link from "next/link";
 
+import { getIncidentes } from "@/api/incidentes";
 import { ButtonActualizar } from "@/components/button-actualizar";
 import { Title } from "@/components/common/title";
 
 import { TablaIncidentes } from "./_components/tabla-incidentes";
-import { getIncidentesTickets } from "./actions";
 import { columns } from "./columns";
 
 export default async function IncidentesPage() {
-  const incidentes = await getIncidentesTickets();
+  const incidentes = await getIncidentes();
 
   return (
     <div>

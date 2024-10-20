@@ -1,12 +1,12 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
+import { createArticuloConfiguracion } from "@/api/configuracion";
 import {
-  ItemConfiguracionCreate,
+  ArticuloConfiguracionCreate,
   TipoItemConfiguracion,
   tiposItemConfiguracion,
 } from "@/app/configuracion/models";
-import { env } from "@/env/client";
 
 import { SelectField } from "../form/select-field";
 import { SubmitButton } from "../form/submit-button";
@@ -17,7 +17,7 @@ export function NuevaConfiguracionForm() {
   const handleSubmit = async (formData: FormData) => {
     "use server";
 
-    const data: ItemConfiguracionCreate = {
+    const data: ArticuloConfiguracionCreate = {
       nombre: formData.get("nombre") as string,
       descripcion: formData.get("descripcion") as string,
       tipo: formData.get("tipo") as TipoItemConfiguracion,
@@ -29,28 +29,24 @@ export function NuevaConfiguracionForm() {
     };
     console.log(data);
 
-    const req = await fetch(
-      `${env.NEXT_PUBLIC_API_URL}/configuracion/articulos`,
-      {
-        method: "POST",
-        body: JSON.stringify(data),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      },
-    );
+    let success = false;
+    let message = "Hubo un error inesperado!";
+    try {
+      await createArticuloConfiguracion(data);
+      success = true;
+      message = "Articulo guardado correctamente!";
+    } catch (error) {
+      console.error("ERROR: ", error);
+    }
 
-    if (req.ok) {
+    const searchParams = new URLSearchParams();
+    searchParams.set("success", success.toString());
+    searchParams.set("message", message);
+
+    if (success) {
       revalidatePath("/configuracion");
-      const searchParams = new URLSearchParams();
-      searchParams.set("success", "true");
-      searchParams.set("message", "Configuración guardada correctamente!");
       redirect(`/configuracion?${searchParams.toString()}`);
     } else {
-      console.error("ERROR: ", await req.json());
-      const searchParams = new URLSearchParams();
-      searchParams.set("success", "false");
-      searchParams.set("message", "Hubo un error inesperado!");
       redirect(`/configuracion/new?${searchParams.toString()}`);
     }
   };

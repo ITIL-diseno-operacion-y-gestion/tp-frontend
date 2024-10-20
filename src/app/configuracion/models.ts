@@ -10,7 +10,7 @@ export const tiposItemConfiguracion = [
 
 export type TipoItemConfiguracion = (typeof tiposItemConfiguracion)[number];
 
-export interface ItemConfiguracion {
+export interface ArticuloConfiguracion {
   descripcion: string;
   tipo: TipoItemConfiguracion;
   version: number;
@@ -24,7 +24,7 @@ export interface ItemConfiguracion {
   relacion_items: string;
 }
 
-export type ItemConfiguracionCreate = Omit<
-  ItemConfiguracion,
+export type ArticuloConfiguracionCreate = Omit<
+  ArticuloConfiguracion,
   "id" | "fecha_de_alta" | "esta_activo"
 >;

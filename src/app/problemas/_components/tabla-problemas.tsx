@@ -84,7 +84,7 @@ export function SectionEstado({
   estado: Problema["estado"];
 }) {
   return (
-    <section className={`${bgEstado[estado]} mb-4 w-60 pb-4`}>
+    <section className={`${bgEstado[estado]} mb-4 min-w-60 pb-4`}>
       <ChipEstado estado={estado} />
       <ul className="mt-4 space-y-4 pb-10">
         {problemas.map((p) => (

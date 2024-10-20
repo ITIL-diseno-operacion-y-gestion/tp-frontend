@@ -1,10 +1,10 @@
 import Link from "next/link";
 
+import { getProblemas } from "@/api/problemas";
 import { ButtonActualizar } from "@/components/button-actualizar";
 import { Title } from "@/components/common/title";
 
 import { TablaProblemas } from "./_components/tabla-problemas";
-import { getProblemas } from "./actions";
 
 export default async function ProblemasPage() {
   const problemas = await getProblemas();

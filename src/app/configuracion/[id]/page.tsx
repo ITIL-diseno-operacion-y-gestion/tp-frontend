@@ -1,9 +1,9 @@
 import Link from "next/link";
 
+import { getArticuloConfiguracion } from "@/api/configuracion";
 import { Title } from "@/components/common/title";
 
 import { ItemConfiguracionView } from "./_components/item-configuracion-view";
-import { getElementoConfiguracion } from "./actions";
 
 export default async function ConfiguracionItemPage({
   params,
@@ -11,8 +11,7 @@ export default async function ConfiguracionItemPage({
   params: { id: string };
 }) {
   const id = parseInt(params.id, 10);
-  console.log(id);
-  const elemento = await getElementoConfiguracion(id);
+  const elemento = await getArticuloConfiguracion(id);
 
   return (
     <div className="space-y-4">

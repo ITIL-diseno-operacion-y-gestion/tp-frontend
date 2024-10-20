@@ -1,8 +1,9 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
+import { createIncidente } from "@/api/incidentes";
 import { IncidenteCreate } from "@/app/incidentes/models";
-import { env } from "@/env/client";
+import { User } from "@/models/interfaces";
 import {
   CategoriaProblema,
   Prioridad,
@@ -15,7 +16,7 @@ import { SubmitButton } from "../form/submit-button";
 import { TextField } from "../form/text-field";
 import { TextAreaField } from "../form/textarea-field";
 
-export function NuevoIncidenteForm() {
+export function NuevoIncidenteForm({ usuarios }: { usuarios: User[] }) {
   const handleSubmit = async (formData: FormData) => {
     "use server";
 
@@ -31,25 +32,24 @@ export function NuevoIncidenteForm() {
     };
     console.log(data);
 
-    const req = await fetch(`${env.NEXT_PUBLIC_API_URL}/incidentes`, {
-      method: "POST",
-      body: JSON.stringify(data),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    let success = false;
+    let message = "Hubo un error inesperado!";
+    try {
+      await createIncidente(data);
+      success = true;
+      message = "Incidente guardado correctamente!";
+    } catch (error) {
+      console.error("ERROR: ", error);
+    }
 
-    if (req.ok) {
+    const searchParams = new URLSearchParams();
+    searchParams.set("success", success.toString());
+    searchParams.set("message", message);
+
+    if (success) {
       revalidatePath("/incidentes");
-      const searchParams = new URLSearchParams();
-      searchParams.set("success", "true");
-      searchParams.set("message", "Incidente guardado correctamente!");
       redirect(`/incidentes?${searchParams.toString()}`);
     } else {
-      console.error("ERROR: ", await req.json());
-      const searchParams = new URLSearchParams();
-      searchParams.set("success", "false");
-      searchParams.set("message", "Hubo un error inesperado!");
       redirect(`/incidentes/new?${searchParams.toString()}`);
     }
   };
@@ -68,12 +68,13 @@ export function NuevoIncidenteForm() {
         label="Forma de notificación"
         required
       />
-      <TextField
-        name="id_usuario"
-        label="ID de usuario"
-        type="number"
-        required
-      />
+      <SelectField name="id_usuario" label="Usuario" required>
+        {usuarios.map((usuario) => (
+          <option key={usuario.id} value={usuario.id}>
+            {usuario.nombre} {usuario.apellido}
+          </option>
+        ))}
+      </SelectField>
       <TextAreaField
         name="informacion_adicional"
         label="Información adicional"
