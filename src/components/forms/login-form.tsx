@@ -1,30 +1,22 @@
-import { redirect } from "next/navigation";
+"use client";
 
-import { login } from "@/api/users";
-import { UserLogin } from "@/models/interfaces";
+import { handleLogin } from "@/api/actions/auth";
 
+import { useFormState } from "react-dom";
+
+import { ErrorDisplay } from "../form/error-display";
 import { SubmitButton } from "../form/submit-button";
 import { TextField } from "../form/text-field";
 
+const initialState = {
+  msg: "",
+};
+
 export function LoginForm() {
-  const handleLogin = async (formData: FormData) => {
-    "use server";
+  const [state, action] = useFormState(handleLogin, initialState);
 
-    const userLogin: UserLogin = {
-      email: formData.get("email") as string,
-      contrasenia: formData.get("password") as string,
-    };
-
-    try {
-      await login(userLogin);
-    } catch (error) {
-      console.error("ERROR: ", error);
-    }
-
-    redirect("/configuracion");
-  };
   return (
-    <form action={handleLogin} className="space-y-4">
+    <form action={action} className="space-y-4">
       <TextField
         name="email"
         type="email"
@@ -39,6 +31,7 @@ export function LoginForm() {
         autoComplete="current-password"
         required
       />
+      {state.msg && <ErrorDisplay error={state.msg} />}
       <SubmitButton label="Iniciar sesión" />
     </form>
   );

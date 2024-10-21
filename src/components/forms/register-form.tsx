@@ -1,32 +1,22 @@
-import { redirect } from "next/navigation";
+"use client";
 
-import { register } from "@/api/users";
-import { UserRegister } from "@/models/interfaces";
+import { handleSignUp } from "@/api/actions/auth";
 
+import { useFormState } from "react-dom";
+
+import { ErrorDisplay } from "../form/error-display";
 import { SubmitButton } from "../form/submit-button";
 import { TextField } from "../form/text-field";
 
+const initialState = {
+  msg: "",
+};
+
 export function SignupForm() {
-  const handleSignUp = async (formData: FormData) => {
-    "use server";
+  const [state, action] = useFormState(handleSignUp, initialState);
 
-    const userRegister: UserRegister = {
-      nombre: formData.get("name") as string,
-      apellido: formData.get("surname") as string,
-      email: formData.get("email") as string,
-      contrasenia: formData.get("password") as string,
-    };
-
-    try {
-      await register(userRegister);
-    } catch (error) {
-      console.error("ERROR: ", error);
-    }
-
-    redirect("/auth/login");
-  };
   return (
-    <form action={handleSignUp} className="space-y-4">
+    <form action={action} className="space-y-4">
       <div className="flex justify-between gap-x-2">
         <TextField
           name="name"
@@ -55,7 +45,8 @@ export function SignupForm() {
         autoComplete="current-password"
         required
       />
-      <SubmitButton label="Iniciar sesión" />
+      {state.msg && <ErrorDisplay error={state.msg} />}
+      <SubmitButton label="Registrarse" />
     </form>
   );
 }
