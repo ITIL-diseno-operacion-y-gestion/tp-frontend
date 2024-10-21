@@ -1,51 +1,45 @@
-import Link from "next/link";
+import { redirect } from "next/navigation";
 
-import { Button } from "../ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "../ui/card";
-import { Input } from "../ui/input";
-import { Label } from "../ui/label";
+import { login } from "@/api/users";
+import { UserLogin } from "@/models/interfaces";
+
+import { SubmitButton } from "../form/submit-button";
+import { TextField } from "../form/text-field";
 
 export function LoginForm() {
+  const handleLogin = async (formData: FormData) => {
+    "use server";
+
+    const userLogin: UserLogin = {
+      email: formData.get("email") as string,
+      contrasenia: formData.get("password") as string,
+    };
+
+    try {
+      await login(userLogin);
+    } catch (error) {
+      console.error("ERROR: ", error);
+    }
+
+    redirect("/configuracion");
+  };
   return (
-    <Card className="mx-auto max-w-sm">
-      <CardHeader>
-        <CardTitle className="text-2xl">Iniciar Sesión</CardTitle>
-        <CardDescription>
-          Escribí tu email y contraseña para iniciar sesión.
-        </CardDescription>
-      </CardHeader>
-      <CardContent>
-        <div className="grid gap-4">
-          <div className="grid gap-2">
-            <Label htmlFor="email">Email</Label>
-            <Input
-              id="email"
-              type="email"
-              placeholder="m@example.com"
-              required
-            />
-          </div>
-          <div className="grid gap-2">
-            <Label htmlFor="password">Contraseña</Label>
-            <Input id="password" type="password" required />
-          </div>
-          <Button type="submit" className="w-full">
-            Login
-          </Button>
-        </div>
-        <div className="mt-4 text-center text-sm">
-          No tenes cuenta?{" "}
-          <Link href="/auth/register" className="underline">
-            Registrate
-          </Link>
-        </div>
-      </CardContent>
-    </Card>
+    <form action={handleLogin} className="space-y-4">
+      <TextField
+        name="email"
+        type="email"
+        label="Email"
+        autoComplete="email"
+        required
+      />
+      <TextField
+        name="password"
+        type="password"
+        label="Contraseña"
+        autoComplete="current-password"
+        required
+      />
+      <SubmitButton label="Iniciar sesión" />
+    </form>
   );
 }

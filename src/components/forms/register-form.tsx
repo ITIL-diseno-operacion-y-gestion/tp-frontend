@@ -1,57 +1,61 @@
-"use client";
+import { redirect } from "next/navigation";
 
-import Link from "next/link";
+import { register } from "@/api/users";
+import { UserRegister } from "@/models/interfaces";
 
-import { Button } from "../ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "../ui/card";
-import { Input } from "../ui/input";
-import { Label } from "../ui/label";
+import { SubmitButton } from "../form/submit-button";
+import { TextField } from "../form/text-field";
 
 export function SignupForm() {
+  const handleSignUp = async (formData: FormData) => {
+    "use server";
+
+    const userRegister: UserRegister = {
+      nombre: formData.get("name") as string,
+      apellido: formData.get("surname") as string,
+      email: formData.get("email") as string,
+      contrasenia: formData.get("password") as string,
+    };
+
+    try {
+      await register(userRegister);
+    } catch (error) {
+      console.error("ERROR: ", error);
+    }
+
+    redirect("/auth/login");
+  };
   return (
-    <Card className="mx-auto max-w-sm">
-      <CardHeader>
-        <CardTitle className="text-2xl">Registrarse</CardTitle>
-        <CardDescription>
-          Escribí tu nombre, email y contraseña para registrarte.
-        </CardDescription>
-      </CardHeader>
-      <CardContent>
-        <div className="grid gap-4">
-          <div className="grid gap-2">
-            <Label htmlFor="name">Nombre</Label>
-            <Input id="name" placeholder="Juan" required />
-          </div>
-          <div className="grid gap-2">
-            <Label htmlFor="email">Email</Label>
-            <Input
-              id="email"
-              type="email"
-              placeholder="m@example.com"
-              required
-            />
-          </div>
-          <div className="grid gap-2">
-            <Label htmlFor="password">Contraseña</Label>
-            <Input id="password" type="password" placeholder="********" />
-          </div>
-          <Button type="submit" className="w-full">
-            Crear tu cuenta
-          </Button>
-        </div>
-        <div className="mt-4 text-center text-sm">
-          Ya tenés una cuenta?{" "}
-          <Link href="/auth/login" className="underline">
-            Iniciar sesión
-          </Link>
-        </div>
-      </CardContent>
-    </Card>
+    <form action={handleSignUp} className="space-y-4">
+      <div className="flex justify-between gap-x-2">
+        <TextField
+          name="name"
+          label="Nombre"
+          autoComplete="given-name"
+          required
+        />
+        <TextField
+          name="surname"
+          label="Apellido"
+          autoComplete="family-name"
+          required
+        />
+      </div>
+      <TextField
+        name="email"
+        type="email"
+        label="Email"
+        autoComplete="email"
+        required
+      />
+      <TextField
+        name="password"
+        type="password"
+        label="Contraseña"
+        autoComplete="current-password"
+        required
+      />
+      <SubmitButton label="Iniciar sesión" />
+    </form>
   );
 }

@@ -8,6 +8,7 @@ import Header from "@/components/layout/header";
 import { MainContainer } from "@/components/layout/main-container";
 import { ToastOperacion } from "@/components/toast-operacion";
 import { Toaster } from "@/components/ui/sonner";
+import { getSession } from "@/lib/session";
 
 import "./globals.css";
 
@@ -18,16 +19,18 @@ export const metadata: Metadata = {
   description: "ITSM Dashboard",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const session = await getSession();
+
   return (
     <html lang="en">
       <body className={`${inter.className} antialiased`}>
         <div className="flex min-h-screen flex-col">
-          <Header />
+          <Header loggedIn={!!session?.token} />
           <MainContainer>
             <BreadCrumbNav />
             {children}

@@ -4,10 +4,10 @@ import { Route } from "next";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
+import { deleteSession } from "@/lib/session";
 import { cn } from "@/lib/utils";
 
-export default function Header() {
-  const loggedIn = true;
+export default function Header({ loggedIn }: { loggedIn: boolean }) {
   const pathname = usePathname();
 
   return (
@@ -53,9 +53,9 @@ export default function Header() {
             </>
           )}
           {loggedIn && (
-            <Link href="/auth/login" className="hover:text-blue-400">
-              Cerrar Sesión
-            </Link>
+            <form action={deleteSession}>
+              <button className="hover:text-blue-400">Cerrar Sesión</button>
+            </form>
           )}
         </div>
       </div>
