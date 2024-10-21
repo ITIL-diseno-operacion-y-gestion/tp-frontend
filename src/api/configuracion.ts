@@ -4,6 +4,8 @@ import {
 } from "@/app/configuracion/models";
 import { env } from "@/env/client";
 
+import { ActionResponse, actionResponseToString } from "./actions/models";
+
 const BASE_PATH = "/configuracion/articulos";
 
 export async function getArticulosConfiguracion(): Promise<
@@ -44,7 +46,9 @@ export async function createArticuloConfiguracion(
   });
 
   if (!req.ok) {
-    throw new Error("No se pudo crear la configuración.");
+    const res = (await req.json()) as ActionResponse;
+    console.error(res);
+    throw new Error(actionResponseToString(res));
   }
 
   return req.json();
