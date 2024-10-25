@@ -8,7 +8,19 @@ export const tiposItemConfiguracion = [
   "servicio tecnico",
 ] as const;
 
+export const estadoItemConfiguracion = [
+  "planeado",
+  "encargado",
+  "en creacion",
+  "en prueba",
+  "en almacen",
+  "en produccion",
+  "en mantenimiento",
+] as const;
+
 export type TipoItemConfiguracion = (typeof tiposItemConfiguracion)[number];
+
+export type EstadoItemConfiguracion = (typeof estadoItemConfiguracion)[number];
 
 export interface ArticuloConfiguracion {
   descripcion: string;
@@ -22,6 +34,7 @@ export interface ArticuloConfiguracion {
   info_fabricacion: string;
   localizacion: string;
   relacion_items: string;
+  estado: EstadoItemConfiguracion;
 }
 
 export type ArticuloConfiguracionCreate = Omit<

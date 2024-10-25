@@ -2,6 +2,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
 import { createProblema } from "@/api/problemas";
+import { Incidente } from "@/app/incidentes/models";
 import { ProblemaCreate } from "@/app/problemas/models";
 import { User } from "@/models/interfaces";
 import {
@@ -15,7 +16,13 @@ import { SelectField } from "../form/select-field";
 import { SubmitButton } from "../form/submit-button";
 import { TextField } from "../form/text-field";
 
-export function NuevoProblemaForm({ usuarios }: { usuarios: User[] }) {
+export function NuevoProblemaForm({
+  usuarios,
+  incidentes,
+}: {
+  usuarios: User[];
+  incidentes: Incidente[];
+}) {
   const handleSubmit = async (formData: FormData) => {
     "use server";
 
@@ -78,6 +85,17 @@ export function NuevoProblemaForm({ usuarios }: { usuarios: User[] }) {
         {estadosProblema.map((estado) => (
           <option key={estado} value={estado}>
             {estado}
+          </option>
+        ))}
+      </SelectField>
+      <SelectField
+        label="Incidentes Relacionados"
+        name="id_incidentes"
+        required
+      >
+        {incidentes.map((incidente) => (
+          <option key={incidente.id} value={incidente.id}>
+            {incidente.categoria} - {incidente.servicios_afectados}
           </option>
         ))}
       </SelectField>

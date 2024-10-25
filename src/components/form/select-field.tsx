@@ -1,5 +1,7 @@
 import { forwardRef } from "react";
 
+import { cn } from "@/lib/utils";
+
 import { ErrorDisplay } from "./error-display";
 
 interface Props extends React.SelectHTMLAttributes<HTMLSelectElement> {
@@ -12,7 +14,7 @@ interface Props extends React.SelectHTMLAttributes<HTMLSelectElement> {
 export const SelectField = forwardRef<HTMLSelectElement, Props>(
   ({ label, id, error, className, name, children, ...props }, ref) => {
     return (
-      <div className={className}>
+      <div className={cn("w-full", className)}>
         <label htmlFor={id || name} className="mb-2 font-semibold">
           {label}
         </label>

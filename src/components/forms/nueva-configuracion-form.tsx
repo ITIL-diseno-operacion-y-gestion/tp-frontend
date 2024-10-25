@@ -2,6 +2,7 @@
 
 import { crearItemConfiguracion } from "@/api/actions/configuracion";
 import { tiposItemConfiguracion } from "@/app/configuracion/models";
+import { User } from "@/models/interfaces";
 
 import { useFormState } from "react-dom";
 
@@ -15,28 +16,39 @@ const initialState = {
   msg: "",
 };
 
-export function NuevaConfiguracionForm() {
+export function NuevaConfiguracionForm({ usuarios }: { usuarios: User[] }) {
   const [state, action] = useFormState(crearItemConfiguracion, initialState);
 
   return (
     <form className="space-y-4" action={action}>
-      <TextField name="nombre" label="Nombre" required />
+      <div className="flex flex-wrap gap-x-3 md:flex-nowrap">
+        <TextField name="nombre" label="Nombre" required />
+        <SelectField name="tipo" label="Tipo" required>
+          {tiposItemConfiguracion.map((tipo) => (
+            <option key={tipo} value={tipo}>
+              {tipo}
+            </option>
+          ))}
+        </SelectField>
+        <TextField name="version" label="Versión" type="number" required />
+      </div>
+      <div className="flex flex-wrap gap-x-3 md:flex-nowrap">
+        <SelectField name="titular" label="Titular" required>
+          {usuarios.map((usuario) => (
+            <option key={usuario.id} value={usuario.id}>
+              {usuario.nombre}
+            </option>
+          ))}
+        </SelectField>
+        <TextField name="localizacion" label="Localización" />
+        <TextField name="relacion_items" label="Relación de items" />
+      </div>
       <TextAreaField name="descripcion" label="Descripción" required />
-      <SelectField name="tipo" label="Tipo" required>
-        {tiposItemConfiguracion.map((tipo) => (
-          <option key={tipo} value={tipo}>
-            {tipo}
-          </option>
-        ))}
-      </SelectField>
-      <TextField name="version" label="Versión" type="number" required />
-      <TextField name="titular" label="Titular" required />
+
       <TextAreaField
         name="info_fabricacion"
         label="Información de fabricación"
       />
-      <TextField name="localizacion" label="Localización" />
-      <TextField name="relacion_items" label="Relación de items" />
       {state.msg && <ErrorDisplay error={state.msg} />}
       <SubmitButton label="Crear articulo de configuracion" />
     </form>

@@ -9,7 +9,6 @@ export interface Incidente {
   id_usuario: number;
   fecha_de_alta: string;
   forma_de_notificacion: FormaNotificacion;
-  reportador: string;
   usuarios_afectados: string;
   servicios_afectados: string;
   prioridad: Prioridad;

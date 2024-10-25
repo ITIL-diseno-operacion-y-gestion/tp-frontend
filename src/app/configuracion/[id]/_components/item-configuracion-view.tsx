@@ -17,6 +17,7 @@ export function ItemConfiguracionView({
     info_fabricacion,
     localizacion,
     relacion_items,
+    estado,
   } = item;
 
   return (
@@ -53,6 +54,9 @@ export function ItemConfiguracionView({
         <p>
           <span className="font-semibold">Relación de items:</span>{" "}
           {relacion_items}
+        </p>
+        <p>
+          <span className="font-semibold"> Estado:</span> {estado}
         </p>
       </div>
     </div>

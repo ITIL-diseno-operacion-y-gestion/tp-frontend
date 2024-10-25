@@ -2,6 +2,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
 import { createIncidente } from "@/api/incidentes";
+import { ArticuloConfiguracion } from "@/app/configuracion/models";
 import { IncidenteCreate } from "@/app/incidentes/models";
 import { User } from "@/models/interfaces";
 import {
@@ -18,7 +19,13 @@ import { SubmitButton } from "../form/submit-button";
 import { TextField } from "../form/text-field";
 import { TextAreaField } from "../form/textarea-field";
 
-export function NuevoIncidenteForm({ usuarios }: { usuarios: User[] }) {
+export function NuevoIncidenteForm({
+  usuarios,
+  articulos,
+}: {
+  usuarios: User[];
+  articulos: ArticuloConfiguracion[];
+}) {
   const handleSubmit = async (formData: FormData) => {
     "use server";
 
@@ -30,7 +37,6 @@ export function NuevoIncidenteForm({ usuarios }: { usuarios: User[] }) {
       id_usuario: +formData.get("id_usuario")! as number,
       informacion_adicional: formData.get("informacion_adicional") as string,
       prioridad: formData.get("prioridad") as Prioridad,
-      reportador: formData.get("reportador") as string,
       servicios_afectados: formData.get("servicios_afectados") as string,
       usuarios_afectados: formData.get("usuarios_afectados") as string,
     };
@@ -60,60 +66,77 @@ export function NuevoIncidenteForm({ usuarios }: { usuarios: User[] }) {
 
   return (
     <form className="space-y-4" action={handleSubmit}>
-      <SelectField name="categoria" label="Categoría" required>
-        {categoriasProblema.map((categoria) => (
-          <option key={categoria} value={categoria}>
-            {categoria}
-          </option>
-        ))}
-      </SelectField>
-      <SelectField
-        name="forma_de_notificacion"
-        label="Forma de notificación"
-        required
-      >
-        {formasNotificacion.map((forma) => (
-          <option key={forma} value={forma}>
-            {forma}
-          </option>
-        ))}
-      </SelectField>
-      <SelectField name="id_usuario" label="Usuario" required>
-        {usuarios.map((usuario) => (
-          <option key={usuario.id} value={usuario.id}>
-            {usuario.nombre} {usuario.apellido}
-          </option>
-        ))}
-      </SelectField>
-      <TextAreaField
-        name="informacion_adicional"
-        label="Información adicional"
-      />
-      <SelectField name="prioridad" label="Prioridad" required>
-        {prioridades.map((prioridad) => (
-          <option key={prioridad} value={prioridad}>
-            {prioridad}
-          </option>
-        ))}
-      </SelectField>
-      <TextField name="reportador" label="Reportador" required />
+      <div className="flex flex-wrap gap-x-3 md:flex-nowrap">
+        <SelectField name="categoria" label="Categoría" required>
+          {categoriasProblema.map((categoria) => (
+            <option key={categoria} value={categoria}>
+              {categoria}
+            </option>
+          ))}
+        </SelectField>
+        <SelectField
+          name="forma_de_notificacion"
+          label="Forma de notificación"
+          required
+        >
+          {formasNotificacion.map((forma) => (
+            <option key={forma} value={forma}>
+              {forma}
+            </option>
+          ))}
+        </SelectField>
+        <SelectField name="id_usuario" label="Usuario" required>
+          {usuarios.map((usuario) => (
+            <option key={usuario.id} value={usuario.id}>
+              {usuario.nombre} {usuario.apellido}
+            </option>
+          ))}
+        </SelectField>
+        <SelectField name="prioridad" label="Prioridad" required>
+          {prioridades.map((prioridad) => (
+            <option key={prioridad} value={prioridad}>
+              {prioridad}
+            </option>
+          ))}
+        </SelectField>
+      </div>
       <TextField
         name="servicios_afectados"
         label="Servicios afectados"
         required
       />
-      <SelectField
-        name="usuarios_afectados"
-        label="Usuarios afectados"
-        required
-        multiple
-      >
-        {usuarios.map((usuario) => (
-          <option key={usuario.id} value={usuario.id}>
-            {usuario.nombre} {usuario.apellido}
-          </option>
-        ))}
-      </SelectField>
+
+      <div className="flex gap-x-3">
+        <SelectField
+          name="usuarios_afectados"
+          label="Usuarios afectados"
+          required
+          multiple
+        >
+          {usuarios.map((usuario) => (
+            <option key={usuario.id} value={usuario.id}>
+              {usuario.nombre} {usuario.apellido}
+            </option>
+          ))}
+        </SelectField>
+        <SelectField
+          name="id_articulos"
+          label="Artículos de configuración afectados"
+          required
+          multiple
+        >
+          {articulos.map((articulo) => (
+            <option key={articulo.id} value={articulo.id}>
+              {articulo.nombre}
+            </option>
+          ))}
+        </SelectField>
+      </div>
+
+      <TextAreaField
+        name="informacion_adicional"
+        label="Información adicional"
+      />
       <SubmitButton label="Crear Incidente" />
     </form>
   );

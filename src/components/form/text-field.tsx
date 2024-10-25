@@ -1,5 +1,7 @@
 import { forwardRef } from "react";
 
+import { cn } from "@/lib/utils";
+
 import { ErrorDisplay } from "./error-display";
 
 interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
@@ -11,7 +13,7 @@ interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
 export const TextField = forwardRef<HTMLInputElement, Props>(
   ({ label, id, error, className, name, ...props }, ref) => {
     return (
-      <div className={className}>
+      <div className={cn("w-full", className)}>
         <label htmlFor={id || name} className="mb-2 font-semibold">
           {label}
         </label>
