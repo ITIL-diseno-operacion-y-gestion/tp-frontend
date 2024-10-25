@@ -3,10 +3,10 @@
 import { Incidente, IncidenteCreate } from "@/app/incidentes/models";
 import { env } from "@/env/client";
 
-const BASE_PATH = "/incidentes";
+const BASE_PATH = `${env.NEXT_PUBLIC_API_URL}/incidentes`;
 
 export async function getIncidentes(): Promise<Incidente[]> {
-  const req = await fetch(`${env.NEXT_PUBLIC_API_URL}${BASE_PATH}`);
+  const req = await fetch(BASE_PATH);
 
   if (!req.ok) {
     throw new Error("No se pudo obtener los incidentes.");
@@ -16,8 +16,19 @@ export async function getIncidentes(): Promise<Incidente[]> {
   return data;
 }
 
+export async function getIncidente(id: number): Promise<Incidente> {
+  const req = await fetch(`${BASE_PATH}/${id}`);
+
+  if (!req.ok) {
+    throw new Error("No se pudo obtener el incidente.");
+  }
+
+  const data = await req.json();
+  return data;
+}
+
 export async function createIncidente(incidente: IncidenteCreate) {
-  const req = await fetch(`${env.NEXT_PUBLIC_API_URL}${BASE_PATH}`, {
+  const req = await fetch(BASE_PATH, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

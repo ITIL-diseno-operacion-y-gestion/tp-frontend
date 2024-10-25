@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 import { uppercaseFirst } from "@/lib/utils";
 
 import { Problema } from "../models";
@@ -36,7 +38,7 @@ const sortByPrioridad = (a: Problema, b: Problema) => {
 };
 
 export function ProblemaView({ problema }: { problema: Problema }) {
-  const { categoria, sintomas, id_usuario, prioridad } = problema;
+  const { categoria, sintomas, id_usuario, prioridad, id } = problema;
 
   return (
     <div className="px-4">
@@ -45,6 +47,7 @@ export function ProblemaView({ problema }: { problema: Problema }) {
         <p className="line-clamp-3">{sintomas}</p>
         <p>{id_usuario}</p>
         <ChipPrioridad prioridad={prioridad} />
+        <Link href={`/problemas/${id}`}>Ver detalle</Link>
       </div>
     </div>
   );
