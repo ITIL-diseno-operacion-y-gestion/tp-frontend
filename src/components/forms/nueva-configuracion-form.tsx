@@ -1,7 +1,10 @@
 "use client";
 
 import { crearItemConfiguracion } from "@/api/actions/configuracion";
-import { tiposItemConfiguracion } from "@/app/configuracion/models";
+import {
+  estadoItemConfiguracion,
+  tiposItemConfiguracion,
+} from "@/app/configuracion/models";
 import { User } from "@/models/interfaces";
 
 import { useFormState } from "react-dom";
@@ -44,11 +47,17 @@ export function NuevaConfiguracionForm({ usuarios }: { usuarios: User[] }) {
         <TextField name="relacion_items" label="Relación de items" />
       </div>
       <TextAreaField name="descripcion" label="Descripción" required />
-
       <TextAreaField
         name="info_fabricacion"
         label="Información de fabricación"
       />
+      <SelectField name="estado" label="Estado" required>
+        {estadoItemConfiguracion.map((estado) => (
+          <option key={estado} value={estado}>
+            {estado}
+          </option>
+        ))}
+      </SelectField>
       {state.msg && <ErrorDisplay error={state.msg} />}
       <SubmitButton label="Crear articulo de configuracion" />
     </form>

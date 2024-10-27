@@ -7,6 +7,9 @@ export const env = createEnv({
     NEXT_PUBLIC_API_URL: z.string().url(),
     // Las variables de entorno públicas que se usan solo en el cliente
   },
-  // eslint-disable-next-line n/no-process-env
-  runtimeEnv: process.env,
+
+  runtimeEnv: {
+    // eslint-disable-next-line n/no-process-env
+    NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL,
+  },
 });

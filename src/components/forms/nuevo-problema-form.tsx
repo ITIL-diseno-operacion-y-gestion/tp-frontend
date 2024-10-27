@@ -32,6 +32,7 @@ export function NuevoProblemaForm({
       prioridad: formData.get("prioridad") as ProblemaCreate["prioridad"],
       sintomas: formData.get("sintomas") as string,
       estado: formData.get("estado") as ProblemaCreate["estado"],
+      ids_incidentes: formData.getAll("id_incidentes").map(Number),
     };
     console.log(data);
 
@@ -91,6 +92,7 @@ export function NuevoProblemaForm({
       <SelectField
         label="Incidentes Relacionados"
         name="id_incidentes"
+        multiple
         required
       >
         {incidentes.map((incidente) => (

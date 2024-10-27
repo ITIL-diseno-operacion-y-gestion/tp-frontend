@@ -5,6 +5,7 @@ import { redirect } from "next/navigation";
 
 import {
   ArticuloConfiguracionCreate,
+  EstadoItemConfiguracion,
   TipoItemConfiguracion,
 } from "@/app/configuracion/models";
 
@@ -24,6 +25,7 @@ export const crearItemConfiguracion = async (
     info_fabricacion: formData.get("info_fabricacion") as string,
     localizacion: formData.get("localizacion") as string,
     relacion_items: formData.get("relacion_items") as string,
+    estado: formData.get("estado") as EstadoItemConfiguracion,
   };
 
   let success = false;

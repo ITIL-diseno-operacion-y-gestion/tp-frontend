@@ -1,3 +1,5 @@
+"use server";
+
 import { Problema, ProblemaCreate } from "@/app/problemas/models";
 import { env } from "@/env/client";
 
@@ -15,7 +17,11 @@ export async function getProblemas(): Promise<Problema[]> {
 }
 
 export async function getProblema(id: number): Promise<Problema> {
-  const req = await fetch(`${BASE_PATH}/${id}`);
+  const req = await fetch(`${BASE_PATH}/${id}`, {
+    next: {
+      tags: ["problemas"],
+    },
+  });
 
   if (!req.ok) {
     throw new Error("No se pudo obtener el problema.");
@@ -36,6 +42,25 @@ export async function createProblema(problema: ProblemaCreate) {
 
   if (!req.ok) {
     throw new Error("No se pudo crear el problema.");
+  }
+
+  return req.json();
+}
+
+export async function updateProblema(
+  idProblema: number,
+  problema: Partial<Problema>,
+) {
+  const req = await fetch(`${BASE_PATH}/${idProblema}`, {
+    method: "PATCH",
+    body: JSON.stringify(problema),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
+  if (!req.ok) {
+    throw new Error("No se pudo actualizar el problema.");
   }
 
   return req.json();

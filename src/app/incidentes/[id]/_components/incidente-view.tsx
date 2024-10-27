@@ -29,7 +29,7 @@ export default function IncidenteView({ incidente }: { incidente: Incidente }) {
       <p>Información adicional: {informacion_adicional}</p>
       <p>Artículos afectados:</p>
       <ul className="mt-4 space-y-4">
-        {articulos_afectados.map((articulo) => (
+        {articulos_afectados?.map((articulo) => (
           <li key={articulo.id}>
             <ItemConfiguracionView item={articulo} />
           </li>
