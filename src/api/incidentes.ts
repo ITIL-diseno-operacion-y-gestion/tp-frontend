@@ -1,7 +1,7 @@
 "use server";
 
-import { Incidente, IncidenteCreate } from "@/app/incidentes/models";
 import { env } from "@/env/client";
+import { Incidente, IncidenteCreate } from "@/models/incidentes";
 
 const BASE_PATH = `${env.NEXT_PUBLIC_API_URL}/incidentes`;
 

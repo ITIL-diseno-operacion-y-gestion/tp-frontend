@@ -1,6 +1,6 @@
-import IncidenteView from "@/app/incidentes/[id]/_components/incidente-view";
+import Link from "next/link";
 
-import { Problema } from "../../models";
+import { Problema } from "@/models/problemas";
 
 export function ItemProblemaView({ item }: { item: Problema }) {
   const { id, id_usuario, sintomas, prioridad, categoria, estado, incidentes } =
@@ -18,7 +18,13 @@ export function ItemProblemaView({ item }: { item: Problema }) {
       <ul className="mt-4 space-y-4">
         {incidentes.map((incidente) => (
           <li key={incidente.id}>
-            <IncidenteView key={incidente.id} incidente={incidente} />
+            <Link
+              href={`/incidentes/${incidente.id}`}
+              className="text-blue-500"
+            >
+              {" "}
+              {incidente.id}{" "}
+            </Link>
           </li>
         ))}
       </ul>

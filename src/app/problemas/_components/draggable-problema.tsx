@@ -1,8 +1,9 @@
 import Link from "next/link";
 
+import { Problema } from "@/models/problemas";
+
 import { useDraggable } from "@dnd-kit/core";
 
-import { Problema } from "../models";
 import { ChipPrioridad } from "./chip-prioridad";
 
 export function DraggableProblema({ problema }: { problema: Problema }) {
@@ -30,7 +31,12 @@ export function DraggableProblema({ problema }: { problema: Problema }) {
         <p className="line-clamp-3">{sintomas}</p>
         <p>{id_usuario}</p>
         <ChipPrioridad prioridad={prioridad} />
-        <Link href={`/problemas/${id}`}>Ver detalle</Link>
+        <Link
+          href={`/problemas/${id}`}
+          className="underline-offset-3 mt-4 block underline hover:font-bold"
+        >
+          Ver detalle
+        </Link>
       </div>
     </div>
   );
