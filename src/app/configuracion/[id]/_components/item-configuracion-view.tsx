@@ -1,23 +1,19 @@
-import { ArticuloConfiguracion } from "../../models";
+import { ItemConfiguracion } from "@/models/configuracion";
 
-export function ItemConfiguracionView({
-  item,
-}: {
-  item: ArticuloConfiguracion;
-}) {
+export function ItemConfiguracionView({ item }: { item: ItemConfiguracion }) {
   const {
-    descripcion,
-    tipo,
-    version,
-    fecha_de_alta,
-    esta_activo,
-    titular,
-    id,
     nombre,
+    tipo,
     info_fabricacion,
     localizacion,
-    relacion_items,
     estado,
+    fecha_de_alta,
+    id_titular,
+    descripcion,
+    version,
+    relacion_items,
+    id,
+    esta_activo,
   } = item;
 
   return (
@@ -39,7 +35,7 @@ export function ItemConfiguracionView({
           {esta_activo ? "Sí" : "No"}
         </p>
         <p>
-          <span className="font-semibold">Titular:</span> {titular}
+          <span className="font-semibold">Titular:</span> {id_titular}
         </p>
         <p>
           <span className="font-semibold">ID:</span> {id}

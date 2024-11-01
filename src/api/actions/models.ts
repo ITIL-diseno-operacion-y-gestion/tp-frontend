@@ -4,6 +4,7 @@ export interface ActionResponse {
 
 export interface FormState {
   msg: string;
+  loc: ["body", string];
 }
 
 export const actionResponseToString = (response: ActionResponse) => {
@@ -11,5 +12,7 @@ export const actionResponseToString = (response: ActionResponse) => {
     return response.detail;
   }
 
-  return response.detail.map((error) => error.msg).join("\n");
+  return response.detail
+    .map((error) => `${error.loc[1]}: ${error.msg}`)
+    .join("\n");
 };

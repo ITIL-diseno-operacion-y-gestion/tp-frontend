@@ -1,17 +1,17 @@
 "use server";
 
-import {
-  ArticuloConfiguracion,
-  ArticuloConfiguracionCreate,
-} from "@/app/configuracion/models";
 import { env } from "@/env/client";
+import {
+  ItemConfiguracion,
+  ItemConfiguracionCreate,
+} from "@/models/configuracion";
 
 import { ActionResponse, actionResponseToString } from "./actions/models";
 
 const BASE_PATH = "/configuracion/articulos";
 
 export async function getArticulosConfiguracion(): Promise<
-  ArticuloConfiguracion[]
+  ItemConfiguracion[]
 > {
   const req = await fetch(`${env.NEXT_PUBLIC_API_URL}${BASE_PATH}`);
 
@@ -25,7 +25,7 @@ export async function getArticulosConfiguracion(): Promise<
 
 export async function getArticuloConfiguracion(
   id: number,
-): Promise<ArticuloConfiguracion> {
+): Promise<ItemConfiguracion> {
   const req = await fetch(`${env.NEXT_PUBLIC_API_URL}${BASE_PATH}/${id}`);
 
   if (!req.ok) {
@@ -37,7 +37,7 @@ export async function getArticuloConfiguracion(
 }
 
 export async function createArticuloConfiguracion(
-  articulo: ArticuloConfiguracionCreate,
+  articulo: ItemConfiguracionCreate,
 ) {
   const req = await fetch(`${env.NEXT_PUBLIC_API_URL}${BASE_PATH}`, {
     method: "POST",

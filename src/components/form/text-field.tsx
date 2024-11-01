@@ -15,7 +15,7 @@ export const TextField = forwardRef<HTMLInputElement, Props>(
     return (
       <div className={cn("w-full", className)}>
         <label htmlFor={id || name} className="mb-2 font-semibold">
-          {label}
+          {label} {props.required && <span className="text-red-500">*</span>}
         </label>
         <input
           className="w-full rounded border border-gray-300 px-3 py-2"

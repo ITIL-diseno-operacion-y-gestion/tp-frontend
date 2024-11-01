@@ -1,9 +1,9 @@
 import Link from "next/link";
 
-import { ArticuloConfiguracion } from "../models";
+import { ItemConfiguracion } from "@/models/configuracion";
 
 type Props = {
-  item: ArticuloConfiguracion;
+  item: ItemConfiguracion;
 };
 
 export function ItemConfiguracionPreview(props: Props) {

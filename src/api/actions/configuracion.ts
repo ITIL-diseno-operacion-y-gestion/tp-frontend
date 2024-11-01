@@ -4,39 +4,38 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
 import {
-  ArticuloConfiguracionCreate,
-  EstadoItemConfiguracion,
-  TipoItemConfiguracion,
-} from "@/app/configuracion/models";
+  ItemConfiguracionCreate,
+  itemConfiguracionCreateSchema,
+} from "@/models/configuracion";
+import { FormState } from "@/models/schemas";
 
 import { createArticuloConfiguracion } from "../configuracion";
-import { FormState } from "./models";
 
 export const crearItemConfiguracion = async (
-  formState: FormState,
+  formState: FormState<ItemConfiguracionCreate>,
   formData: FormData,
-) => {
-  const data: ArticuloConfiguracionCreate = {
-    nombre: formData.get("nombre") as string,
-    descripcion: formData.get("descripcion") as string,
-    tipo: formData.get("tipo") as TipoItemConfiguracion,
-    version: +formData.get("version")! as number,
-    titular: formData.get("titular") as string,
-    info_fabricacion: formData.get("info_fabricacion") as string,
-    localizacion: formData.get("localizacion") as string,
-    relacion_items: formData.get("relacion_items") as string,
-    estado: formData.get("estado") as EstadoItemConfiguracion,
-  };
+): Promise<FormState<ItemConfiguracionCreate>> => {
+  const itemConfiguracionCreateRaw = Object.fromEntries(formData);
+
+  const itemConfiguracion = itemConfiguracionCreateSchema.safeParse(
+    itemConfiguracionCreateRaw,
+  );
+
+  if (!itemConfiguracion.success) {
+    return {
+      errors: itemConfiguracion.error.flatten().fieldErrors,
+    };
+  }
 
   let success = false;
   let message = "Hubo un error inesperado!";
   try {
-    await createArticuloConfiguracion(data);
+    await createArticuloConfiguracion(itemConfiguracion.data);
     success = true;
     message = "Articulo guardado correctamente!";
   } catch (error) {
     return {
-      msg: (error as Error).message,
+      message: (error as Error).message,
     };
   }
 

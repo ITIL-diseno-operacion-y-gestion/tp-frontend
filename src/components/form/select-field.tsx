@@ -8,7 +8,7 @@ interface Props extends React.SelectHTMLAttributes<HTMLSelectElement> {
   label: string;
   name: string;
   children: React.ReactNode;
-  error?: string;
+  error?: string[];
 }
 
 export const SelectField = forwardRef<HTMLSelectElement, Props>(
@@ -16,7 +16,7 @@ export const SelectField = forwardRef<HTMLSelectElement, Props>(
     return (
       <div className={cn("w-full", className)}>
         <label htmlFor={id || name} className="mb-2 font-semibold">
-          {label}
+          {label} {props.required && <span className="text-red-500">*</span>}
         </label>
         <select
           className="w-full rounded border border-gray-300 px-3 py-2"
