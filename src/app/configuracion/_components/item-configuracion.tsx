@@ -2,6 +2,9 @@ import Link from "next/link";
 
 import { ItemConfiguracion } from "@/models/configuracion";
 
+import { ChipActivo } from "./chip-activo";
+import { ChipTipo } from "./chip-tipo";
+
 type Props = {
   item: ItemConfiguracion;
 };
@@ -27,19 +30,3 @@ export function ItemConfiguracionPreview(props: Props) {
     </div>
   );
 }
-
-const ChipActivo = ({ activo }: { activo: boolean }) => {
-  const color = activo ? "bg-green-500" : "bg-red-500";
-  return (
-    <span className={`rounded-full px-2 py-1 text-white ${color}`}>
-      {activo ? "Activo" : "Inactivo"}
-    </span>
-  );
-};
-
-const ChipTipo = ({ tipo }: { tipo: string }) => {
-  const color = "bg-blue-500";
-  return (
-    <span className={`rounded-full px-2 py-1 text-white ${color}`}>{tipo}</span>
-  );
-};

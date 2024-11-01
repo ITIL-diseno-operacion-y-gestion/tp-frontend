@@ -27,7 +27,6 @@ export const SelectField = forwardRef<HTMLSelectElement, Props>(
         >
           {children}
         </select>
-
         <ErrorDisplay error={error} />
       </div>
     );

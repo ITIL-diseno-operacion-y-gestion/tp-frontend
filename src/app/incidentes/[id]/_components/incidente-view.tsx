@@ -1,6 +1,6 @@
-import { ItemConfiguracionView } from "@/app/configuracion/[id]/_components/item-configuracion-view";
+import Link from "next/link";
 
-import { Incidente } from "../../models";
+import { Incidente } from "@/models/incidentes";
 
 export default function IncidenteView({ incidente }: { incidente: Incidente }) {
   const {
@@ -29,11 +29,20 @@ export default function IncidenteView({ incidente }: { incidente: Incidente }) {
       <p>Información adicional: {informacion_adicional}</p>
       <p>Artículos afectados:</p>
       <ul className="mt-4 space-y-4">
-        {articulos_afectados?.map((articulo) => (
-          <li key={articulo.id}>
-            <ItemConfiguracionView item={articulo} />
-          </li>
-        ))}
+        {articulos_afectados.length === 0 ? (
+          <p>No hay artículos afectados</p>
+        ) : (
+          articulos_afectados.map((articulo) => (
+            <li key={articulo.id}>
+              <Link
+                href={`/configuracion/${articulo.id}`}
+                className="text-blue-500"
+              >
+                {articulo.nombre}
+              </Link>
+            </li>
+          ))
+        )}
       </ul>
     </div>
   );

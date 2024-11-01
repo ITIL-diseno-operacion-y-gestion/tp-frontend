@@ -1,5 +1,7 @@
 import { ItemConfiguracion } from "@/models/configuracion";
 
+import { ChipTipo } from "../../_components/chip-tipo";
+
 export function ItemConfiguracionView({ item }: { item: ItemConfiguracion }) {
   const {
     nombre,
@@ -22,7 +24,7 @@ export function ItemConfiguracionView({ item }: { item: ItemConfiguracion }) {
       <p className="text-sm text-gray-600">{descripcion}</p>
       <div className="mt-4">
         <p>
-          <span className="font-semibold">Tipo:</span> {tipo}
+          <span className="font-semibold">Tipo:</span> <ChipTipo tipo={tipo} />
         </p>
         <p>
           <span className="font-semibold">Versión:</span> {version}

@@ -1,20 +1,26 @@
-import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
+"use client";
 
-import { createProblema } from "@/api/problemas";
-import { Incidente } from "@/app/incidentes/models";
-import { ProblemaCreate } from "@/app/problemas/models";
-import { User } from "@/models/interfaces";
+import { crearProblema } from "@/api/actions/problemas";
 import {
-  CategoriaProblema,
+  Incidente,
   categoriasProblema,
   estadosProblema,
   prioridades,
-} from "@/models/types";
+} from "@/models/incidentes";
+import { ProblemaCreate } from "@/models/problemas";
+import { FormState } from "@/models/schemas";
+import { User } from "@/models/users";
+
+import { useFormState } from "react-dom";
 
 import { SelectField } from "../form/select-field";
 import { SubmitButton } from "../form/submit-button";
 import { TextField } from "../form/text-field";
+
+const initialState: FormState<ProblemaCreate> = {
+  errors: {},
+  message: "",
+};
 
 export function NuevoProblemaForm({
   usuarios,
@@ -23,75 +29,72 @@ export function NuevoProblemaForm({
   usuarios: User[];
   incidentes: Incidente[];
 }) {
-  const handleSubmit = async (formData: FormData) => {
-    "use server";
-
-    const data: ProblemaCreate = {
-      categoria: formData.get("categoria") as CategoriaProblema,
-      id_usuario: +formData.get("id_usuario")! as number,
-      prioridad: formData.get("prioridad") as ProblemaCreate["prioridad"],
-      sintomas: formData.get("sintomas") as string,
-      estado: formData.get("estado") as ProblemaCreate["estado"],
-      ids_incidentes: formData.getAll("id_incidentes").map(Number),
-    };
-    console.log(data);
-
-    let success = false;
-    let message = "Hubo un error inesperado!";
-    try {
-      await createProblema(data);
-      success = true;
-      message = "Problema guardado correctamente!";
-    } catch (error) {
-      console.error("ERROR: ", error);
-    }
-
-    const searchParams = new URLSearchParams();
-    searchParams.set("success", success.toString());
-    searchParams.set("message", message);
-
-    if (success) {
-      revalidatePath("/problemas");
-      redirect(`/problemas?${searchParams.toString()}`);
-    } else {
-      redirect(`/problemas/new?${searchParams.toString()}`);
-    }
-  };
+  const [state, action] = useFormState(crearProblema, initialState);
 
   return (
-    <form className="space-y-4" action={handleSubmit}>
-      <SelectField label="Categoría" name="categoria" required>
-        {categoriasProblema.map((categoria) => (
-          <option key={categoria} value={categoria}>
-            {categoria}
-          </option>
-        ))}
-      </SelectField>
-      <TextField name="sintomas" label="Síntomas" required />
-      <SelectField name="id_usuario" label="Usuario" required>
-        {usuarios.map((usuario) => (
-          <option key={usuario.id} value={usuario.id}>
-            {usuario.nombre} {usuario.apellido}
-          </option>
-        ))}
-      </SelectField>
-      <SelectField label="Prioridad" name="prioridad" required>
-        {prioridades.map((prioridad) => (
-          <option key={prioridad} value={prioridad}>
-            {prioridad}
-          </option>
-        ))}
-      </SelectField>
-      <SelectField label="Estado" name="estado" required>
-        {estadosProblema.map((estado) => (
-          <option key={estado} value={estado}>
-            {estado}
-          </option>
-        ))}
-      </SelectField>
+    <form className="space-y-4" action={action}>
+      <div className="grid gap-4 gap-x-4 sm:grid-cols-2 md:grid-cols-3">
+        <SelectField
+          label="Categoría"
+          name="categoria"
+          error={state.errors?.categoria}
+          required
+        >
+          {categoriasProblema.map((categoria) => (
+            <option key={categoria} value={categoria}>
+              {categoria}
+            </option>
+          ))}
+        </SelectField>
+        <SelectField
+          label="Prioridad"
+          name="prioridad"
+          error={state.errors?.prioridad}
+          required
+        >
+          {prioridades.map((prioridad) => (
+            <option key={prioridad} value={prioridad}>
+              {prioridad}
+            </option>
+          ))}
+        </SelectField>
+        <SelectField
+          label="Estado"
+          name="estado"
+          error={state.errors?.estado}
+          required
+        >
+          {estadosProblema.map((estado) => (
+            <option key={estado} value={estado}>
+              {estado}
+            </option>
+          ))}
+        </SelectField>
+      </div>
+      <div className="grid grid-cols-2 gap-x-4">
+        <TextField
+          name="sintomas"
+          label="Síntomas"
+          error={state.errors?.sintomas}
+          required
+        />
+        <SelectField
+          name="id_usuario"
+          label="Usuario"
+          error={state.errors?.id_usuario}
+          required
+        >
+          {usuarios.map((usuario) => (
+            <option key={usuario.id} value={usuario.id}>
+              {usuario.nombre} {usuario.apellido}
+            </option>
+          ))}
+        </SelectField>
+      </div>
       <SelectField
         label="Incidentes Relacionados"
         name="id_incidentes"
+        error={state.errors?.ids_incidentes}
         multiple
         required
       >

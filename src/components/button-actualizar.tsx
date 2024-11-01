@@ -1,15 +1,22 @@
 import { Route } from "next";
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 
 import { RefreshCcw } from "lucide-react";
 
 import { Button } from "./ui/button";
 
-export function ButtonActualizar({ path }: { path: Route }) {
+export function ButtonActualizar({
+  path,
+  tag,
+}: {
+  path?: Route;
+  tag?: string;
+}) {
   const onSubmit = async () => {
     "use server";
 
-    revalidatePath(path);
+    if (path) revalidatePath(path);
+    if (tag) revalidateTag(tag);
   };
 
   return (

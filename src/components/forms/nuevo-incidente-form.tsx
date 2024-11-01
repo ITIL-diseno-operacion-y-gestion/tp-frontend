@@ -1,73 +1,46 @@
-import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
+"use client";
 
-import { createIncidente } from "@/api/incidentes";
-import { ArticuloConfiguracion } from "@/app/configuracion/models";
-import { IncidenteCreate } from "@/app/incidentes/models";
-import { User } from "@/models/interfaces";
+import { crearIncidente } from "@/api/actions/incidentes";
+import { ItemConfiguracion } from "@/models/configuracion";
 import {
-  CategoriaProblema,
-  FormaNotificacion,
-  Prioridad,
+  IncidenteCreate,
   categoriasProblema,
   formasNotificacion,
   prioridades,
-} from "@/models/types";
+} from "@/models/incidentes";
+import { FormState } from "@/models/schemas";
+import { User } from "@/models/users";
+
+import { useFormState } from "react-dom";
 
 import { SelectField } from "../form/select-field";
 import { SubmitButton } from "../form/submit-button";
 import { TextField } from "../form/text-field";
 import { TextAreaField } from "../form/textarea-field";
 
+const initialState: FormState<IncidenteCreate> = {
+  errors: {},
+  message: "",
+};
+
 export function NuevoIncidenteForm({
   usuarios,
   articulos,
 }: {
   usuarios: User[];
-  articulos: ArticuloConfiguracion[];
+  articulos: ItemConfiguracion[];
 }) {
-  const handleSubmit = async (formData: FormData) => {
-    "use server";
-
-    const data: IncidenteCreate = {
-      categoria: formData.get("categoria") as CategoriaProblema,
-      forma_de_notificacion: formData.get(
-        "forma_de_notificacion",
-      ) as FormaNotificacion,
-      id_usuario: +formData.get("id_usuario")! as number,
-      informacion_adicional: formData.get("informacion_adicional") as string,
-      prioridad: formData.get("prioridad") as Prioridad,
-      servicios_afectados: formData.get("servicios_afectados") as string,
-      usuarios_afectados: formData.get("usuarios_afectados") as string,
-    };
-    console.log(data);
-
-    let success = false;
-    let message = "Hubo un error inesperado!";
-    try {
-      await createIncidente(data);
-      success = true;
-      message = "Incidente guardado correctamente!";
-    } catch (error) {
-      console.error("ERROR: ", error);
-    }
-
-    const searchParams = new URLSearchParams();
-    searchParams.set("success", success.toString());
-    searchParams.set("message", message);
-
-    if (success) {
-      revalidatePath("/incidentes");
-      redirect(`/incidentes?${searchParams.toString()}`);
-    } else {
-      redirect(`/incidentes/new?${searchParams.toString()}`);
-    }
-  };
+  const [state, action] = useFormState(crearIncidente, initialState);
 
   return (
-    <form className="space-y-4" action={handleSubmit}>
+    <form className="space-y-4" action={action}>
       <div className="flex flex-wrap gap-x-3 md:flex-nowrap">
-        <SelectField name="categoria" label="Categoría" required>
+        <SelectField
+          name="categoria"
+          label="Categoría"
+          error={state.errors?.categoria}
+          required
+        >
           {categoriasProblema.map((categoria) => (
             <option key={categoria} value={categoria}>
               {categoria}
@@ -77,6 +50,7 @@ export function NuevoIncidenteForm({
         <SelectField
           name="forma_de_notificacion"
           label="Forma de notificación"
+          error={state.errors?.forma_de_notificacion}
           required
         >
           {formasNotificacion.map((forma) => (
@@ -85,14 +59,24 @@ export function NuevoIncidenteForm({
             </option>
           ))}
         </SelectField>
-        <SelectField name="id_usuario" label="Usuario" required>
+        <SelectField
+          name="id_usuario"
+          label="Usuario"
+          error={state.errors?.id_usuario}
+          required
+        >
           {usuarios.map((usuario) => (
             <option key={usuario.id} value={usuario.id}>
               {usuario.nombre} {usuario.apellido}
             </option>
           ))}
         </SelectField>
-        <SelectField name="prioridad" label="Prioridad" required>
+        <SelectField
+          name="prioridad"
+          label="Prioridad"
+          error={state.errors?.prioridad}
+          required
+        >
           {prioridades.map((prioridad) => (
             <option key={prioridad} value={prioridad}>
               {prioridad}
@@ -103,6 +87,14 @@ export function NuevoIncidenteForm({
       <TextField
         name="servicios_afectados"
         label="Servicios afectados"
+        error={state.errors?.servicios_afectados}
+        required
+      />
+
+      <TextField
+        name="reportador"
+        label="Reportador"
+        error={state.errors?.reportador}
         required
       />
 
@@ -110,6 +102,7 @@ export function NuevoIncidenteForm({
         <SelectField
           name="usuarios_afectados"
           label="Usuarios afectados"
+          error={state.errors?.usuarios_afectados}
           required
           multiple
         >
@@ -120,8 +113,9 @@ export function NuevoIncidenteForm({
           ))}
         </SelectField>
         <SelectField
-          name="id_articulos"
+          name="ids_articulos"
           label="Artículos de configuración afectados"
+          error={state.errors?.ids_articulos}
           required
           multiple
         >
@@ -136,6 +130,8 @@ export function NuevoIncidenteForm({
       <TextAreaField
         name="informacion_adicional"
         label="Información adicional"
+        error={state.errors?.informacion_adicional}
+        required
       />
       <SubmitButton label="Crear Incidente" />
     </form>

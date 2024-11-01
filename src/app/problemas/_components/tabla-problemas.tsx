@@ -1,12 +1,16 @@
 "use client";
 
 import { updateProblema } from "@/api/problemas";
-import { EstadoProblema, estadosProblema, prioridades } from "@/models/types";
+import {
+  EstadoProblema,
+  estadosProblema,
+  prioridades,
+} from "@/models/incidentes";
+import { Problema } from "@/models/problemas";
 
 import { DndContext, DragEndEvent } from "@dnd-kit/core";
 import { restrictToWindowEdges } from "@dnd-kit/modifiers";
 
-import { Problema } from "../models";
 import { DraggableProblema } from "./draggable-problema";
 import { DroppableEstado } from "./droppable-estado";
 import { revalidateProblemas } from "./revalidate-problemas";
