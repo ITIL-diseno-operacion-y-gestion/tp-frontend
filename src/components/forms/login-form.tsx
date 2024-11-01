@@ -1,10 +1,10 @@
 "use client";
 
+import { useActionState } from "react";
+
 import { handleLogin } from "@/api/actions/auth";
 import { FormState } from "@/models/schemas";
 import { UserLogin } from "@/models/users";
-
-import { useFormState } from "react-dom";
 
 import { ErrorAlert } from "../form/error-alert";
 import { SubmitButton } from "../form/submit-button";
@@ -16,7 +16,7 @@ const initialState: FormState<UserLogin> = {
 };
 
 export function LoginForm() {
-  const [state, action] = useFormState(handleLogin, initialState);
+  const [state, action] = useActionState(handleLogin, initialState);
 
   return (
     <form action={action} className="space-y-4">

@@ -1,5 +1,7 @@
 "use client";
 
+import { useActionState } from "react";
+
 import { crearIncidente } from "@/api/actions/incidentes";
 import { ItemConfiguracion } from "@/models/configuracion";
 import {
@@ -10,8 +12,6 @@ import {
 } from "@/models/incidentes";
 import { FormState } from "@/models/schemas";
 import { User } from "@/models/users";
-
-import { useFormState } from "react-dom";
 
 import { SelectField } from "../form/select-field";
 import { SubmitButton } from "../form/submit-button";
@@ -30,7 +30,7 @@ export function NuevoIncidenteForm({
   usuarios: User[];
   articulos: ItemConfiguracion[];
 }) {
-  const [state, action] = useFormState(crearIncidente, initialState);
+  const [state, action] = useActionState(crearIncidente, initialState);
 
   return (
     <form className="space-y-4" action={action}>

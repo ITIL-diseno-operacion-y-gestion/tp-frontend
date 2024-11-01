@@ -5,11 +5,10 @@ import { Title } from "@/components/common/title";
 
 import { ItemConfiguracionView } from "./_components/item-configuracion-view";
 
-export default async function ConfiguracionItemPage({
-  params,
-}: {
-  params: { id: string };
+export default async function ConfiguracionItemPage(props: {
+  params: Promise<{ id: string }>;
 }) {
+  const params = await props.params;
   const id = parseInt(params.id, 10);
   const elemento = await getArticuloConfiguracion(id);
 

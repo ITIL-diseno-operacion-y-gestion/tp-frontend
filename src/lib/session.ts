@@ -3,22 +3,22 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
-import { UserBase } from "@/models/interfaces";
+import { User } from "@/models/users";
 
 export async function getSession() {
-  const user = cookies().get("user")?.value;
-  const token = cookies().get("token")?.value;
+  const user = (await cookies()).get("user")?.value;
+  const token = (await cookies()).get("token")?.value;
 
   if (!user || !token) {
     return null;
   }
 
-  return { user: JSON.parse(user) as UserBase, token };
+  return { user: JSON.parse(user) as User, token };
 }
 
 export async function deleteSession() {
-  cookies().delete("user");
-  cookies().delete("token");
+  (await cookies()).delete("user");
+  (await cookies()).delete("token");
 
   redirect("/auth/login");
 }

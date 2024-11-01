@@ -1,5 +1,7 @@
 "use client";
 
+import { useActionState } from "react";
+
 import { crearProblema } from "@/api/actions/problemas";
 import {
   Incidente,
@@ -10,8 +12,6 @@ import {
 import { ProblemaCreate } from "@/models/problemas";
 import { FormState } from "@/models/schemas";
 import { User } from "@/models/users";
-
-import { useFormState } from "react-dom";
 
 import { SelectField } from "../form/select-field";
 import { SubmitButton } from "../form/submit-button";
@@ -29,7 +29,7 @@ export function NuevoProblemaForm({
   usuarios: User[];
   incidentes: Incidente[];
 }) {
-  const [state, action] = useFormState(crearProblema, initialState);
+  const [state, action] = useActionState(crearProblema, initialState);
 
   return (
     <form className="space-y-4" action={action}>

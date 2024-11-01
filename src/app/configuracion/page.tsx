@@ -7,13 +7,12 @@ import { SearchBox } from "@/components/search-box";
 
 import { ItemConfiguracionPreview } from "./_components/item-configuracion";
 
-export default async function ConfiguaracionPage({
-  searchParams,
-}: {
-  searchParams?: {
+export default async function ConfiguaracionPage(props: {
+  searchParams?: Promise<{
     q?: string;
-  };
+  }>;
 }) {
+  const searchParams = await props.searchParams;
   const query = searchParams?.q || "";
   let elementos = await getArticulosConfiguracion();
   if (query) {

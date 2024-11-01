@@ -66,7 +66,7 @@ export const handleLogin = async (
     };
   }
 
-  cookies().set("token", data.token, {
+  (await cookies()).set("token", data.token, {
     maxAge: 60 * 60 * 24 * 7,
   });
 
@@ -76,7 +76,7 @@ export const handleLogin = async (
     nombre: data.nombre,
     id: data.id,
   };
-  cookies().set("user", JSON.stringify(userData), {
+  (await cookies()).set("user", JSON.stringify(userData), {
     maxAge: 60 * 60 * 24 * 7,
   });
 

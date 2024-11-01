@@ -5,11 +5,10 @@ import { Title } from "@/components/common/title";
 
 import { ItemProblemaView } from "./_components/item-problema-view";
 
-export default async function ProblemaDetailsPage({
-  params,
-}: {
-  params: { id: string };
+export default async function ProblemaDetailsPage(props: {
+  params: Promise<{ id: string }>;
 }) {
+  const params = await props.params;
   const id = parseInt(params.id, 10);
   const problema = await getProblema(id);
 

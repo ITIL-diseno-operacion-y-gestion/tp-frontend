@@ -1,5 +1,7 @@
 "use client";
 
+import { useActionState } from "react";
+
 import { crearItemConfiguracion } from "@/api/actions/configuracion";
 import {
   ItemConfiguracionCreate,
@@ -8,8 +10,6 @@ import {
 } from "@/models/configuracion";
 import { FormState } from "@/models/schemas";
 import { User } from "@/models/users";
-
-import { useFormState } from "react-dom";
 
 import { ErrorAlert } from "../form/error-alert";
 import { SelectField } from "../form/select-field";
@@ -23,7 +23,7 @@ const initialState: FormState<ItemConfiguracionCreate> = {
 };
 
 export function NuevaConfiguracionForm({ usuarios }: { usuarios: User[] }) {
-  const [state, action] = useFormState(crearItemConfiguracion, initialState);
+  const [state, action] = useActionState(crearItemConfiguracion, initialState);
 
   return (
     <form className="space-y-4" action={action}>
