@@ -4,24 +4,31 @@ import { revalidateTag } from "next/cache";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
-import { UserLogin, UserRegister } from "@/models/interfaces";
+import { FormState } from "@/models/schemas";
+import {
+  UserRegister,
+  userLoginSchema,
+  userRegisterSchema,
+} from "@/models/users";
 
 import { login, register } from "../users";
-import { FormState } from "./models";
 
 export const handleSignUp = async (
-  prevState: FormState,
+  prevState: FormState<UserRegister>,
   formData: FormData,
 ) => {
-  const userRegister: UserRegister = {
-    nombre: formData.get("name") as string,
-    apellido: formData.get("surname") as string,
-    email: formData.get("email") as string,
-    contrasenia: formData.get("password") as string,
-  };
+  const userRegisterRaw = Object.fromEntries(formData);
+
+  const userRegister = userRegisterSchema.safeParse(userRegisterRaw);
+
+  if (!userRegister.success) {
+    return {
+      errors: userRegister.error.flatten(),
+    };
+  }
 
   try {
-    await register(userRegister);
+    await register(userRegister.data);
   } catch (error) {
     console.error("ERROR: ", error);
     return {
@@ -33,18 +40,29 @@ export const handleSignUp = async (
   redirect("/auth/login");
 };
 
-export const handleLogin = async (prevState: FormState, formData: FormData) => {
-  const userLogin: UserLogin = {
-    email: formData.get("email") as string,
-    contrasenia: formData.get("password") as string,
-  };
+export const handleLogin = async (
+  prevState: FormState<UserRegister>,
+  formData: FormData,
+) => {
+  const userRaw = Object.fromEntries(formData);
+
+  const userLogin = userLoginSchema.safeParse(userRaw);
+
+  if (!userLogin.success) {
+    console.log(userLogin.data);
+    return {
+      errors: userLogin.error.flatten().fieldErrors,
+      message: "Error en los datos ingresados.",
+    };
+  }
 
   let data;
   try {
-    data = await login(userLogin);
+    data = await login(userLogin.data);
   } catch (error) {
+    console.error("ERROR: ", error);
     return {
-      msg: (error as Error).message,
+      message: (error as Error).message,
     };
   }
 

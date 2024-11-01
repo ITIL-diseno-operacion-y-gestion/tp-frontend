@@ -1,15 +1,18 @@
 "use client";
 
 import { handleLogin } from "@/api/actions/auth";
+import { FormState } from "@/models/schemas";
+import { UserLogin } from "@/models/users";
 
 import { useFormState } from "react-dom";
 
-import { ErrorDisplay } from "../form/error-display";
+import { ErrorAlert } from "../form/error-alert";
 import { SubmitButton } from "../form/submit-button";
 import { TextField } from "../form/text-field";
 
-const initialState = {
-  msg: "",
+const initialState: FormState<UserLogin> = {
+  errors: {},
+  message: "",
 };
 
 export function LoginForm() {
@@ -22,16 +25,23 @@ export function LoginForm() {
         type="email"
         label="Email"
         autoComplete="email"
+        error={state.errors?.email}
         required
       />
       <TextField
-        name="password"
+        name="contrasenia"
         type="password"
         label="Contraseña"
         autoComplete="current-password"
+        error={state.errors?.contrasenia}
         required
       />
-      {state.msg && <ErrorDisplay error={state.msg} />}
+      {state.message && (
+        <ErrorAlert
+          description={state.message}
+          title="Hubo un error al iniciar sesión"
+        />
+      )}
       <SubmitButton label="Iniciar sesión" />
     </form>
   );

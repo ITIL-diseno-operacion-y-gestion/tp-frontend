@@ -7,7 +7,7 @@ import { ErrorDisplay } from "./error-display";
 interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
   label: string;
   name: string;
-  error?: string;
+  error?: string[];
 }
 
 export const TextField = forwardRef<HTMLInputElement, Props>(

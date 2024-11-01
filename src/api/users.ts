@@ -6,7 +6,7 @@ import {
   UserLogin,
   UserLoginResponse,
   UserRegister,
-} from "@/models/interfaces";
+} from "@/models/users";
 
 import { ActionResponse, actionResponseToString } from "./actions/models";
 
