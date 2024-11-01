@@ -6,6 +6,7 @@ import { redirect } from "next/navigation";
 
 import { FormState } from "@/models/schemas";
 import {
+  UserLogin,
   UserRegister,
   userLoginSchema,
   userRegisterSchema,
@@ -16,14 +17,14 @@ import { login, register } from "../users";
 export const handleSignUp = async (
   prevState: FormState<UserRegister>,
   formData: FormData,
-) => {
+): Promise<FormState<UserRegister>> => {
   const userRegisterRaw = Object.fromEntries(formData);
 
   const userRegister = userRegisterSchema.safeParse(userRegisterRaw);
 
   if (!userRegister.success) {
     return {
-      errors: userRegister.error.flatten(),
+      errors: userRegister.error.flatten().fieldErrors,
     };
   }
 
@@ -32,7 +33,7 @@ export const handleSignUp = async (
   } catch (error) {
     console.error("ERROR: ", error);
     return {
-      msg: (error as Error).message,
+      message: (error as Error).message,
     };
   }
 
@@ -41,9 +42,9 @@ export const handleSignUp = async (
 };
 
 export const handleLogin = async (
-  prevState: FormState<UserRegister>,
+  prevState: FormState<UserLogin>,
   formData: FormData,
-) => {
+): Promise<FormState<UserLogin>> => {
   const userRaw = Object.fromEntries(formData);
 
   const userLogin = userLoginSchema.safeParse(userRaw);
@@ -52,7 +53,6 @@ export const handleLogin = async (
     console.log(userLogin.data);
     return {
       errors: userLogin.error.flatten().fieldErrors,
-      message: "Error en los datos ingresados.",
     };
   }
 
