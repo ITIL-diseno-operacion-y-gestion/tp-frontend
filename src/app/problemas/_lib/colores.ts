@@ -1,4 +1,4 @@
-import { Problema } from "../models";
+import { Problema } from "@/models/problemas";
 
 /**
  * El color de fondo de cada estado (debajo del label)

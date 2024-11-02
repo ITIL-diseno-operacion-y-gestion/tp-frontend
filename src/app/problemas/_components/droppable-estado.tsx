@@ -1,16 +1,16 @@
 import { cn } from "@/lib/utils";
+import { EstadoProblema } from "@/models/incidentes";
 
 import { useDroppable } from "@dnd-kit/core";
 
 import { bgEstado } from "../_lib/colores";
-import { Problema } from "../models";
 import { ChipEstado } from "./chip-estado";
 
 export function DroppableEstado({
   estado,
   children,
 }: {
-  estado: Problema["estado"];
+  estado: EstadoProblema;
   children: React.ReactNode;
 }) {
   const { setNodeRef } = useDroppable({

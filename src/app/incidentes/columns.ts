@@ -1,9 +1,10 @@
 "use client";
 
+import { Incidente } from "@/models/incidentes";
+
 import { ColDef } from "ag-grid-community";
 
 import { LinkIncidente } from "./_components/link-incidente";
-import { Incidente } from "./models";
 
 export const columns: ColDef<Incidente>[] = [
   {

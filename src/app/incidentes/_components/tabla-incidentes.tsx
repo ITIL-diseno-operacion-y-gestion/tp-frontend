@@ -1,11 +1,11 @@
 "use client";
 
+import { Incidente } from "@/models/incidentes";
+
 import { ColDef } from "ag-grid-community";
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-quartz.css";
 import { AgGridReact } from "ag-grid-react";
-
-import { Incidente } from "../models";
 
 export function TablaIncidentes({
   rowData,
