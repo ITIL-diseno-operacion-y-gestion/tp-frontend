@@ -1,6 +1,5 @@
+import { ChipTipo } from "@/components/chips/chip-tipo";
 import { ItemConfiguracion } from "@/models/configuracion";
-
-import { ChipTipo } from "../../_components/chip-tipo";
 
 export function ItemConfiguracionView({ item }: { item: ItemConfiguracion }) {
   const {
@@ -30,7 +29,8 @@ export function ItemConfiguracionView({ item }: { item: ItemConfiguracion }) {
           <span className="font-semibold">Versión:</span> {version}
         </p>
         <p>
-          <span className="font-semibold">Fecha de alta:</span> {fecha_de_alta}
+          <span className="font-semibold">Fecha de alta:</span>{" "}
+          {new Date(fecha_de_alta).toLocaleDateString("es-AR")}
         </p>
         <p>
           <span className="font-semibold">Activo:</span>{" "}

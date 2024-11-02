@@ -13,6 +13,7 @@ import { ProblemaCreate } from "@/models/problemas";
 import { FormState } from "@/models/schemas";
 import { User } from "@/models/users";
 
+import { ErrorAlert } from "../form/error-alert";
 import { SelectField } from "../form/select-field";
 import { SubmitButton } from "../form/submit-button";
 import { TextField } from "../form/text-field";
@@ -104,6 +105,12 @@ export function NuevoProblemaForm({
           </option>
         ))}
       </SelectField>
+      {state.message && (
+        <ErrorAlert
+          title="Hubo un error al crear el problema"
+          description={state.message}
+        />
+      )}
       <SubmitButton label="Crear Problema" />
     </form>
   );

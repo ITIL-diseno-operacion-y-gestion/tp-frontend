@@ -13,6 +13,7 @@ import {
 import { FormState } from "@/models/schemas";
 import { User } from "@/models/users";
 
+import { ErrorAlert } from "../form/error-alert";
 import { SelectField } from "../form/select-field";
 import { SubmitButton } from "../form/submit-button";
 import { TextField } from "../form/text-field";
@@ -133,6 +134,12 @@ export function NuevoIncidenteForm({
         error={state.errors?.informacion_adicional}
         required
       />
+      {state.message && (
+        <ErrorAlert
+          title="Hubo un error al crear el incidente"
+          description={state.message}
+        />
+      )}
       <SubmitButton label="Crear Incidente" />
     </form>
   );

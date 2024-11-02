@@ -1,6 +1,6 @@
 import { Prioridad } from "@/models/incidentes";
 
-import { colorPrioridad } from "../_lib/colores";
+import { colorPrioridad } from "../../app/problemas/_lib/colores";
 
 export function ChipPrioridad({ prioridad }: { prioridad: Prioridad }) {
   return (

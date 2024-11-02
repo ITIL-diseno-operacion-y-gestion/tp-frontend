@@ -3,8 +3,8 @@ import { EstadoProblema } from "@/models/incidentes";
 
 import { useDroppable } from "@dnd-kit/core";
 
+import { ChipEstado } from "../../../components/chips/chip-estado";
 import { bgEstado } from "../_lib/colores";
-import { ChipEstado } from "./chip-estado";
 
 export function DroppableEstado({
   estado,

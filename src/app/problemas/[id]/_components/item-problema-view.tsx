@@ -1,5 +1,7 @@
 import Link from "next/link";
 
+import { ChipCategoria } from "@/components/chips/chip-categoria";
+import { ChipPrioridad } from "@/components/chips/chip-prioridad";
 import { Problema } from "@/models/problemas";
 
 export function ItemProblemaView({ item }: { item: Problema }) {
@@ -11,8 +13,12 @@ export function ItemProblemaView({ item }: { item: Problema }) {
       <p>Id: {id}</p>
       <p>Usuario: {id_usuario}</p>
       <p>Síntomas: {sintomas}</p>
-      <p>Prioridad: {prioridad}</p>
-      <p>Categoría: {categoria}</p>
+      <p>
+        Prioridad: <ChipPrioridad prioridad={prioridad} />
+      </p>
+      <p>
+        Categoría: <ChipCategoria categoria={categoria} />
+      </p>
       <p>Estado: {estado}</p>
       <p>Incidentes:</p>
       <ul className="mt-4 space-y-4">
@@ -22,8 +28,7 @@ export function ItemProblemaView({ item }: { item: Problema }) {
               href={`/incidentes/${incidente.id}`}
               className="text-blue-500"
             >
-              {" "}
-              {incidente.id}{" "}
+              {incidente.id}
             </Link>
           </li>
         ))}

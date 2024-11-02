@@ -4,7 +4,7 @@ import { Problema } from "@/models/problemas";
 
 import { useDraggable } from "@dnd-kit/core";
 
-import { ChipPrioridad } from "./chip-prioridad";
+import { ChipPrioridad } from "../../../components/chips/chip-prioridad";
 
 export function DraggableProblema({ problema }: { problema: Problema }) {
   const { categoria, sintomas, id_usuario, prioridad, id } = problema;

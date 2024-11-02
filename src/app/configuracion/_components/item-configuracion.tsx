@@ -1,9 +1,8 @@
 import Link from "next/link";
 
+import { ChipActivo } from "@/components/chips/chip-activo";
+import { ChipTipo } from "@/components/chips/chip-tipo";
 import { ItemConfiguracion } from "@/models/configuracion";
-
-import { ChipActivo } from "./chip-activo";
-import { ChipTipo } from "./chip-tipo";
 
 type Props = {
   item: ItemConfiguracion;
