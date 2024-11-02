@@ -27,12 +27,8 @@ export const crearItemConfiguracion = async (
     };
   }
 
-  let success = false;
-  let message = "Hubo un error inesperado!";
   try {
     await createArticuloConfiguracion(itemConfiguracion.data);
-    success = true;
-    message = "Articulo guardado correctamente!";
   } catch (error) {
     return {
       message: (error as Error).message,
@@ -40,13 +36,9 @@ export const crearItemConfiguracion = async (
   }
 
   const searchParams = new URLSearchParams();
-  searchParams.set("success", success.toString());
-  searchParams.set("message", message);
+  searchParams.set("success", "false");
+  searchParams.set("message", "Articulo guardado correctamente!");
 
-  if (success) {
-    revalidatePath("/configuracion");
-    redirect(`/configuracion?${searchParams.toString()}`);
-  } else {
-    redirect(`/configuracion/new?${searchParams.toString()}`);
-  }
+  revalidatePath("/configuracion");
+  redirect(`/configuracion?${searchParams.toString()}`);
 };
