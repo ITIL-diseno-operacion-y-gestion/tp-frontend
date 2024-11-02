@@ -2,6 +2,8 @@
 
 Esta es una aplicación realizada en [Next.js](https://nextjs.org) utilizando [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/8f241047-afb2-495e-b817-d593b186c792/deploy-status)](https://app.netlify.com/sites/itil-frontend/deploys)
+
 ## Software necesario
 
 - Nodejs v20

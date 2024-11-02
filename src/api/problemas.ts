@@ -1,7 +1,7 @@
 "use server";
 
-import { Problema, ProblemaCreate } from "@/app/problemas/models";
 import { env } from "@/env/client";
+import { Problema, ProblemaCreate } from "@/models/problemas";
 
 const BASE_PATH = `${env.NEXT_PUBLIC_API_URL}/problemas`;
 
