@@ -1,12 +1,13 @@
 "use server";
 
 import { env } from "@/env/client";
+import { fetchWithTimeout } from "@/lib/utils";
 import { Incidente, IncidenteCreate } from "@/models/incidentes";
 
 const BASE_PATH = `${env.NEXT_PUBLIC_API_URL}/incidentes`;
 
 export async function getIncidentes(): Promise<Incidente[]> {
-  const req = await fetch(BASE_PATH);
+  const req = await fetchWithTimeout(BASE_PATH);
 
   if (!req.ok) {
     throw new Error("No se pudo obtener los incidentes.");
@@ -17,7 +18,7 @@ export async function getIncidentes(): Promise<Incidente[]> {
 }
 
 export async function getIncidente(id: number): Promise<Incidente> {
-  const req = await fetch(`${BASE_PATH}/${id}`);
+  const req = await fetchWithTimeout(`${BASE_PATH}/${id}`);
 
   if (!req.ok) {
     throw new Error("No se pudo obtener el incidente.");
@@ -28,7 +29,7 @@ export async function getIncidente(id: number): Promise<Incidente> {
 }
 
 export async function createIncidente(incidente: IncidenteCreate) {
-  const req = await fetch(BASE_PATH, {
+  const req = await fetchWithTimeout(BASE_PATH, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

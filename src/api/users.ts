@@ -1,6 +1,7 @@
 "use server";
 
 import { env } from "@/env/client";
+import { fetchWithTimeout } from "@/lib/utils";
 import {
   User,
   UserLogin,
@@ -28,7 +29,7 @@ export async function getUsers(): Promise<User[]> {
 }
 
 export async function register(user: UserRegister): Promise<User> {
-  const req = await fetch(BASE_PATH, {
+  const req = await fetchWithTimeout(BASE_PATH, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -46,7 +47,7 @@ export async function register(user: UserRegister): Promise<User> {
 }
 
 export async function login(user: UserLogin): Promise<UserLoginResponse> {
-  const req = await fetch(`${BASE_PATH}/login`, {
+  const req = await fetchWithTimeout(`${BASE_PATH}/login`, {
     method: "POST",
     body: JSON.stringify(user),
     headers: {

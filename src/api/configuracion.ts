@@ -1,6 +1,7 @@
 "use server";
 
 import { env } from "@/env/client";
+import { fetchWithTimeout } from "@/lib/utils";
 import {
   ItemConfiguracion,
   ItemConfiguracionCreate,
@@ -13,7 +14,7 @@ const BASE_PATH = `${env.NEXT_PUBLIC_API_URL}/configuracion/articulos`;
 export async function getArticulosConfiguracion(): Promise<
   ItemConfiguracion[]
 > {
-  const req = await fetch(BASE_PATH);
+  const req = await fetchWithTimeout(BASE_PATH);
 
   if (!req.ok) {
     throw new Error("No se pudo obtener la configuración.");
@@ -26,7 +27,7 @@ export async function getArticulosConfiguracion(): Promise<
 export async function getArticuloConfiguracion(
   id: number,
 ): Promise<ItemConfiguracion> {
-  const req = await fetch(`${BASE_PATH}/${id}`);
+  const req = await fetchWithTimeout(`${BASE_PATH}/${id}`);
 
   if (!req.ok) {
     throw new Error("No se pudo obtener la configuración.");
@@ -39,7 +40,7 @@ export async function getArticuloConfiguracion(
 export async function createArticuloConfiguracion(
   articulo: ItemConfiguracionCreate,
 ) {
-  const req = await fetch(BASE_PATH, {
+  const req = await fetchWithTimeout(BASE_PATH, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

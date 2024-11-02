@@ -1,12 +1,13 @@
 "use server";
 
 import { env } from "@/env/client";
+import { fetchWithTimeout } from "@/lib/utils";
 import { Problema, ProblemaCreate } from "@/models/problemas";
 
 const BASE_PATH = `${env.NEXT_PUBLIC_API_URL}/problemas`;
 
 export async function getProblemas(): Promise<Problema[]> {
-  const req = await fetch(BASE_PATH);
+  const req = await fetchWithTimeout(BASE_PATH);
 
   if (!req.ok) {
     throw new Error("No se pudo obtener los problemas.");
@@ -17,7 +18,7 @@ export async function getProblemas(): Promise<Problema[]> {
 }
 
 export async function getProblema(id: number): Promise<Problema> {
-  const req = await fetch(`${BASE_PATH}/${id}`, {
+  const req = await fetchWithTimeout(`${BASE_PATH}/${id}`, {
     next: {
       tags: ["problemas"],
     },
@@ -32,7 +33,7 @@ export async function getProblema(id: number): Promise<Problema> {
 }
 
 export async function createProblema(problema: ProblemaCreate) {
-  const req = await fetch(BASE_PATH, {
+  const req = await fetchWithTimeout(BASE_PATH, {
     method: "POST",
     body: JSON.stringify(problema),
     headers: {
@@ -51,7 +52,7 @@ export async function updateProblema(
   idProblema: number,
   problema: Partial<Problema>,
 ) {
-  const req = await fetch(`${BASE_PATH}/${idProblema}`, {
+  const req = await fetchWithTimeout(`${BASE_PATH}/${idProblema}`, {
     method: "PATCH",
     body: JSON.stringify(problema),
     headers: {
