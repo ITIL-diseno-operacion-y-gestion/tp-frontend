@@ -2,16 +2,19 @@
 
 import { useFormStatus } from "react-dom";
 
-export function SubmitButton({ label = "Guardar" }) {
+export function SubmitButton({
+  label = "Guardar",
+  pendingLabel = "Cargando...",
+}) {
   const { pending } = useFormStatus();
 
   return (
     <button
       type="submit"
-      className="w-full rounded bg-blue-500 px-3 py-2 text-white hover:bg-blue-700"
+      className="w-full rounded bg-blue-500 px-3 py-2 text-white hover:bg-blue-700 disabled:bg-blue-500/70"
       disabled={pending}
     >
-      {pending ? "Guardando..." : label}
+      {pending ? pendingLabel : label}
     </button>
   );
 }

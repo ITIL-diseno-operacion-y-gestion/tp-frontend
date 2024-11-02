@@ -42,7 +42,10 @@ export function LoginForm() {
           title="Hubo un error al iniciar sesión"
         />
       )}
-      <SubmitButton label="Iniciar sesión" />
+      <SubmitButton
+        label="Iniciar sesión"
+        pendingLabel="Espere un momento..."
+      />
     </form>
   );
 }
