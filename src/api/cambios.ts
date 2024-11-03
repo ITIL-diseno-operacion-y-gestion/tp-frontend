@@ -43,3 +43,13 @@ export async function createCambio(cambio: CambioCreate) {
 
   return req.json();
 }
+
+export async function deleteCambio(id: number) {
+  const req = await fetchWithTimeout(`${BASE_PATH}/${id}`, {
+    method: "DELETE",
+  });
+
+  if (!req.ok) {
+    throw new Error("No se pudo borrar el cambio.");
+  }
+}

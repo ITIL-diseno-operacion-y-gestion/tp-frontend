@@ -6,7 +6,7 @@ import { redirect } from "next/navigation";
 import { CambioCreate, cambioCreateSchema } from "@/models/cambios";
 import { FormState } from "@/models/schemas";
 
-import { createCambio } from "../cambios";
+import { createCambio, deleteCambio } from "../cambios";
 
 export const crearCambio = async (
   formState: FormState<CambioCreate>,
@@ -41,3 +41,14 @@ export const crearCambio = async (
   revalidatePath("/cambios");
   redirect(`/cambios?${searchParams.toString()}`);
 };
+
+export async function borrarCambio(id: number) {
+  try {
+    await deleteCambio(id);
+  } catch (error) {
+    console.error("ERROR: ", error);
+  }
+
+  revalidatePath("/cambios");
+  redirect("/cambios");
+}

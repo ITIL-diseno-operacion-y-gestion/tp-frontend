@@ -66,3 +66,13 @@ export async function updateProblema(
 
   return req.json();
 }
+
+export async function deleteProblema(id: number) {
+  const req = await fetchWithTimeout(`${BASE_PATH}/${id}`, {
+    method: "DELETE",
+  });
+
+  if (!req.ok) {
+    throw new Error("No se pudo borrar el problema.");
+  }
+}

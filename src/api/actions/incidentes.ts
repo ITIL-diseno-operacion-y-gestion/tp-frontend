@@ -6,7 +6,7 @@ import { redirect } from "next/navigation";
 import { IncidenteCreate, incidenteCreateSchema } from "@/models/incidentes";
 import { FormState } from "@/models/schemas";
 
-import { createIncidente } from "../incidentes";
+import { createIncidente, deleteIncidente } from "../incidentes";
 
 export const crearIncidente = async (
   formState: FormState<IncidenteCreate>,
@@ -41,4 +41,15 @@ export const crearIncidente = async (
 
   revalidatePath("/incidentes");
   redirect(`/incidentes?${searchParams.toString()}`);
+};
+
+export const borrarIncidente = async (id: number): Promise<void> => {
+  try {
+    await deleteIncidente(id);
+  } catch (error) {
+    console.error("ERROR: ", error);
+  }
+
+  revalidatePath("/configuracion");
+  redirect("/configuracion");
 };

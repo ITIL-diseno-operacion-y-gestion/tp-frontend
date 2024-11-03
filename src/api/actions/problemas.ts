@@ -6,7 +6,7 @@ import { redirect } from "next/navigation";
 import { ProblemaCreate, problemaCreateSchema } from "@/models/problemas";
 import { FormState } from "@/models/schemas";
 
-import { createProblema } from "../problemas";
+import { createProblema, deleteProblema } from "../problemas";
 
 export const crearProblema = async (
   formState: FormState<ProblemaCreate>,
@@ -39,3 +39,14 @@ export const crearProblema = async (
   revalidatePath("/problemas");
   redirect(`/problemas?${searchParams.toString()}`);
 };
+
+export async function borrarProblema(id: number): Promise<void> {
+  try {
+    await deleteProblema(id);
+  } catch (error) {
+    console.error("ERROR: ", error);
+  }
+
+  revalidatePath("/problemas");
+  redirect("/problemas");
+}

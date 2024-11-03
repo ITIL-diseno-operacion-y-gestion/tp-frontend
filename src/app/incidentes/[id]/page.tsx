@@ -1,4 +1,6 @@
+import { borrarIncidente } from "@/api/actions/incidentes";
 import { getIncidente } from "@/api/incidentes";
+import { BorrarItem } from "@/components/borrar-item";
 import { Title } from "@/components/common/title";
 
 import IncidenteView from "./_components/incidente-view";
@@ -14,6 +16,7 @@ export default async function IncidentesDetailsPage(props: {
     <div>
       <Title>Incidente {id}</Title>
       <IncidenteView incidente={incidente} />
+      <BorrarItem id={id} action={borrarIncidente} />
     </div>
   );
 }

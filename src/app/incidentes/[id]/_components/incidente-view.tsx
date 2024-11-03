@@ -25,10 +25,10 @@ export default function IncidenteView({ incidente }: { incidente: Incidente }) {
       <p>
         Fecha de alta: {new Date(fecha_de_alta).toLocaleDateString("es-AR")}
       </p>
-      <p>
+      <div>
         Forma de notificación:{" "}
         <ChipFormaNotificacion formaNotificacion={forma_de_notificacion} />
-      </p>
+      </div>
       <p>Usuarios afectados: {usuarios_afectados}</p>
       <p>Servicios afectados: {servicios_afectados}</p>
       <p>

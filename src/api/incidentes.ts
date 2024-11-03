@@ -43,3 +43,13 @@ export async function createIncidente(incidente: IncidenteCreate) {
 
   return req.json();
 }
+
+export async function deleteIncidente(id: number) {
+  const req = await fetchWithTimeout(`${BASE_PATH}/${id}`, {
+    method: "DELETE",
+  });
+
+  if (!req.ok) {
+    throw new Error("No se pudo borrar el incidente.");
+  }
+}

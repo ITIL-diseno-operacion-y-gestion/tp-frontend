@@ -56,3 +56,35 @@ export async function createArticuloConfiguracion(
 
   return req.json();
 }
+
+export async function updateArticuloConfiguracion(articulo: ItemConfiguracion) {
+  const req = await fetchWithTimeout(BASE_PATH, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(articulo),
+  });
+
+  if (!req.ok) {
+    const res = (await req.json()) as ActionResponse;
+    console.error(res);
+    throw new Error(actionResponseToString(res));
+  }
+
+  return req.json();
+}
+
+export async function deleteArticuloConfiguracion(id: number) {
+  const req = await fetchWithTimeout(`${BASE_PATH}/${id}`, {
+    method: "DELETE",
+  });
+
+  if (!req.ok) {
+    const res = (await req.json()) as ActionResponse;
+    console.error(res);
+    throw new Error(actionResponseToString(res));
+  }
+
+  return req.json();
+}
