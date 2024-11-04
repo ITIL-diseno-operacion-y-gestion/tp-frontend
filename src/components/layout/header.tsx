@@ -36,6 +36,12 @@ export default function Header({ loggedIn }: { loggedIn: boolean }) {
             >
               Problemas
             </NavLink>
+            <NavLink
+              href="/errores-conocidos"
+              active={pathname.startsWith("/errores-conocidos")}
+            >
+              Errores Conocidos
+            </NavLink>
             <NavLink href="/cambios" active={pathname.startsWith("/cambios")}>
               Cambios
             </NavLink>
