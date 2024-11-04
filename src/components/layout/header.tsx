@@ -50,11 +50,11 @@ export default function Header({ loggedIn }: { loggedIn: boolean }) {
         <div className="flex flex-col flex-wrap space-x-4 text-right sm:flex-row">
           {!loggedIn && (
             <>
-              <Link href="/auth/register" className="hover:text-blue-400">
-                Registrarse
-              </Link>
               <Link href="/auth/login" className="hover:text-blue-400">
                 Iniciar Sesión
+              </Link>
+              <Link href="/auth/register" className="hover:text-blue-400">
+                Registrarse
               </Link>
             </>
           )}
