@@ -20,7 +20,7 @@ export default async function ConfiguracionItemPage(props: {
       <ItemConfiguracionView item={elemento} />
       <hr />
       <h2 className="text-lg font-semibold">Acciones</h2>
-      <div className="space-x-4">
+      <div className="flex gap-x-4">
         <Link href={`/configuracion/${id}/edit`}>
           <button className="rounded bg-green-500 px-4 py-2 text-white hover:bg-blue-600">
             Editar
