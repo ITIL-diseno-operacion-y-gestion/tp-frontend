@@ -40,7 +40,7 @@ export const crearItemConfiguracion = async (
   }
 
   const searchParams = new URLSearchParams();
-  searchParams.set("success", "false");
+  searchParams.set("success", "true");
   searchParams.set("message", "Articulo guardado correctamente!");
 
   revalidatePath("/configuracion");
