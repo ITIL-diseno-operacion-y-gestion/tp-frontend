@@ -26,7 +26,7 @@ export default async function ConfiguracionItemPage(props: {
             Editar
           </button>
         </Link>
-        <Link href="/configuracion" className="mt-6">
+        <Link href="/configuracion">
           <button className="rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600">
             Volver
           </button>
