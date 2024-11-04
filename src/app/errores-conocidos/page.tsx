@@ -11,11 +11,11 @@ export default async function ErroresConocidosPage() {
 
   return (
     <div>
-      <Title>Incidentes</Title>
+      <Title>Errores Conocidos</Title>
       <div className="flex justify-between">
-        <Link href="/incidentes/new">
+        <Link href="/errores-conocidos/new">
           <button className="mb-4 rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600">
-            Nuevo incidente
+            Nuevo error conocido
           </button>
         </Link>
         <div className="flex flex-wrap gap-x-4">
