@@ -36,7 +36,7 @@ export default async function ConfiguaracionPage(props: {
         </div>
       </div>
 
-      <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+      <section className="grid gap-8 md:grid-cols-2 xl:grid-cols-3">
         {elementos.map((elemento, index) => (
           <ItemConfiguracionPreview key={index} item={elemento} />
         ))}
