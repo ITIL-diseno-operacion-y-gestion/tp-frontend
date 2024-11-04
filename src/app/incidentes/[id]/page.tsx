@@ -18,12 +18,14 @@ export default async function IncidentesDetailsPage(props: {
     <div>
       <Title>Incidente {id}</Title>
       <IncidenteView incidente={incidente} />
-      <BorrarItem id={id} action={borrarIncidente} />
-      <Link href="/incidentes" className="mt-6">
-        <button className="rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600">
-          Volver
-        </button>
-      </Link>
+      <div className="flex gap-x-4">
+        <BorrarItem id={id} action={borrarIncidente} />
+        <Link href="/incidentes" className="mt-6">
+          <button className="rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600">
+            Volver
+          </button>
+        </Link>
+      </div>
     </div>
   );
 }
