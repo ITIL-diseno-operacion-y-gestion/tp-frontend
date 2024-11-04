@@ -9,7 +9,7 @@
     "lint": "next lint",
     "format": "prettier --write .",
     "test": "vitest",
-    "prepare": "husky install"
+    "prepare": "husky"
   },
   "dependencies": {
     "@dnd-kit/core": "^6.1.0",
