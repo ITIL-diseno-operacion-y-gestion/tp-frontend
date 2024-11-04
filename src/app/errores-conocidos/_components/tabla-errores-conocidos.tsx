@@ -17,12 +17,12 @@ export function TablaErroresConocidos({
   return (
     <Table>
       <TableCaption>Errores conocidos</TableCaption>
-      <TableHead>
+      <TableHeader>
         <TableRow>
-          <TableHeader>Nombre</TableHeader>
-          <TableHeader>Descripción</TableHeader>
+          <TableHead>Nombre</TableHead>
+          <TableHead>Descripción</TableHead>
         </TableRow>
-      </TableHead>
+      </TableHeader>
       <TableBody>
         {errores.map((error) => (
           <TableRow key={error.id}>
