@@ -12,7 +12,7 @@ export function ItemConfiguracionPreview(props: Props) {
   const { nombre, descripcion, esta_activo, tipo, id } = props.item;
 
   return (
-    <div className="mb-4 rounded bg-white px-8 pb-8 pt-6 shadow-md">
+    <div className="mb-4 rounded bg-white px-8 pb-8 pt-6 shadow-md hover:scale-105 hover:shadow-lg">
       <h2 className="text-lg font-bold">{nombre}</h2>
       <p className="text-sm text-gray-600">{descripcion}</p>
       <div className="mt-4 flex items-end justify-between">
