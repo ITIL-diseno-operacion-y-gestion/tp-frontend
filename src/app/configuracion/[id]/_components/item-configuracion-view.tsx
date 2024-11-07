@@ -1,4 +1,5 @@
 import { ChipTipo } from "@/components/chips/chip-tipo";
+import { formatDate } from "@/lib/utils";
 import { ItemConfiguracion } from "@/models/configuracion";
 
 export function ItemConfiguracionView({ item }: { item: ItemConfiguracion }) {
@@ -30,7 +31,7 @@ export function ItemConfiguracionView({ item }: { item: ItemConfiguracion }) {
         </p>
         <p>
           <span className="font-semibold">Fecha de alta:</span>{" "}
-          {new Date(fecha_de_alta).toLocaleDateString("es-AR")}
+          {formatDate(fecha_de_alta)}
         </p>
         <p>
           <span className="font-semibold">Activo:</span>{" "}

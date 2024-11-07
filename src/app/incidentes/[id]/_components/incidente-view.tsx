@@ -2,6 +2,7 @@ import Link from "next/link";
 
 import { ChipFormaNotificacion } from "@/components/chips/chip-forma-notificacion";
 import { ChipPrioridad } from "@/components/chips/chip-prioridad";
+import { formatDate } from "@/lib/utils";
 import { Incidente } from "@/models/incidentes";
 
 export default function IncidenteView({ incidente }: { incidente: Incidente }) {
@@ -22,9 +23,7 @@ export default function IncidenteView({ incidente }: { incidente: Incidente }) {
     <div className="px-4">
       <p>Id: {id}</p>
       <p>Usuario: {id_usuario}</p>
-      <p>
-        Fecha de alta: {new Date(fecha_de_alta).toLocaleDateString("es-AR")}
-      </p>
+      <p>Fecha de alta: {formatDate(fecha_de_alta)}</p>
       <div>
         Forma de notificación:{" "}
         <ChipFormaNotificacion formaNotificacion={forma_de_notificacion} />

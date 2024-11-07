@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 import { ChipPrioridad } from "@/components/chips/chip-prioridad";
+import { formatDate } from "@/lib/utils";
 import { Cambio } from "@/models/cambios";
 
 export function CambioView({ cambio }: { cambio: Cambio }) {
@@ -11,13 +12,9 @@ export function CambioView({ cambio }: { cambio: Cambio }) {
       <p>
         Prioridad: <ChipPrioridad prioridad={cambio.prioridad} />
       </p>
+      <p>Fecha de Creacion: {formatDate(cambio.fecha_de_creacion)}</p>
       <p>
-        Fecha de Creacion:{" "}
-        {new Date(cambio.fecha_de_creacion).toLocaleDateString("es-AR")}
-      </p>
-      <p>
-        Fecha de Implementación:{" "}
-        {new Date(cambio.fecha_de_implementacion).toLocaleDateString("es-AR")}
+        Fecha de Implementación: {formatDate(cambio.fecha_de_implementacion)}
       </p>
       <p>Impacto: {cambio.impacto}</p>
       <p>Costo Estimado: {cambio.costo_estimado}</p>

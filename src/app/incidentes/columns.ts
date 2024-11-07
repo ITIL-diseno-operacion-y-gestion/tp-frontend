@@ -1,5 +1,6 @@
 "use client";
 
+import { formatDate } from "@/lib/utils";
 import { Incidente } from "@/models/incidentes";
 
 import { ColDef } from "ag-grid-community";
@@ -23,8 +24,7 @@ export const columns: ColDef<Incidente>[] = [
     headerName: "Fecha de alta",
     width: 200,
     type: "date",
-    valueFormatter: (params) =>
-      new Date(params.value).toLocaleDateString("es-AR"),
+    valueFormatter: (params) => formatDate(params.value),
   },
   {
     field: "categoria",
