@@ -1,4 +1,14 @@
+"use client";
+
+import {
+  ChartConfig,
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+} from "@/components/ui/chart";
 import { Reporte } from "@/models/reportes";
+
+import { LabelList, Pie, PieChart } from "recharts";
 
 export function ArticuloReporteView({
   articulos,
@@ -12,15 +22,7 @@ export function ArticuloReporteView({
       <p>
         <strong>Estado:</strong>
       </p>
-      <ul>
-        <li>En almacen: {estado["en almacen"] || 0}</li>
-        <li>En producción: {estado["en produccion"] || 0}</li>
-        <li>En mantenimiento: {estado["en mantenimiento"] || 0}</li>
-        <li>En creación: {estado["en creacion"] || 0}</li>
-        <li>En prueba: {estado["en prueba"] || 0}</li>
-        <li>Encargado: {estado["encargado"] || 0}</li>
-        <li>Planeado: {estado["planeado"] || 0}</li>
-      </ul>
+      <ChartEstado estado={estado} />
 
       <p>
         <strong>Tipo:</strong>
@@ -35,3 +37,52 @@ export function ArticuloReporteView({
     </div>
   );
 }
+
+const ChartEstado = ({
+  estado,
+}: {
+  estado: Reporte["articulos"]["estado"];
+}) => {
+  const chartConfig = {
+    planeado: { color: "pink", label: "Planeado" },
+    encargado: { color: "blue", label: "Encargado" },
+    en_creacion: { color: "purple", label: "En creación" },
+    en_prueba: { color: "red", label: "En prueba" },
+    en_almacen: { color: "orange", label: "En almacén" },
+    en_produccion: { color: "yellow", label: "En producción" },
+    en_mantenimiento: { color: "gray", label: "En mantenimiento" },
+    value: {
+      label: "Cantidad",
+    },
+  } satisfies ChartConfig;
+
+  const data = Object.entries(estado).map(([key, value]) => ({
+    name: key.split(" ").join("_"),
+    value,
+    fill: `var(--color-${key.split(" ").join("_")})`,
+  }));
+
+  console.log(data);
+  return (
+    <ChartContainer
+      config={chartConfig}
+      className="aspect-square max-h-[250px]"
+    >
+      <PieChart>
+        <ChartTooltip content={<ChartTooltipContent nameKey="name" />} />
+        <Pie dataKey="value" nameKey="name" innerRadius={30} data={data}>
+          <LabelList
+            dataKey="name"
+            className="fill-black"
+            stroke="none"
+            fontSize={14}
+            fontWeight="bold"
+            formatter={(value: keyof typeof chartConfig) =>
+              chartConfig[value]?.label
+            }
+          />
+        </Pie>
+      </PieChart>
+    </ChartContainer>
+  );
+};
