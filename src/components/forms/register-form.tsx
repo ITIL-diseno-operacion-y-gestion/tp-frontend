@@ -4,9 +4,10 @@ import { useActionState } from "react";
 
 import { handleSignUp } from "@/api/actions/auth";
 import { FormState } from "@/models/schemas";
-import { UserRegister } from "@/models/users";
+import { UserRegister, userRoles } from "@/models/users";
 
 import { ErrorAlert } from "../form/error-alert";
+import { SelectField } from "../form/select-field";
 import { SubmitButton } from "../form/submit-button";
 import { TextField } from "../form/text-field";
 
@@ -44,6 +45,13 @@ export function SignupForm() {
         error={state.errors?.email}
         required
       />
+      <SelectField name="rol" label="Rol" error={state.errors?.rol} required>
+        {userRoles.map((role) => (
+          <option key={role} value={role}>
+            {role}
+          </option>
+        ))}
+      </SelectField>
       <TextField
         name="contrasenia"
         type="password"
