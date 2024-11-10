@@ -1,9 +1,7 @@
-import { getUsers } from "@/api/users";
 import { Title } from "@/components/common/title";
 import { getSession } from "@/lib/session";
 
 export default async function Home() {
-  const users = await getUsers();
   const session = await getSession();
 
   return (
@@ -14,14 +12,6 @@ export default async function Home() {
         Nombre: {session?.user.nombre} {session?.user.apellido}
       </p>
       <p>Email: {session?.user.email}</p>
-      <h2 className="text-lg font-semibold">Usuarios Registrados</h2>
-      <ul>
-        {users.map((user) => (
-          <li key={user.id}>
-            {user.nombre} {user.apellido} ({user.email})
-          </li>
-        ))}
-      </ul>
     </div>
   );
 }
