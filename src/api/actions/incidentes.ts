@@ -50,6 +50,6 @@ export const borrarIncidente = async (id: number): Promise<void> => {
     console.error("ERROR: ", error);
   }
 
-  revalidatePath("/configuracion");
-  redirect("/configuracion");
+  revalidatePath("/incidentes");
+  redirect("/incidentes");
 };
