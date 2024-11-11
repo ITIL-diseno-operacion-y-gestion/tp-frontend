@@ -21,7 +21,6 @@ export function BorrarItem({
 
   return (
     <form action={formAction}>
-      <input type="hidden" name="id" value={id} />
       <Button variant="destructive" type="submit" onClick={confirmDelete}>
         Borrar
       </Button>
