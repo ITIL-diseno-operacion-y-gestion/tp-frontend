@@ -17,7 +17,7 @@ export default async function ProblemaDetailsPage(props: {
   return (
     <div className="space-y-4">
       <Title>Problema</Title>
-      <ItemProblemaView item={problema} />
+      <ItemProblemaView problema={problema} />
       <BorrarItem id={id} action={borrarProblema} />
       <Link href="/problemas" className="mt-6">
         <button className="rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600">
