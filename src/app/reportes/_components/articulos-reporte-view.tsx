@@ -1,16 +1,6 @@
 "use client";
 
-import {
-  ChartConfig,
-  ChartContainer,
-  ChartLegend,
-  ChartLegendContent,
-  ChartTooltip,
-  ChartTooltipContent,
-} from "@/components/ui/chart";
 import { Reporte } from "@/models/reportes";
-
-import { Pie, PieChart } from "recharts";
 
 export function ArticuloReporteView({
   articulos,
@@ -24,7 +14,13 @@ export function ArticuloReporteView({
       <p>
         <strong>Estado:</strong>
       </p>
-      <ChartEstado estado={estado} />
+      {Object.entries(estado).map(([key, value]) => (
+        <ul key={key}>
+          <li>
+            {key}: {value || 0}
+          </li>
+        </ul>
+      ))}
 
       <p>
         <strong>Tipo:</strong>
@@ -40,6 +36,7 @@ export function ArticuloReporteView({
   );
 }
 
+/*
 const ChartEstado = ({
   estado,
 }: {
@@ -80,3 +77,4 @@ const ChartEstado = ({
     </ChartContainer>
   );
 };
+*/
