@@ -102,12 +102,14 @@ const UserHeader = ({ user }: { user: User }) => {
 };
 
 export function AppSidebar({ user }: { user?: User }) {
+  if (!user) return null;
+
   return (
     <Sidebar>
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
-            {user && <UserHeader user={user} />}
+            <UserHeader user={user} />
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarHeader>

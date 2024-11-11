@@ -75,6 +75,7 @@ export const handleLogin = async (
     email: data.email,
     nombre: data.nombre,
     id: data.id,
+    rol: data.rol,
   };
   (await cookies()).set("user", JSON.stringify(userData), {
     maxAge: 60 * 60 * 24 * 7,

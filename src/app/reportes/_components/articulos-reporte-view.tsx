@@ -3,12 +3,14 @@
 import {
   ChartConfig,
   ChartContainer,
+  ChartLegend,
+  ChartLegendContent,
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
 import { Reporte } from "@/models/reportes";
 
-import { LabelList, Pie, PieChart } from "recharts";
+import { Pie, PieChart } from "recharts";
 
 export function ArticuloReporteView({
   articulos,
@@ -68,19 +70,12 @@ const ChartEstado = ({
       className="aspect-square max-h-[250px]"
     >
       <PieChart>
-        <ChartTooltip content={<ChartTooltipContent nameKey="name" />} />
-        <Pie dataKey="value" nameKey="name" innerRadius={30} data={data}>
-          <LabelList
-            dataKey="name"
-            className="fill-black"
-            stroke="none"
-            fontSize={14}
-            fontWeight="bold"
-            formatter={(value: keyof typeof chartConfig) =>
-              chartConfig[value]?.label
-            }
-          />
-        </Pie>
+        <ChartTooltip content={<ChartTooltipContent />} />
+        <ChartLegend
+          content={<ChartLegendContent nameKey="name" />}
+          className="-translate-y-2 flex-wrap gap-2"
+        />
+        <Pie dataKey="value" nameKey="name" innerRadius={30} data={data} />
       </PieChart>
     </ChartContainer>
   );
