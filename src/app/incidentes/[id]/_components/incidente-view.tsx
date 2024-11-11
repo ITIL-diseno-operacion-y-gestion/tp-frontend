@@ -1,9 +1,12 @@
 import Link from "next/link";
 
+import { borrarIncidente } from "@/api/actions/incidentes";
+import { BorrarItem } from "@/components/borrar-item";
 import { ChipFormaNotificacion } from "@/components/chips/chip-forma-notificacion";
 import { ChipPrioridad } from "@/components/chips/chip-prioridad";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { formatDate } from "@/lib/utils";
 import { Incidente } from "@/models/incidentes";
 
 export default function IncidenteView({ incidente }: { incidente: Incidente }) {
@@ -30,7 +33,7 @@ export default function IncidenteView({ incidente }: { incidente: Incidente }) {
           </div>
           <div>
             <h3 className="font-semibold">Fecha de Alta</h3>
-            <p>{incidente.fecha_de_alta}</p>
+            <p>{formatDate(incidente.fecha_de_alta)}</p>
           </div>
         </div>
         <div>
@@ -74,10 +77,12 @@ export default function IncidenteView({ incidente }: { incidente: Incidente }) {
             )}
           </ul>
         </div>
-        <div>
+        <div className="flex gap-x-4">
           <Button variant="secondary" asChild>
             <Link href={`/incidentes/${incidente.id}/edit`}>Editar</Link>
           </Button>
+
+          <BorrarItem id={incidente.id} action={borrarIncidente} />
         </div>
       </CardContent>
     </Card>
