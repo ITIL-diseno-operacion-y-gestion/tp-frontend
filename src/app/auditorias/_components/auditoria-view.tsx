@@ -1,5 +1,15 @@
 import { Auditoria } from "@/models/auditorias";
 
+//import { formatDate } from "@/lib/utils";
+
+export const estadosProblema = [
+  "detectado",
+  "analizandose",
+  "asignado",
+  "resuelto",
+  "cerrado",
+] as const;
+
 const AuditoriaView = ({ auditoria }: { auditoria: Auditoria }) => {
   return (
     <div className="border p-6">
@@ -13,7 +23,8 @@ const AuditoriaView = ({ auditoria }: { auditoria: Auditoria }) => {
         <strong>Accion:</strong> {auditoria.accion}
       </p>
       <p>
-        <strong>Fecha:</strong> {auditoria.fecha}
+        <strong>Fecha:</strong>{" "}
+        {new Date(auditoria.fecha).toLocaleDateString("es-AR")}
       </p>
       <p>
         <strong>Estado anterior:</strong> {auditoria.estado_anterior}
