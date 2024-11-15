@@ -2,16 +2,37 @@ import { z } from "zod";
 
 import { estadosProblema } from "./incidentes";
 
-const auditoriaBaseSchema = z.object({
+export type EstadoAuditoria = Record<string, string | number | boolean>;
+
+export const auditoriaSchema = z.object({
   id: z.number(),
+  id_entidad: z.coerce.number(), // coerce, xq lo pasan como string
   clase_entidad: z.string(),
   accion: z.string(),
-  fecha: z.coerce.date(),
-  estado_anterior: z.array(z.string()),
-  estado_nuevo: z.array(z.string()),
+  fecha_de_accion: z.coerce.date(),
+  estado_anterior: z
+    .string()
+    .transform((arg): EstadoAuditoria | null => {
+      try {
+        return JSON.parse(arg);
+      } catch (e) {
+        return null;
+      }
+    })
+    .nullable(),
+  estado_nuevo: z
+    .string()
+    .transform((arg): EstadoAuditoria | null => {
+      try {
+        return JSON.parse(arg);
+      } catch (e) {
+        return null;
+      }
+    })
+    .nullable(),
 });
 
-export type Auditoria = z.infer<typeof auditoriaBaseSchema>;
+export type Auditoria = z.infer<typeof auditoriaSchema>;
 
 export type EstadoProblema = (typeof estadosProblema)[number];
 

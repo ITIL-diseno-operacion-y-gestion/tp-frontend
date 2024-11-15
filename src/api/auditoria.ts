@@ -1,5 +1,5 @@
 import { env } from "@/env/client";
-import { Auditoria } from "@/models/auditorias";
+import { Auditoria, auditoriaSchema } from "@/models/auditorias";
 
 const BASE_PATH = `${env.NEXT_PUBLIC_API_URL}/auditorias`;
 
@@ -15,5 +15,7 @@ export async function getAuditoria(): Promise<Auditoria[]> {
   }
 
   const data = await req.json();
-  return data;
+
+  // lo hago así para q parsee los estados y las fechas
+  return data.map((x: unknown) => auditoriaSchema.parse(x));
 }
