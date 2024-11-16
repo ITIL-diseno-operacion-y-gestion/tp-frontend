@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const userRoles = ["cliente", "supervisor", "admin"] as const;
+export const userRoles = ["cliente", "supervisor", "agente"] as const;
 
 const userBaseSchema = z.object({
   nombre: z.string(),
