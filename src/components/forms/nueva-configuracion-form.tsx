@@ -51,7 +51,6 @@ export function NuevaConfiguracionForm({ usuarios }: { usuarios: User[] }) {
           label="Versión"
           type="number"
           error={state.errors?.version}
-          required
         />
       </div>
       <div className="flex flex-wrap gap-x-3 md:flex-nowrap">

@@ -10,6 +10,7 @@ import { ErrorAlert } from "../form/error-alert";
 import { SelectField } from "../form/select-field";
 import { SubmitButton } from "../form/submit-button";
 import { TextField } from "../form/text-field";
+import { PasswordField } from "../password-field";
 
 const initialState: FormState<UserRegister> = {
   errors: {},
@@ -52,14 +53,7 @@ export function SignupForm() {
           </option>
         ))}
       </SelectField>
-      <TextField
-        name="contrasenia"
-        type="password"
-        label="Contraseña"
-        autoComplete="current-password"
-        error={state.errors?.contrasenia}
-        required
-      />
+      <PasswordField error={state.errors?.contrasenia} />
       {state.message && (
         <ErrorAlert
           title="Hubo un error al registrarse"

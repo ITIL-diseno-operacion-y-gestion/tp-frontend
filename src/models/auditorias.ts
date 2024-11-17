@@ -15,7 +15,7 @@ export const auditoriaSchema = z.object({
     .transform((arg): EstadoAuditoria | null => {
       try {
         return JSON.parse(arg);
-      } catch (e) {
+      } catch {
         return null;
       }
     })
@@ -25,7 +25,7 @@ export const auditoriaSchema = z.object({
     .transform((arg): EstadoAuditoria | null => {
       try {
         return JSON.parse(arg);
-      } catch (e) {
+      } catch {
         return null;
       }
     })

@@ -9,6 +9,7 @@ import { UserLogin } from "@/models/users";
 import { ErrorAlert } from "../form/error-alert";
 import { SubmitButton } from "../form/submit-button";
 import { TextField } from "../form/text-field";
+import { PasswordField } from "../password-field";
 
 const initialState: FormState<UserLogin> = {
   errors: {},
@@ -28,14 +29,8 @@ export function LoginForm() {
         error={state.errors?.email}
         required
       />
-      <TextField
-        name="contrasenia"
-        type="password"
-        label="Contraseña"
-        autoComplete="current-password"
-        error={state.errors?.contrasenia}
-        required
-      />
+      <PasswordField error={state.errors?.contrasenia} />
+
       {state.message && (
         <ErrorAlert
           description={state.message}
