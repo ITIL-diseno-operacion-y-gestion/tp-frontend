@@ -91,7 +91,7 @@ export function NuevoErrorConocidoForm({
           description={state.message}
         />
       )}
-      <SubmitButton label="Crear Incidente" />
+      <SubmitButton label="Crear Error Conocido" />
     </form>
   );
 }

@@ -92,6 +92,7 @@ export function NuevoCambioForm({
         name="costo_estimado"
         label="Costo Estimado"
         error={state.errors?.costo_estimado}
+        type="number"
         required
       />
       <TextField
