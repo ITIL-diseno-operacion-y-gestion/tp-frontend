@@ -11,10 +11,12 @@ export function PasswordField({
   error?: string[];
   name?: string;
 }) {
-  const [passwordType, setPasswordType] = useState("password");
+  const [passwordType, setPasswordType] = useState<"text" | "password">(
+    "password",
+  );
 
   const togglePassword = () => {
-    setPasswordType(passwordType === "password" ? "text" : "password");
+    setPasswordType((prev) => (prev === "password" ? "text" : "password"));
   };
 
   return (

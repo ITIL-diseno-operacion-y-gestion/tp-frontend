@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 import { ErrorDisplay } from "./error-display";
 
 interface Props extends React.SelectHTMLAttributes<HTMLSelectElement> {
-  label: string;
+  label?: string;
   name: string;
   children: React.ReactNode;
   error?: string[];

@@ -9,7 +9,6 @@ import {
   tiposItemConfiguracion,
 } from "@/models/configuracion";
 import { FormState } from "@/models/schemas";
-import { User } from "@/models/users";
 
 import { ErrorAlert } from "../form/error-alert";
 import { SelectField } from "../form/select-field";
@@ -22,7 +21,7 @@ const initialState: FormState<ItemConfiguracionCreate> = {
   message: "",
 };
 
-export function NuevaConfiguracionForm({ usuarios }: { usuarios: User[] }) {
+export function NuevaConfiguracionForm({ id_titular }: { id_titular: number }) {
   const [state, action] = useActionState(crearItemConfiguracion, initialState);
 
   return (
@@ -54,18 +53,7 @@ export function NuevaConfiguracionForm({ usuarios }: { usuarios: User[] }) {
         />
       </div>
       <div className="flex flex-wrap gap-x-3 md:flex-nowrap">
-        <SelectField
-          name="id_titular"
-          label="Titular"
-          error={state.errors?.id_titular}
-          required
-        >
-          {usuarios.map((usuario) => (
-            <option key={usuario.id} value={usuario.id}>
-              {usuario.nombre}
-            </option>
-          ))}
-        </SelectField>
+        <input name="id_titular" value={id_titular} hidden />
         <TextField
           name="localizacion"
           label="Localización"
