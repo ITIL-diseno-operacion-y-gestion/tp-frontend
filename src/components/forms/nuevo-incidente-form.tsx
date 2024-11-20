@@ -92,27 +92,9 @@ export function NuevoIncidenteForm({
         required
       />
 
-      <TextField
-        name="reportador"
-        label="Reportador"
-        error={state.errors?.reportador}
-        required
-      />
 
       <div className="flex gap-x-3">
-        <SelectField
-          name="usuarios_afectados"
-          label="Usuarios afectados"
-          error={state.errors?.usuarios_afectados}
-          required
-          multiple
-        >
-          {usuarios.map((usuario) => (
-            <option key={usuario.id} value={usuario.id}>
-              {usuario.nombre} {usuario.apellido}
-            </option>
-          ))}
-        </SelectField>
+        
         <SelectField
           name="ids_articulos"
           label="Artículos de configuración afectados"
