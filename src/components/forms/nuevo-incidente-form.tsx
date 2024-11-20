@@ -25,12 +25,13 @@ const initialState: FormState<IncidenteCreate> = {
 };
 
 export function NuevoIncidenteForm({
-  usuarios,
   articulos,
+  id_titular,
 }: {
-  usuarios: User[];
   articulos: ItemConfiguracion[];
-}) {
+  id_titular: number 
+},
+) {
   const [state, action] = useActionState(crearIncidente, initialState);
 
   return (
@@ -60,18 +61,7 @@ export function NuevoIncidenteForm({
             </option>
           ))}
         </SelectField>
-        <SelectField
-          name="id_usuario"
-          label="Usuario"
-          error={state.errors?.id_usuario}
-          required
-        >
-          {usuarios.map((usuario) => (
-            <option key={usuario.id} value={usuario.id}>
-              {usuario.nombre} {usuario.apellido}
-            </option>
-          ))}
-        </SelectField>
+        <input name="id_titular" value={id_titular} hidden />
         <SelectField
           name="prioridad"
           label="Prioridad"

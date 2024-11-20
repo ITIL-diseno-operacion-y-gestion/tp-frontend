@@ -24,11 +24,11 @@ const initialState: FormState<ProblemaCreate> = {
 };
 
 export function NuevoProblemaForm({
-  usuarios,
   incidentes,
+  id_titular,
 }: {
-  usuarios: User[];
   incidentes: Incidente[];
+  id_titular: number 
 }) {
   const [state, action] = useActionState(crearProblema, initialState);
 
@@ -79,19 +79,8 @@ export function NuevoProblemaForm({
           error={state.errors?.sintomas}
           required
         />
-        <SelectField
-          name="id_usuario"
-          label="Usuario"
-          error={state.errors?.id_usuario}
-          required
-        >
-          {usuarios.map((usuario) => (
-            <option key={usuario.id} value={usuario.id}>
-              {usuario.nombre} {usuario.apellido}
-            </option>
-          ))}
-        </SelectField>
       </div>
+      <input name="id_titular" value={id_titular} hidden />
       <SelectField
         label="Incidentes Relacionados"
         name="id_incidentes"

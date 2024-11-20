@@ -21,11 +21,11 @@ const initialState: FormState<CambioCreate> = {
 };
 
 export function NuevoCambioForm({
-  usuarios,
   articulos,
+  id_titular,
 }: {
-  usuarios: User[];
   articulos: ItemConfiguracion[];
+  id_titular: number;
 }) {
   const [state, action] = useActionState(crearCambio, initialState);
 
@@ -116,6 +116,7 @@ export function NuevoCambioForm({
         ))}
       </SelectField>
       <div className="flex gap-x-3">
+      <input name="id_titular" value={id_titular} hidden />
         <SelectField
           name="ids_articulos"
           label="Artículos de configuración afectados"
@@ -130,18 +131,7 @@ export function NuevoCambioForm({
           ))}
         </SelectField>
       </div>
-      <SelectField
-        name="id_solicitante"
-        label="Solicitante"
-        error={state.errors?.id_solicitante}
-        required
-      >
-        {usuarios.map((usuario) => (
-          <option key={usuario.id} value={usuario.id}>
-            {usuario.nombre} {usuario.apellido}
-          </option>
-        ))}
-      </SelectField>
+      
       <TextAreaField
         name="descripcion"
         label="Descripcion"
