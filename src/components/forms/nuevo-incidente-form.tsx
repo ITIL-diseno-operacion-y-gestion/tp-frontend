@@ -11,7 +11,6 @@ import {
   prioridades,
 } from "@/models/incidentes";
 import { FormState } from "@/models/schemas";
-import { User } from "@/models/users";
 
 import { ErrorAlert } from "../form/error-alert";
 import { SelectField } from "../form/select-field";
@@ -29,9 +28,8 @@ export function NuevoIncidenteForm({
   id_titular,
 }: {
   articulos: ItemConfiguracion[];
-  id_titular: number 
-},
-) {
+  id_titular: number;
+}) {
   const [state, action] = useActionState(crearIncidente, initialState);
 
   return (
@@ -82,9 +80,7 @@ export function NuevoIncidenteForm({
         required
       />
 
-
       <div className="flex gap-x-3">
-        
         <SelectField
           name="ids_articulos"
           label="Artículos de configuración afectados"
