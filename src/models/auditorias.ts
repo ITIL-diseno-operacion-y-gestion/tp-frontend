@@ -4,10 +4,12 @@ import { estadosProblema } from "./incidentes";
 
 export type EstadoAuditoria = Record<string, string | number | boolean>;
 
+export const clase_entidad = ["usuario", "articulo"] as const;
+
 export const auditoriaSchema = z.object({
   id: z.number(),
   id_entidad: z.coerce.number(), // coerce, xq lo pasan como string
-  clase_entidad: z.string(),
+  clase_entidad: z.enum(clase_entidad),
   accion: z.string(),
   fecha_de_accion: z.coerce.date(),
   estado_anterior: z
