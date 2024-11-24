@@ -1,25 +1,30 @@
 import { formatDate } from "@/lib/utils";
-import { EstadoAuditoria } from "@/models/auditorias";
+import { Auditoria } from "@/models/auditorias";
 
 export const EstadoAuditoriaView = ({
-  estado,
+  auditoria,
 }: {
-  estado: EstadoAuditoria | null;
+  auditoria: Auditoria | null;
 }) => {
-  if (!estado) return <p>Sin registros</p>;
-
+  if (!auditoria) return <p>Sin registros</p>;
   return (
-    <div className="pl-6">
-      {Object.keys(estado).map((key) => (
-        <p key={key}>
-          <strong>{key}:</strong> {formatValue(estado[key])}
-        </p>
+    <div className="inline-block border-2 border-blue-600 p-6">
+      <Item name="ID" value={auditoria.id} />
+      <Item name="Acción" value={auditoria.accion} />
+      <div className="h-4"></div>
+
+      {Object.keys(auditoria.estado_nuevo).map((key, index) => (
+        <Item
+          name={key}
+          key={index}
+          value={formatValue(auditoria.estado_nuevo[key])}
+        />
       ))}
     </div>
   );
 };
 
-const formatValue = (value: string | number | boolean) => {
+const formatValue = (value: string | number | boolean | Date) => {
   if (typeof value === "boolean") {
     return value ? "Si" : "No";
   }
@@ -32,5 +37,13 @@ const formatValue = (value: string | number | boolean) => {
     return formatDate(value);
   }
 
-  return value;
+  return value as string;
+};
+
+const Item = ({ name, value }: { name: string; value: React.ReactNode }) => {
+  return (
+    <p>
+      <strong>{name}:</strong> {value}
+    </p>
+  );
 };

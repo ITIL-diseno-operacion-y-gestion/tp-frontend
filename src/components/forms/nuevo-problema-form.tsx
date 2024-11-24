@@ -11,7 +11,6 @@ import {
 } from "@/models/incidentes";
 import { ProblemaCreate } from "@/models/problemas";
 import { FormState } from "@/models/schemas";
-import { User } from "@/models/users";
 
 import { ErrorAlert } from "../form/error-alert";
 import { SelectField } from "../form/select-field";
@@ -28,7 +27,7 @@ export function NuevoProblemaForm({
   id_titular,
 }: {
   incidentes: Incidente[];
-  id_titular: number 
+  id_titular: number;
 }) {
   const [state, action] = useActionState(crearProblema, initialState);
 

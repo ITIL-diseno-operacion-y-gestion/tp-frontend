@@ -7,7 +7,6 @@ import { CambioCreate, estadosCambio, impactos } from "@/models/cambios";
 import { ItemConfiguracion } from "@/models/configuracion";
 import { categoriasProblema, prioridades } from "@/models/incidentes";
 import { FormState } from "@/models/schemas";
-import { User } from "@/models/users";
 
 import { ErrorAlert } from "../form/error-alert";
 import { SelectField } from "../form/select-field";
@@ -116,7 +115,7 @@ export function NuevoCambioForm({
         ))}
       </SelectField>
       <div className="flex gap-x-3">
-      <input name="id_titular" value={id_titular} hidden />
+        <input name="id_titular" value={id_titular} hidden />
         <SelectField
           name="ids_articulos"
           label="Artículos de configuración afectados"
@@ -131,7 +130,7 @@ export function NuevoCambioForm({
           ))}
         </SelectField>
       </div>
-      
+
       <TextAreaField
         name="descripcion"
         label="Descripcion"

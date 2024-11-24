@@ -1,18 +1,17 @@
-import { getAuditoria } from "@/api/auditoria";
+import { getAuditorias } from "@/api/auditoria";
+import AuditoriaPreview from "./_components/auditoria-preview";
 import { Title } from "@/components/common/title";
 
-import AuditoriaView from "./_components/auditoria-view";
-
 export default async function AuditoriasPage() {
-  const auditoria = await getAuditoria();
+  const auditorias = await getAuditorias();
 
   return (
     <>
       <Title>Auditorías</Title>
-      <ul className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3">
-        {auditoria.map((auditoria) => (
+      <ul className="grid grid-cols-1 gap-6 lg:grid-cols-2 xl:grid-cols-3">
+        {auditorias.map((auditoria) => (
           <li key={auditoria.id}>
-            <AuditoriaView auditoria={auditoria} />
+            <AuditoriaPreview auditoria={auditoria} />
           </li>
         ))}
       </ul>

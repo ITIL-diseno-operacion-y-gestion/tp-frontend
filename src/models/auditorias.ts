@@ -12,6 +12,19 @@ export const auditoriaSchema = z.object({
   clase_entidad: z.enum(clase_entidad),
   accion: z.string(),
   fecha_de_accion: z.coerce.date(),
+  estado_nuevo: z
+    .string()
+    .transform((arg): EstadoAuditoria => {
+      try {
+        return JSON.parse(arg);
+      } catch {
+        return {};
+      }
+    }),
+});
+
+
+  /*
   estado_anterior: z
     .string()
     .transform((arg): EstadoAuditoria | null => {
@@ -22,17 +35,7 @@ export const auditoriaSchema = z.object({
       }
     })
     .nullable(),
-  estado_nuevo: z
-    .string()
-    .transform((arg): EstadoAuditoria | null => {
-      try {
-        return JSON.parse(arg);
-      } catch {
-        return null;
-      }
-    })
-    .nullable(),
-});
+  */
 
 export type Auditoria = z.infer<typeof auditoriaSchema>;
 

@@ -1,16 +1,19 @@
 import { getArticulosConfiguracion } from "@/api/configuracion";
-import { getUsers } from "@/api/users";
 import { Title } from "@/components/common/title";
 import { NuevoCambioForm } from "@/components/forms/nuevo-cambio-form";
+import { getSession } from "@/lib/session";
 
 export default async function NuevoCambioPage() {
-  const usuarios = await getUsers();
+  const user = await getSession();
+
+  if (!user) throw new Error("No hay usuario logueado");
+
   const articulos = await getArticulosConfiguracion();
 
   return (
     <>
       <Title>Nuevo cambio</Title>
-      <NuevoCambioForm usuarios={usuarios} articulos={articulos} />
+      <NuevoCambioForm articulos={articulos} id_titular={user?.user.id} />
     </>
   );
 }
