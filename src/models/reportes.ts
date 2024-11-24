@@ -14,11 +14,9 @@ export interface Reporte {
 }
 
 interface Errores {
-  incidente: Any; // Q carajo va acá
-  problema: Any;
+  incidente: object; // Q carajo va acá
+  problema: object;
 }
-
-interface Any {}
 
 interface Problemas {
   categoria: Record<CategoriaProblema, number | undefined>;
