@@ -4,9 +4,16 @@ import { Route } from "next";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-import { cn } from "@/lib/utils";
+import { cn, uppercaseFirst } from "@/lib/utils";
+import { UserRole } from "@/models/users";
 
-export default function Header({ loggedIn }: { loggedIn: boolean }) {
+export default function Header({
+  loggedIn,
+  rol,
+}: {
+  loggedIn: boolean;
+  rol: UserRole | undefined;
+}) {
   const pathname = usePathname();
 
   return (
@@ -16,35 +23,13 @@ export default function Header({ loggedIn }: { loggedIn: boolean }) {
           <Link href="/">ITSM Dashboard</Link>
         </h1>
         <nav className="flex flex-col gap-x-4 text-right sm:flex-row">
-          {loggedIn ? (
+          {loggedIn && rol ? (
             <>
-              <NavLink
-                href="/configuracion"
-                active={pathname.startsWith("/configuracion")}
-              >
-                Configuración
-              </NavLink>
-              <NavLink
-                href="/incidentes"
-                active={pathname.startsWith("/incidentes")}
-              >
-                Incidentes
-              </NavLink>
-              <NavLink
-                href="/problemas"
-                active={pathname.startsWith("/problemas")}
-              >
-                Problemas
-              </NavLink>
-              <NavLink
-                href="/errores-conocidos"
-                active={pathname.startsWith("/errores-conocidos")}
-              >
-                Errores Conocidos
-              </NavLink>
-              <NavLink href="/cambios" active={pathname.startsWith("/cambios")}>
-                Cambios
-              </NavLink>
+              {rutasPermitidas[rol].map((ruta) => (
+                <NavLink key={ruta} href={ruta} active={pathname === ruta}>
+                  {uppercaseFirst(ruta.slice(1))}
+                </NavLink>
+              ))}
             </>
           ) : (
             <>
@@ -82,4 +67,22 @@ const NavLink = ({
       {children}
     </Link>
   );
+};
+
+const rutasPermitidas: Record<UserRole, Route[]> = {
+  cliente: ["/incidentes"],
+  agente: [
+    "/configuracion",
+    "/incidentes",
+    "/problemas",
+    "/errores-conocidos",
+    "/cambios",
+  ],
+  supervisor: [
+    "/configuracion",
+    "/incidentes",
+    "/problemas",
+    "/errores-conocidos",
+    "/cambios",
+  ],
 };

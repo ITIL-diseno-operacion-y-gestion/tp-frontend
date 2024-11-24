@@ -34,13 +34,13 @@ export default async function RootLayout({
         <SidebarProvider
           style={
             {
-              "--sidebar-width": "14rem",
+              "--sidebar-width": "12rem",
             } as React.CSSProperties
           }
         >
           <AppSidebar user={session?.user} />
           <div className="flex min-h-screen flex-grow flex-col">
-            <Header loggedIn={!!session?.token} />
+            <Header loggedIn={!!session?.token} rol={session?.user.rol} />
             <MainContainer>
               <SidebarTrigger />
               <BreadCrumbNav />

@@ -33,3 +33,5 @@ export type UserLogin = z.infer<typeof userLoginSchema>;
 export type User = z.infer<typeof userSchema>;
 
 export type UserLoginResponse = z.infer<typeof userLoginResponseSchema>;
+
+export type UserRole = typeof userRoles[number];
