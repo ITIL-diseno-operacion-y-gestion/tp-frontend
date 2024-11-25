@@ -32,7 +32,7 @@ export function NodesAuditoria({ auditorias }: { auditorias: Auditoria[] }) {
       position: { x: 0 + 400 * index, y: 0 },
     })),
   );
-  const edges: Edge[] = auditorias.slice(-1).map((_, index) => ({
+  const edges: Edge[] = auditorias.slice(1).map((_, index) => ({
     id: index.toString(),
     source: index.toString(),
     target: (index + 1).toString(),
