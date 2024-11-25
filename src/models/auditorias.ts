@@ -4,7 +4,13 @@ import { estadosProblema } from "./incidentes";
 
 export type EstadoAuditoria = Record<string, string | number | boolean>;
 
-export const clase_entidad = ["usuario", "articulo", "incidente"] as const;
+export const clase_entidad = [
+  "usuario",
+  "articulo",
+  "incidente",
+  "problema",
+  "error",
+] as const;
 
 export const acciones = ["creacion", "eliminacion", "modificacion"] as const;
 
@@ -14,15 +20,13 @@ export const auditoriaSchema = z.object({
   clase_entidad: z.enum(clase_entidad),
   accion: z.enum(acciones),
   fecha_de_accion: z.coerce.date(),
-  estado_nuevo: z
-    .string()
-    .transform((arg): EstadoAuditoria => {
-      try {
-        return JSON.parse(arg);
-      } catch {
-        return {};
-      }
-    }),
+  estado_nuevo: z.string().transform((arg): EstadoAuditoria => {
+    try {
+      return JSON.parse(arg);
+    } catch {
+      return {};
+    }
+  }),
 });
 
 export type Auditoria = z.infer<typeof auditoriaSchema>;
