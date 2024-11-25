@@ -30,9 +30,8 @@ export const formasNotificacion = [
 
 const incidenteBaseSchema = z.object({
   id_usuario: z.coerce.number(),
+  nombre: z.string(),
   forma_de_notificacion: z.enum(formasNotificacion),
-  reportador: z.string(),
-  usuarios_afectados: z.string(),
   servicios_afectados: z.string(),
   prioridad: z.enum(prioridades),
   categoria: z.enum(categoriasProblema),

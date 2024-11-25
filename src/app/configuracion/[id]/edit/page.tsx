@@ -10,8 +10,10 @@ export default async function EditItemConfiguracionPage(props: {
   params: Promise<{ id: string }>;
 }) {
   const id = +(await props.params).id;
-  const item = await getArticuloConfiguracion(id);
-  const users = await getUsers();
+  const [item, users] = await Promise.all([
+    getArticuloConfiguracion(id),
+    getUsers(),
+  ]);
 
   return (
     <div className="space-y-8">

@@ -28,17 +28,13 @@ export default function IncidenteView({ incidente }: { incidente: Incidente }) {
             />
           </div>
           <div>
-            <h3 className="font-semibold">Reportador</h3>
-            <p>{incidente.reportador}</p>
+            <h3 className="font-semibold">Nombre</h3>
+            <p>{incidente.nombre}</p>
           </div>
           <div>
             <h3 className="font-semibold">Fecha de Alta</h3>
             <p>{formatDate(incidente.fecha_de_alta)}</p>
           </div>
-        </div>
-        <div>
-          <h3 className="font-semibold">Usuarios Afectados</h3>
-          <p>{incidente.usuarios_afectados}</p>
         </div>
         <div>
           <h3 className="font-semibold">Servicios Afectados</h3>

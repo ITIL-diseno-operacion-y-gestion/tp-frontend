@@ -18,7 +18,7 @@ export default async function AuditoriaDetailsPage(props: {
   return (
     <>
       <Title>
-        Auditoria {auditoria[0].clase_entidad} #{auditoria[0].id_entidad}{" "}
+        Auditoria {auditoria[0].clase_entidad} #{auditoria[0].id_entidad}
       </Title>
 
       <NodesAuditoria auditorias={auditoria} />
