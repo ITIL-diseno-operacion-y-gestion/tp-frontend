@@ -38,7 +38,6 @@ export const columns: ColDef<Incidente>[] = [
     width: 250,
     cellRenderer: FormaNotificacionCell,
   },
-  { field: "usuarios_afectados", headerName: "Usuarios afectados", width: 200 },
   {
     field: "servicios_afectados",
     headerName: "Servicios afectados",
