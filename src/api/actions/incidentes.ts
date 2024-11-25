@@ -19,7 +19,8 @@ export const crearIncidente = async (
   });
 
   if (!incidenteCreate.success) {
-    return { errors: incidenteCreate.error.flatten().fieldErrors };
+    const errors = incidenteCreate.error.flatten().fieldErrors;
+    return { errors };
   }
 
   try {

@@ -52,7 +52,6 @@ export const actualizarItemConfiguracion = async (
   formState: FormState<ItemConfiguracionCreate>,
   formData: FormData,
 ): Promise<FormState<ItemConfiguracionCreate>> => {
-  console.log("ID: ", id);
   const rawFormData = Object.fromEntries(formData);
 
   const itemConfiguracion = itemConfiguracionSchema.safeParse({
@@ -61,9 +60,8 @@ export const actualizarItemConfiguracion = async (
   });
 
   if (!itemConfiguracion.success) {
-    return {
-      errors: itemConfiguracion.error.flatten().fieldErrors,
-    };
+    const errors = itemConfiguracion.error.flatten().fieldErrors;
+    return { errors };
   }
 
   try {
