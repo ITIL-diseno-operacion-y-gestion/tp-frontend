@@ -38,6 +38,7 @@ export async function createCambio(cambio: CambioCreate) {
   });
 
   if (!req.ok) {
+    console.error("ERROR: ", await req.text());
     throw new Error("No se pudo crear el cambio.");
   }
 

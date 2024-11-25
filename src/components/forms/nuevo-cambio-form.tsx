@@ -80,18 +80,26 @@ export function NuevoCambioForm({
           ))}
         </SelectField>
       </div>
+      <div className="grid grid-cols-1 gap-x-4 sm:grid-cols-2">
+        <TextField
+          name="horas_necesarias"
+          label="Horas Necesarias"
+          error={state.errors?.horas_necesarias}
+          type="number"
+          required
+        />
+        <TextField
+          name="costo_estimado"
+          label="Costo Estimado"
+          error={state.errors?.costo_estimado}
+          type="number"
+          required
+        />
+      </div>
       <TextField
-        name="horas_necesarias"
-        label="Horas Necesarias"
-        error={state.errors?.horas_necesarias}
-        type="number"
-        required
-      />
-      <TextField
-        name="costo_estimado"
-        label="Costo Estimado"
-        error={state.errors?.costo_estimado}
-        type="number"
+        name="nombre"
+        label="Nombre"
+        error={state.errors?.nombre}
         required
       />
       <TextField
@@ -115,7 +123,7 @@ export function NuevoCambioForm({
         ))}
       </SelectField>
       <div className="flex gap-x-3">
-        <input name="id_titular" value={id_titular} hidden />
+        <input name="id_solicitante" value={id_titular} hidden readOnly />
         <SelectField
           name="ids_articulos"
           label="Artículos de configuración afectados"

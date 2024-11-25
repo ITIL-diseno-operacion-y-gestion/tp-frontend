@@ -26,6 +26,7 @@ const cambioBaseSchema = z.object({
   horas_necesarias: z.coerce.number().positive(),
   costo_estimado: z.coerce.number().positive(),
   riesgos_asociados: z.string(),
+  nombre: z.string(),
 });
 
 export const cambioCreateSchema = cambioBaseSchema.extend({

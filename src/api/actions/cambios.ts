@@ -20,10 +20,8 @@ export const crearCambio = async (
   });
 
   if (!cambio.success) {
-    console.log(cambio.error);
-    return {
-      errors: cambio.error.flatten().fieldErrors,
-    };
+    const errors = cambio.error.flatten().fieldErrors;
+    return { errors };
   }
 
   try {
