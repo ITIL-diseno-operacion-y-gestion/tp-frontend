@@ -7,7 +7,7 @@ import { useDraggable } from "@dnd-kit/core";
 import { ChipPrioridad } from "../../../components/chips/chip-prioridad";
 
 export function DraggableProblema({ problema }: { problema: Problema }) {
-  const { categoria, sintomas, id_usuario, prioridad, id } = problema;
+  const { categoria, sintomas, prioridad, id, nombre } = problema;
 
   const { attributes, listeners, setNodeRef, transform } = useDraggable({
     id,
@@ -27,9 +27,9 @@ export function DraggableProblema({ problema }: { problema: Problema }) {
       {...attributes}
     >
       <div className="h-56 w-full overflow-clip bg-gray-50 px-4 py-3 shadow-lg">
-        <h4 className="text-xl font-bold">{categoria}</h4>
+        <h4 className="text-xl font-bold">{nombre}</h4>
+        <p className="line-clamp-3">{categoria}</p>
         <p className="line-clamp-3">{sintomas}</p>
-        <p>{id_usuario}</p>
         <ChipPrioridad prioridad={prioridad} />
         <Link
           href={`/problemas/${id}`}

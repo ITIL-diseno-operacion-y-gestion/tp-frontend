@@ -42,8 +42,8 @@ export function ItemProblemaView({ problema }: { problema: Problema }) {
       <CardContent className="space-y-4">
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <h3 className="text-sm font-semibold">Usuario ID</h3>
-            <p>{problema.id_usuario}</p>
+            <h3 className="text-sm font-semibold">Nombre</h3>
+            <p>{problema.nombre}</p>
           </div>
           <div>
             <h3 className="text-sm font-semibold">Categoría</h3>

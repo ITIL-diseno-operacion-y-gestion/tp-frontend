@@ -8,11 +8,11 @@ import {
 } from "./incidentes";
 
 const problemaBaseSchema = z.object({
-  id_usuario: z.coerce.number(),
   sintomas: z.string(),
   prioridad: z.enum(prioridades),
   categoria: z.enum(categoriasProblema),
   estado: z.enum(estadosProblema),
+  nombre: z.string(),
 });
 
 export const problemaCreateSchema = problemaBaseSchema.extend({

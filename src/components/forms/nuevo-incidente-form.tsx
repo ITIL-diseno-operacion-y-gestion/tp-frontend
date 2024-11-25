@@ -34,7 +34,7 @@ export function NuevoIncidenteForm({
 
   return (
     <form className="space-y-4" action={action}>
-      <div className="flex flex-wrap gap-x-3 md:flex-nowrap">
+      <div className="flex flex-wrap gap-3 md:flex-nowrap">
         <SelectField
           name="categoria"
           label="Categoría"
@@ -59,7 +59,7 @@ export function NuevoIncidenteForm({
             </option>
           ))}
         </SelectField>
-        <input name="id_titular" value={id_titular} hidden readOnly />
+        <input name="id_usuario" value={id_titular} hidden readOnly />
         <SelectField
           name="prioridad"
           label="Prioridad"
@@ -73,6 +73,12 @@ export function NuevoIncidenteForm({
           ))}
         </SelectField>
       </div>
+      <TextField
+        name="nombre"
+        label="Nombre"
+        error={state.errors?.nombre}
+        required
+      />
       <TextField
         name="servicios_afectados"
         label="Servicios afectados"

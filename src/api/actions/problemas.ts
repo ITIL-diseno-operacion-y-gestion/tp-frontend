@@ -20,7 +20,8 @@ export const crearProblema = async (
   });
 
   if (!problemaCreate.success) {
-    return { errors: problemaCreate.error.flatten().fieldErrors };
+    const errors = problemaCreate.error.flatten().fieldErrors;
+    return { errors };
   }
 
   try {

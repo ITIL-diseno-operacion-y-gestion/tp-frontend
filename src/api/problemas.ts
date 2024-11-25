@@ -42,6 +42,7 @@ export async function createProblema(problema: ProblemaCreate) {
   });
 
   if (!req.ok) {
+    console.error("ERROR: ", await req.text());
     throw new Error("No se pudo crear el problema.");
   }
 

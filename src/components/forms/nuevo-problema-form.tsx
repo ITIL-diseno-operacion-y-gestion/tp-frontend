@@ -24,10 +24,8 @@ const initialState: FormState<ProblemaCreate> = {
 
 export function NuevoProblemaForm({
   incidentes,
-  id_titular,
 }: {
   incidentes: Incidente[];
-  id_titular: number;
 }) {
   const [state, action] = useActionState(crearProblema, initialState);
 
@@ -72,6 +70,12 @@ export function NuevoProblemaForm({
         </SelectField>
       </div>
       <div className="grid grid-cols-2 gap-x-4">
+      <TextField
+          name="nombre"
+          label="Nombre"
+          error={state.errors?.nombre}
+          required
+        />
         <TextField
           name="sintomas"
           label="Síntomas"
@@ -79,7 +83,6 @@ export function NuevoProblemaForm({
           required
         />
       </div>
-      <input name="id_titular" value={id_titular} hidden />
       <SelectField
         label="Incidentes Relacionados"
         name="id_incidentes"
