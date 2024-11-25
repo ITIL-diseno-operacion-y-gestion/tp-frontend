@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { Suspense } from "react";
 
-import { AppSidebar } from "@/components/app-sidebar";
+import { AppSidebar } from "@/components/layout/app-sidebar";
 import { BreadCrumbNav } from "@/components/layout/breadcrumb-nav";
 import Footer from "@/components/layout/footer";
 import Header from "@/components/layout/header";

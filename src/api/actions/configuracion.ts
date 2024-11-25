@@ -59,6 +59,8 @@ export const actualizarItemConfiguracion = async (
     id,
   });
 
+  // TODO: Crear endpoint PUT o PATCH item configuracion
+
   if (!itemConfiguracion.success) {
     const errors = itemConfiguracion.error.flatten().fieldErrors;
     return { errors };
@@ -87,6 +89,9 @@ export const borrarItemConfiguracion = async (id: number): Promise<void> => {
     console.error("ERROR: ", error);
   }
 
+  const searchParams = new URLSearchParams();
+  searchParams.set("success", "true");
+  searchParams.set("message", "Articulo borrado correctamente!");
   revalidatePath("/configuracion");
-  redirect("/configuracion");
+  redirect(`/configuracion?${searchParams.toString()}`);
 };

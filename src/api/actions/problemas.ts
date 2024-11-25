@@ -48,6 +48,10 @@ export async function borrarProblema(id: number): Promise<void> {
     console.error("ERROR: ", error);
   }
 
+  const searchParams = new URLSearchParams();
+  searchParams.set("success", "true");
+  searchParams.set("message", "Problema borrado correctamente!");
+
   revalidatePath("/problemas");
-  redirect("/problemas");
+  redirect(`/problemas?${searchParams.toString()}`);
 }

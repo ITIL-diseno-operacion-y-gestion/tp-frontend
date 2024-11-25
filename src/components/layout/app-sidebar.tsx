@@ -13,6 +13,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
+import { rutasPermitidas } from "@/lib/rutas-permitidas";
 import { deleteSession } from "@/lib/session";
 import { User } from "@/models/users";
 
@@ -28,7 +29,7 @@ import {
   Users,
 } from "lucide-react";
 
-import { Avatar, AvatarFallback } from "./ui/avatar";
+import { Avatar, AvatarFallback } from "../ui/avatar";
 
 type SidebarItem = {
   icon: React.ReactNode;
@@ -104,6 +105,8 @@ const UserHeader = ({ user }: { user: User }) => {
 export function AppSidebar({ user }: { user?: User }) {
   if (!user) return null;
 
+  const rutas = rutasPermitidas[user.rol];
+
   return (
     <Sidebar>
       <SidebarHeader>
@@ -119,36 +122,42 @@ export function AppSidebar({ user }: { user?: User }) {
           <SidebarGroupLabel>Aplicación</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
-              {aplicacion.map((item) => (
-                <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild>
-                    <Link href={item.href}>
-                      {item.icon} <span>{item.title}</span>
-                    </Link>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
+              {aplicacion.map((item) => {
+                if (rutas.includes(item.href)) {
+                  return (
+                    <SidebarMenuItem key={item.title}>
+                      <SidebarMenuButton asChild>
+                        <Link href={item.href}>
+                          {item.icon} <span>{item.title}</span>
+                        </Link>
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
+                  );
+                }
+              })}
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
 
         {/* Métricas */}
-        <SidebarGroup>
-          <SidebarGroupLabel>Métricas</SidebarGroupLabel>
-          <SidebarGroupContent>
-            <SidebarMenu>
-              {metricas.map((item) => (
-                <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild>
-                    <Link href={item.href}>
-                      {item.icon} <span>{item.title}</span>
-                    </Link>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
-            </SidebarMenu>
-          </SidebarGroupContent>
-        </SidebarGroup>
+        {user.rol !== "cliente" && (
+          <SidebarGroup>
+            <SidebarGroupLabel>Métricas</SidebarGroupLabel>
+            <SidebarGroupContent>
+              <SidebarMenu>
+                {metricas.map((item) => (
+                  <SidebarMenuItem key={item.title}>
+                    <SidebarMenuButton asChild>
+                      <Link href={item.href}>
+                        {item.icon} <span>{item.title}</span>
+                      </Link>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                ))}
+              </SidebarMenu>
+            </SidebarGroupContent>
+          </SidebarGroup>
+        )}
       </SidebarContent>
       <SidebarFooter>
         {user && (

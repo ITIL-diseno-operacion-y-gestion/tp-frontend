@@ -47,6 +47,10 @@ export async function borrarCambio(id: number) {
     console.error("ERROR: ", error);
   }
 
+  const searchParams = new URLSearchParams();
+  searchParams.set("success", "true");
+  searchParams.set("message", "Articulo borrado correctamente!");
+
   revalidatePath("/cambios");
-  redirect("/cambios");
+  redirect(`/cambios?${searchParams.toString()}`);
 }

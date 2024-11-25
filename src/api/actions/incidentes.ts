@@ -47,6 +47,10 @@ export const borrarIncidente = async (id: number): Promise<void> => {
     console.error("ERROR: ", error);
   }
 
+  const searchParams = new URLSearchParams();
+  searchParams.set("success", "true");
+  searchParams.set("message", "Incidente borrado correctamente!");
+
   revalidatePath("/incidentes");
-  redirect("/incidentes");
+  redirect(`/incidentes?${searchParams.toString()}`);
 };

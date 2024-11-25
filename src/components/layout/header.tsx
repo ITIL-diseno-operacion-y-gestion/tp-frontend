@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 
 import { cn, uppercaseFirst } from "@/lib/utils";
 import { UserRole } from "@/models/users";
+import { rutasPermitidas } from "@/lib/rutas-permitidas";
 
 export default function Header({
   loggedIn,
@@ -67,22 +68,4 @@ const NavLink = ({
       {children}
     </Link>
   );
-};
-
-const rutasPermitidas: Record<UserRole, Route[]> = {
-  cliente: ["/incidentes"],
-  agente: [
-    "/configuracion",
-    "/incidentes",
-    "/problemas",
-    "/errores-conocidos",
-    "/cambios",
-  ],
-  supervisor: [
-    "/configuracion",
-    "/incidentes",
-    "/problemas",
-    "/errores-conocidos",
-    "/cambios",
-  ],
 };
