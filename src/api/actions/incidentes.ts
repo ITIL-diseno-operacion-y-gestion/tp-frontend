@@ -13,10 +13,6 @@ export const crearIncidente = async (
   formData: FormData,
 ): Promise<FormState<IncidenteCreate>> => {
   const rawFormData = Object.fromEntries(formData);
-  console.log({
-    ...rawFormData,
-    ids_articulos: formData.getAll("ids_articulos"),
-  });
   const incidenteCreate = incidenteCreateSchema.safeParse({
     ...rawFormData,
     ids_articulos: formData.getAll("ids_articulos"),

@@ -53,7 +53,7 @@ export function NuevaConfiguracionForm({ id_titular }: { id_titular: number }) {
         />
       </div>
       <div className="flex flex-wrap gap-x-3 md:flex-nowrap">
-        <input name="id_titular" value={id_titular} hidden />
+        <input name="id_titular" value={id_titular} hidden readOnly />
         <TextField
           name="localizacion"
           label="Localización"

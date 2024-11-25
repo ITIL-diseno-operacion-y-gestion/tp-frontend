@@ -59,7 +59,7 @@ export function NuevoIncidenteForm({
             </option>
           ))}
         </SelectField>
-        <input name="id_titular" value={id_titular} hidden />
+        <input name="id_titular" value={id_titular} hidden readOnly />
         <SelectField
           name="prioridad"
           label="Prioridad"
