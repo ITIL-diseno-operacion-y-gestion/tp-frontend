@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import { SubTitle } from "@/components/common/subtitle";
 import { Title } from "@/components/common/title";
 import { Button } from "@/components/ui/button";
-import { env } from "@/env/server";
+import { env } from "@/env/client";
 
 export default function ErrorPage({
   error,
