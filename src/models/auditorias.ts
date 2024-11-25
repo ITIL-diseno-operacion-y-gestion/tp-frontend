@@ -10,6 +10,7 @@ export const clase_entidad = [
   "incidente",
   "problema",
   "error",
+  "cambio",
 ] as const;
 
 export const acciones = ["creacion", "eliminacion", "modificacion"] as const;

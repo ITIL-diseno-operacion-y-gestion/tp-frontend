@@ -73,7 +73,7 @@ export const actualizarItemConfiguracion = async (
   }
 
   const searchParams = new URLSearchParams();
-  searchParams.set("success", "false");
+  searchParams.set("success", "true");
   searchParams.set("message", "Articulo editado correctamente!");
 
   revalidatePath(`/configuracion/${id}`);

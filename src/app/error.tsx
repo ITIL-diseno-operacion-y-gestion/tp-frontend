@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import { SubTitle } from "@/components/common/subtitle";
 import { Title } from "@/components/common/title";
 import { Button } from "@/components/ui/button";
+import { env } from "@/env/server";
 
 export default function ErrorPage({
   error,
@@ -20,16 +21,17 @@ export default function ErrorPage({
   return (
     <>
       <Title>Hubo un error inesperado</Title>
-      <SubTitle>
-        {error.name} {error.message}
-      </SubTitle>
       <div className="mb-6 space-y-6 text-center">
         {error.digest && (
           <p className="text-sm text-gray-500">Error ID: {error.digest}</p>
         )}
         <Button onClick={() => reset()}>Intentar devuelta</Button>
       </div>
-      <code>{JSON.stringify(error.stack, null, 2)}</code>
+      {env.NODE_ENV === "development" && (
+        <SubTitle>
+          {error.name} {error.message}
+        </SubTitle>
+      )}
     </>
   );
 }

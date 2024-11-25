@@ -44,6 +44,8 @@ const colorAuditoria = (accion: Auditoria["clase_entidad"]): string => {
       return "bg-orange-200";
     case "error":
       return "bg-red-200";
+    case "cambio":
+      return "bg-purple-200";
     default:
       return "bg-gray-200";
   }
