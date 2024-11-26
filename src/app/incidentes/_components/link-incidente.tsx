@@ -4,5 +4,5 @@ import { CustomCellRendererProps } from "ag-grid-react";
 
 export function LinkIncidente(params: CustomCellRendererProps) {
   const id = params.value;
-  return <Link href={`/incidentes/${id}`}>Ver Incidente</Link>;
+  return <Link href={`/incidentes/${id}`} className="font-bold hover:underline">Ver Incidente</Link>;
 }
