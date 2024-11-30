@@ -1,7 +1,10 @@
 import Link from "next/link";
 
+import { borrarProblema } from "@/api/actions/problemas";
+import { BorrarItem } from "@/components/borrar-item";
 import { ChipCategoria } from "@/components/chips/chip-categoria";
 import { ChipPrioridad } from "@/components/chips/chip-prioridad";
+import { SubTitle } from "@/components/common/subtitle";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Problema } from "@/models/problemas";
 
@@ -39,50 +42,57 @@ export function ItemProblemaView({ problema }: { problema: Problema }) {
           <ChipPrioridad prioridad={problema.prioridad} />
         </CardTitle>
       </CardHeader>
-      <CardContent className="space-y-4">
-        <div className="grid grid-cols-2 gap-4">
-          <div>
-            <h3 className="text-sm font-semibold">Nombre</h3>
-            <p>{problema.nombre}</p>
-          </div>
-          <div>
-            <h3 className="text-sm font-semibold">Categoría</h3>
-            <div className="flex items-center space-x-1">
-              {categoriaIcon[problema.categoria]}
-              <ChipCategoria categoria={problema.categoria} />
+      <CardContent>
+        <section className="space-y-4">
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <h3 className="text-sm font-semibold">Nombre</h3>
+              <p>{problema.nombre}</p>
+            </div>
+            <div>
+              <h3 className="text-sm font-semibold">Categoría</h3>
+              <div className="flex items-center space-x-1">
+                {categoriaIcon[problema.categoria]}
+                <ChipCategoria categoria={problema.categoria} />
+              </div>
+            </div>
+            <div>
+              <h3 className="text-sm font-semibold">Estado</h3>
+              <div className="flex items-center space-x-1">
+                {estadoIcon[problema.estado]}
+                <span>{problema.estado}</span>
+              </div>
             </div>
           </div>
           <div>
-            <h3 className="text-sm font-semibold">Estado</h3>
-            <div className="flex items-center space-x-1">
-              {estadoIcon[problema.estado]}
-              <span>{problema.estado}</span>
-            </div>
+            <h3 className="text-sm font-semibold">Síntomas</h3>
+            <p className="text-sm text-gray-500 dark:text-gray-400">
+              {problema.sintomas}
+            </p>
           </div>
-        </div>
-        <div>
-          <h3 className="text-sm font-semibold">Síntomas</h3>
-          <p className="text-sm text-gray-500 dark:text-gray-400">
-            {problema.sintomas}
-          </p>
-        </div>
-        <div>
-          <h3 className="mb-2 text-sm font-semibold">
-            Incidentes ({problema.incidentes.length})
-          </h3>
-          <ul className="mt-4 space-y-4">
-            {problema.incidentes.map((incidente) => (
-              <li key={incidente.id}>
-                <Link
-                  href={`/incidentes/${incidente.id}`}
-                  className="text-blue-500"
-                >
-                  {incidente.id}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
+          <div>
+            <h3 className="mb-2 text-sm font-semibold">
+              Incidentes ({problema.incidentes.length})
+            </h3>
+            <ul className="mt-4 space-y-4">
+              {problema.incidentes.map((incidente) => (
+                <li key={incidente.id}>
+                  <Link
+                    href={`/incidentes/${incidente.id}`}
+                    className="text-blue-500"
+                  >
+                    {incidente.id}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+        <section className="mt-10">
+          <hr />
+          <SubTitle className="text-left mt-4">Acciones</SubTitle>
+          <BorrarItem id={problema.id} action={borrarProblema} />
+        </section>
       </CardContent>
     </Card>
   );

@@ -4,7 +4,7 @@ import { borrarIncidente } from "@/api/actions/incidentes";
 import { BorrarItem } from "@/components/borrar-item";
 import { ChipFormaNotificacion } from "@/components/chips/chip-forma-notificacion";
 import { ChipPrioridad } from "@/components/chips/chip-prioridad";
-import { Button } from "@/components/ui/button";
+import { EditarItem } from "@/components/editar-item";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { formatDate } from "@/lib/utils";
 import { Incidente } from "@/models/incidentes";
@@ -74,10 +74,7 @@ export default function IncidenteView({ incidente }: { incidente: Incidente }) {
           </ul>
         </div>
         <div className="flex gap-x-4">
-          <Button variant="secondary" asChild>
-            <Link href={`/incidentes/${incidente.id}/edit`}>Editar</Link>
-          </Button>
-
+          <EditarItem id={incidente.id} />
           <BorrarItem id={incidente.id} action={borrarIncidente} />
         </div>
       </CardContent>
