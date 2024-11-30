@@ -29,7 +29,7 @@ export function NodesAuditoria({ auditorias }: { auditorias: Auditoria[] }) {
       id: index.toString(),
       type: "auditoria",
       data: auditoria,
-      position: { x: 0 + 400 * index, y: 0 },
+      position: { x: 0 + 500 * index, y: 0 },
     })),
   );
   const edges: Edge[] = auditorias.slice(1).map((_, index) => ({
