@@ -2,9 +2,10 @@
 
 import { useActionState } from "react";
 
-import { crearIncidente } from "@/api/actions/incidentes";
+import { actualizarIncidente, crearIncidente } from "@/api/actions/incidentes";
 import { ItemConfiguracion } from "@/models/configuracion";
 import {
+  Incidente,
   IncidenteCreate,
   categoriasProblema,
   formasNotificacion,
@@ -26,11 +27,18 @@ const initialState: FormState<IncidenteCreate> = {
 export function NuevoIncidenteForm({
   articulos,
   id_titular,
+  initialValues,
 }: {
   articulos: ItemConfiguracion[];
   id_titular: number;
+  initialValues?: Incidente;
 }) {
-  const [state, action] = useActionState(crearIncidente, initialState);
+  const [state, action] = useActionState(
+    initialValues
+      ? actualizarIncidente.bind(null, initialValues.id)
+      : crearIncidente,
+    initialState,
+  );
 
   return (
     <form className="space-y-4" action={action}>
@@ -39,6 +47,7 @@ export function NuevoIncidenteForm({
           name="categoria"
           label="Categoría"
           error={state.errors?.categoria}
+          defaultValue={initialValues?.categoria}
           required
         >
           {categoriasProblema.map((categoria) => (
@@ -51,6 +60,7 @@ export function NuevoIncidenteForm({
           name="forma_de_notificacion"
           label="Forma de notificación"
           error={state.errors?.forma_de_notificacion}
+          defaultValue={initialValues?.forma_de_notificacion}
           required
         >
           {formasNotificacion.map((forma) => (
@@ -77,12 +87,14 @@ export function NuevoIncidenteForm({
         name="nombre"
         label="Nombre"
         error={state.errors?.nombre}
+        defaultValue={initialValues?.nombre}
         required
       />
       <TextField
         name="servicios_afectados"
         label="Servicios afectados"
         error={state.errors?.servicios_afectados}
+        defaultValue={initialValues?.servicios_afectados}
         required
       />
 
@@ -91,6 +103,9 @@ export function NuevoIncidenteForm({
           name="ids_articulos"
           label="Artículos de configuración afectados"
           error={state.errors?.ids_articulos}
+          defaultValue={initialValues?.articulos_afectados.map((x) =>
+            x.id.toString(),
+          )}
           required
           multiple
         >
@@ -106,6 +121,7 @@ export function NuevoIncidenteForm({
         name="informacion_adicional"
         label="Información adicional"
         error={state.errors?.informacion_adicional}
+        defaultValue={initialValues?.informacion_adicional}
         required
       />
       {state.message && (

@@ -44,6 +44,23 @@ export async function createIncidente(incidente: IncidenteCreate) {
   return req.json();
 }
 
+export async function updateIncidente(id: number, incidente: IncidenteCreate) {
+  const req = await fetchWithTimeout(`${BASE_PATH}/${id}`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(incidente),
+  });
+
+  if (!req.ok) {
+    console.error("ERROR: ", await req.text());
+    throw new Error("No se pudo actualizar el incidente.");
+  }
+
+  return req.json();
+}
+
 export async function deleteIncidente(id: number) {
   const req = await fetchWithTimeout(`${BASE_PATH}/${id}`, {
     method: "DELETE",
