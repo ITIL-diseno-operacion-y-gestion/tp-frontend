@@ -13,7 +13,7 @@ export const clase_entidad = [
   "cambio",
 ] as const;
 
-export const acciones = ["creacion", "eliminacion", "modificacion"] as const;
+export const acciones = ["creacion", "eliminacion", "actualizacion"] as const;
 
 export const auditoriaSchema = z.object({
   id: z.number(),
@@ -21,9 +21,9 @@ export const auditoriaSchema = z.object({
   clase_entidad: z.enum(clase_entidad),
   accion: z.enum(acciones),
   fecha_de_accion: z.coerce.date(),
-  estado_nuevo: z.string().transform((arg): EstadoAuditoria => {
+  estado_nuevo: z.string().nullable().transform((arg): EstadoAuditoria => {
     try {
-      return JSON.parse(arg);
+      return arg && JSON.parse(arg);
     } catch {
       return {};
     }
