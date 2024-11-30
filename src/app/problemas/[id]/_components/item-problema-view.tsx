@@ -5,6 +5,7 @@ import { BorrarItem } from "@/components/borrar-item";
 import { ChipCategoria } from "@/components/chips/chip-categoria";
 import { ChipPrioridad } from "@/components/chips/chip-prioridad";
 import { SubTitle } from "@/components/common/subtitle";
+import { EditarItem } from "@/components/editar-item";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Problema } from "@/models/problemas";
 
@@ -90,8 +91,11 @@ export function ItemProblemaView({ problema }: { problema: Problema }) {
         </section>
         <section className="mt-10">
           <hr />
-          <SubTitle className="text-left mt-4">Acciones</SubTitle>
-          <BorrarItem id={problema.id} action={borrarProblema} />
+          <SubTitle className="mt-4 text-left">Acciones</SubTitle>
+          <div className="flex gap-x-4">
+            <EditarItem id={problema.id} />
+            <BorrarItem id={problema.id} action={borrarProblema} />
+          </div>
         </section>
       </CardContent>
     </Card>

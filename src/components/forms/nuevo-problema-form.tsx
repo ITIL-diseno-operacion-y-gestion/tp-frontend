@@ -2,14 +2,14 @@
 
 import { useActionState } from "react";
 
-import { crearProblema } from "@/api/actions/problemas";
+import { actualizarProblema, crearProblema } from "@/api/actions/problemas";
 import {
   Incidente,
   categoriasProblema,
   estadosProblema,
   prioridades,
 } from "@/models/incidentes";
-import { ProblemaCreate } from "@/models/problemas";
+import { Problema, ProblemaCreate } from "@/models/problemas";
 import { FormState } from "@/models/schemas";
 
 import { ErrorAlert } from "../form/error-alert";
@@ -24,10 +24,16 @@ const initialState: FormState<ProblemaCreate> = {
 
 export function NuevoProblemaForm({
   incidentes,
+  initialValues,
 }: {
   incidentes: Incidente[];
+  initialValues?: Problema;
 }) {
-  const [state, action] = useActionState(crearProblema, initialState);
+  const editing = !!initialValues;
+  const [state, action] = useActionState(
+    editing ? actualizarProblema.bind(null, initialValues.id) : crearProblema,
+    initialState,
+  );
 
   return (
     <form className="space-y-4" action={action}>
@@ -36,6 +42,7 @@ export function NuevoProblemaForm({
           label="Categoría"
           name="categoria"
           error={state.errors?.categoria}
+          defaultValue={initialValues?.categoria}
           required
         >
           {categoriasProblema.map((categoria) => (
@@ -47,6 +54,7 @@ export function NuevoProblemaForm({
         <SelectField
           label="Prioridad"
           name="prioridad"
+          defaultValue={initialValues?.prioridad}
           error={state.errors?.prioridad}
           required
         >
@@ -59,6 +67,7 @@ export function NuevoProblemaForm({
         <SelectField
           label="Estado"
           name="estado"
+          defaultValue={initialValues?.estado}
           error={state.errors?.estado}
           required
         >
@@ -70,16 +79,18 @@ export function NuevoProblemaForm({
         </SelectField>
       </div>
       <div className="grid grid-cols-2 gap-x-4">
-      <TextField
+        <TextField
           name="nombre"
           label="Nombre"
           error={state.errors?.nombre}
+          defaultValue={initialValues?.nombre}
           required
         />
         <TextField
           name="sintomas"
           label="Síntomas"
           error={state.errors?.sintomas}
+          defaultValue={initialValues?.sintomas}
           required
         />
       </div>
@@ -87,6 +98,9 @@ export function NuevoProblemaForm({
         label="Incidentes Relacionados"
         name="id_incidentes"
         error={state.errors?.ids_incidentes}
+        defaultValue={initialValues?.incidentes.map((incidente) =>
+          incidente.id.toString(),
+        )}
         multiple
         required
       >
@@ -102,7 +116,9 @@ export function NuevoProblemaForm({
           description={state.message}
         />
       )}
-      <SubmitButton label="Crear Problema" />
+      <SubmitButton
+        label={editing ? "Actualizar Problema" : " Crear Problema"}
+      />
     </form>
   );
 }

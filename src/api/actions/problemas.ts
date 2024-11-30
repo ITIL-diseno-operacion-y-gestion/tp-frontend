@@ -6,7 +6,7 @@ import { redirect } from "next/navigation";
 import { ProblemaCreate, problemaCreateSchema } from "@/models/problemas";
 import { FormState } from "@/models/schemas";
 
-import { createProblema, deleteProblema } from "../problemas";
+import { createProblema, deleteProblema, updateProblema } from "../problemas";
 
 export const crearProblema = async (
   formState: FormState<ProblemaCreate>,
@@ -36,6 +36,40 @@ export const crearProblema = async (
   const searchParams = new URLSearchParams();
   searchParams.set("success", "true");
   searchParams.set("message", "Problema guardado correctamente!");
+
+  revalidatePath("/problemas");
+  redirect(`/problemas?${searchParams.toString()}`);
+};
+
+export const actualizarProblema = async (
+  id: number,
+  formState: FormState<ProblemaCreate>,
+  formData: FormData,
+) => {
+  const rawFormData = Object.fromEntries(formData);
+
+  const problemaCreate = problemaCreateSchema.safeParse({
+    ...rawFormData,
+    ids_incidentes: formData.getAll("id_incidentes"),
+  });
+
+  if (!problemaCreate.success) {
+    const errors = problemaCreate.error.flatten().fieldErrors;
+    return { errors };
+  }
+
+  try {
+    await updateProblema(id, problemaCreate.data);
+  } catch (error) {
+    console.error("ERROR: ", error);
+    return {
+      message: (error as Error).message,
+    };
+  }
+
+  const searchParams = new URLSearchParams();
+  searchParams.set("success", "true");
+  searchParams.set("message", "Problema actualizado correctamente!");
 
   revalidatePath("/problemas");
   redirect(`/problemas?${searchParams.toString()}`);
