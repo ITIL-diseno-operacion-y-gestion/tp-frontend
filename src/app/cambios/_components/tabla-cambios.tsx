@@ -19,7 +19,7 @@ export function TablaCambios({ cambios }: { cambios: Cambio[] }) {
       <TableCaption>Todos los cambios realizados</TableCaption>
       <TableHeader>
         <TableRow>
-          <TableHead>ID</TableHead>
+          <TableHead></TableHead>
           <TableHead>Estado</TableHead>
           <TableHead>Prioridad</TableHead>
           <TableHead>Fecha de creación</TableHead>
@@ -32,7 +32,7 @@ export function TablaCambios({ cambios }: { cambios: Cambio[] }) {
         {cambios.map((cambio) => (
           <TableRow key={cambio.id}>
             <TableCell className="font-bold">
-              <Link href={`/cambios/${cambio.id}`}>{cambio.id}</Link>
+              <Link href={`/cambios/${cambio.id}`}>Ver Cambio</Link>
             </TableCell>
             <TableCell>{cambio.estado}</TableCell>
             <TableCell>

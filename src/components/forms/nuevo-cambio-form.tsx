@@ -2,8 +2,13 @@
 
 import { useActionState } from "react";
 
-import { crearCambio } from "@/api/actions/cambios";
-import { CambioCreate, estadosCambio, impactos } from "@/models/cambios";
+import { actualizarCambio, crearCambio } from "@/api/actions/cambios";
+import {
+  Cambio,
+  CambioCreate,
+  estadosCambio,
+  impactos,
+} from "@/models/cambios";
 import { ItemConfiguracion } from "@/models/configuracion";
 import { categoriasProblema, prioridades } from "@/models/incidentes";
 import { FormState } from "@/models/schemas";
@@ -22,11 +27,17 @@ const initialState: FormState<CambioCreate> = {
 export function NuevoCambioForm({
   articulos,
   id_titular,
+  initialValues,
 }: {
   articulos: ItemConfiguracion[];
   id_titular: number;
+  initialValues?: Cambio;
 }) {
-  const [state, action] = useActionState(crearCambio, initialState);
+  const editing = !!initialValues;
+  const [state, action] = useActionState(
+    editing ? actualizarCambio.bind(null, initialValues.id) : crearCambio,
+    initialState,
+  );
 
   return (
     <form className="space-y-4" action={action}>
@@ -35,6 +46,7 @@ export function NuevoCambioForm({
           name="categoria"
           label="Categoría"
           error={state.errors?.categoria}
+          defaultValue={initialValues?.categoria}
           required
         >
           {categoriasProblema.map((categoria) => (
@@ -47,6 +59,7 @@ export function NuevoCambioForm({
           name="impacto"
           label="Impacto"
           error={state.errors?.impacto}
+          defaultValue={initialValues?.impacto}
           required
         >
           {impactos.map((impacto) => (
@@ -59,6 +72,7 @@ export function NuevoCambioForm({
           name="estado"
           label="Estado"
           error={state.errors?.estado}
+          defaultValue={initialValues?.estado}
           required
         >
           {estadosCambio.map((estado) => (
@@ -71,6 +85,7 @@ export function NuevoCambioForm({
           name="prioridad"
           label="Prioridad"
           error={state.errors?.prioridad}
+          defaultValue={initialValues?.prioridad}
           required
         >
           {prioridades.map((prioridad) => (
@@ -85,6 +100,7 @@ export function NuevoCambioForm({
           name="horas_necesarias"
           label="Horas Necesarias"
           error={state.errors?.horas_necesarias}
+          defaultValue={initialValues?.horas_necesarias}
           type="number"
           required
         />
@@ -92,6 +108,7 @@ export function NuevoCambioForm({
           name="costo_estimado"
           label="Costo Estimado"
           error={state.errors?.costo_estimado}
+          defaultValue={initialValues?.costo_estimado}
           type="number"
           required
         />
@@ -100,12 +117,17 @@ export function NuevoCambioForm({
         name="nombre"
         label="Nombre"
         error={state.errors?.nombre}
+        defaultValue={initialValues?.nombre}
         required
       />
       <TextField
         name="fecha_de_implementacion"
         label="Fecha de Implementación"
         error={state.errors?.fecha_de_implementacion}
+        defaultValue={
+          initialValues?.fecha_de_implementacion &&
+          new Date(initialValues.fecha_de_implementacion).toISOString()
+        }
         type="date"
         required
       />
@@ -114,6 +136,7 @@ export function NuevoCambioForm({
         name="categoria"
         label="Categoría"
         error={state.errors?.categoria}
+        defaultValue={initialValues?.categoria}
         required
       >
         {categoriasProblema.map((categoria) => (
@@ -128,6 +151,9 @@ export function NuevoCambioForm({
           name="ids_articulos"
           label="Artículos de configuración afectados"
           error={state.errors?.ids_articulos}
+          defaultValue={initialValues?.articulos_afectados.map((articulo) =>
+            articulo.id.toString(),
+          )}
           required
           multiple
         >
@@ -143,18 +169,21 @@ export function NuevoCambioForm({
         name="descripcion"
         label="Descripcion"
         error={state.errors?.descripcion}
+        defaultValue={initialValues?.descripcion}
         required
       />
       <TextAreaField
         name="motivo_de_implementacion"
         label="Motivo de Implementación"
         error={state.errors?.motivo_de_implementacion}
+        defaultValue={initialValues?.motivo_de_implementacion}
         required
       />
       <TextAreaField
         name="riesgos_asociados"
         label="Riesgos Asociados"
         error={state.errors?.riesgos_asociados}
+        defaultValue={initialValues?.riesgos_asociados}
         required
       />
       {state.message && (
@@ -163,7 +192,7 @@ export function NuevoCambioForm({
           description={state.message}
         />
       )}
-      <SubmitButton label="Crear Cambio" />
+      <SubmitButton label={editing ? "Actualizar Cambio" : "Crear Cambio"} />
     </form>
   );
 }

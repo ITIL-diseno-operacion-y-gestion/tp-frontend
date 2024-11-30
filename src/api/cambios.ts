@@ -45,6 +45,21 @@ export async function createCambio(cambio: CambioCreate) {
   return req.json();
 }
 
+export async function updateCambio(id: number, cambio: CambioCreate) {
+  const req = await fetchWithTimeout(`${BASE_PATH}/${id}`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(cambio),
+  });
+
+  if (!req.ok) {
+    console.error("ERROR: ", await req.text());
+    throw new Error("No se pudo actualizar el cambio.");
+  }
+}
+
 export async function deleteCambio(id: number) {
   const req = await fetchWithTimeout(`${BASE_PATH}/${id}`, {
     method: "DELETE",
