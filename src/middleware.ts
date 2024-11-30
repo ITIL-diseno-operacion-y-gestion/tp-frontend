@@ -18,5 +18,6 @@ export default async function middleware(req: NextRequest) {
 }
 
 export const config = {
+  // Para q no se aplique a las rutas de la API, ni a los archivos estáticos
   matcher: ["/((?!api|_next/static|_next/image|.*\\.png$).*)"],
 };

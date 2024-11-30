@@ -14,7 +14,7 @@ import { ActionResponse, actionResponseToString } from "./actions/models";
 const BASE_PATH = `${env.NEXT_PUBLIC_API_URL}/usuarios`;
 
 export async function getUsers(): Promise<User[]> {
-  const req = await fetch(BASE_PATH, {
+  const req = await fetchWithTimeout(BASE_PATH, {
     next: {
       tags: ["users"],
     },

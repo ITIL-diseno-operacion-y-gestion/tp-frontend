@@ -1,10 +1,11 @@
 import { env } from "@/env/client";
+import { fetchWithTimeout } from "@/lib/utils";
 import { Auditoria, auditoriaSchema } from "@/models/auditorias";
 
 const BASE_PATH = `${env.NEXT_PUBLIC_API_URL}/auditorias`;
 
 export async function getAuditorias(): Promise<Auditoria[]> {
-  const req = await fetch(BASE_PATH, {
+  const req = await fetchWithTimeout(BASE_PATH, {
     next: {
       tags: ["auditorias"],
     },
@@ -22,7 +23,7 @@ export async function getAuditorias(): Promise<Auditoria[]> {
 
 export async function getAuditoria(id: number, entidad: Auditoria["clase_entidad"]): Promise<Auditoria[]> {
   const queryParams = new URLSearchParams({ entidad });
-  const req = await fetch(`${BASE_PATH}/${id}?${queryParams.toString()}`, {
+  const req = await fetchWithTimeout(`${BASE_PATH}/${id}?${queryParams.toString()}`, {
     next: {
       tags: ["auditorias"],
     },

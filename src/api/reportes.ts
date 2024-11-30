@@ -1,10 +1,11 @@
 import { env } from "@/env/client";
+import { fetchWithTimeout } from "@/lib/utils";
 import { Reporte } from "@/models/reportes";
 
 const BASE_PATH = `${env.NEXT_PUBLIC_API_URL}/reportes`;
 
 export async function getReporte(): Promise<Reporte> {
-  const req = await fetch(BASE_PATH, {
+  const req = await fetchWithTimeout(BASE_PATH, {
     next: {
       tags: ["reportes"],
     },
