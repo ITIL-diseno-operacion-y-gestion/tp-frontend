@@ -7,7 +7,11 @@ import { Problema, ProblemaCreate } from "@/models/problemas";
 const BASE_PATH = `${env.NEXT_PUBLIC_API_URL}/problemas`;
 
 export async function getProblemas(): Promise<Problema[]> {
-  const req = await fetchWithTimeout(BASE_PATH);
+  const req = await fetchWithTimeout(BASE_PATH, {
+    next: {
+      tags: ["problemas"],
+    },
+  });
 
   if (!req.ok) {
     throw new Error("No se pudo obtener los problemas.");

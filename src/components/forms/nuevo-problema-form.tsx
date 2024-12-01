@@ -96,11 +96,9 @@ export function NuevoProblemaForm({
       </div>
       <SelectField
         label="Incidentes Relacionados"
-        name="id_incidentes"
+        name="ids_incidentes"
         error={state.errors?.ids_incidentes}
-        defaultValue={initialValues?.incidentes.map((incidente) =>
-          incidente.id.toString(),
-        )}
+        defaultValue={initialValues?.incidentes.map((x) => x.id.toString())}
         multiple
         required
       >

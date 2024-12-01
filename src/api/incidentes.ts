@@ -7,7 +7,11 @@ import { Incidente, IncidenteCreate } from "@/models/incidentes";
 const BASE_PATH = `${env.NEXT_PUBLIC_API_URL}/incidentes`;
 
 export async function getIncidentes(): Promise<Incidente[]> {
-  const req = await fetchWithTimeout(BASE_PATH);
+  const req = await fetchWithTimeout(BASE_PATH, {
+    next: {
+      tags: ["incidentes"],
+    }
+  });
 
   if (!req.ok) {
     throw new Error("No se pudo obtener los incidentes.");
@@ -18,7 +22,11 @@ export async function getIncidentes(): Promise<Incidente[]> {
 }
 
 export async function getIncidente(id: number): Promise<Incidente> {
-  const req = await fetchWithTimeout(`${BASE_PATH}/${id}`);
+  const req = await fetchWithTimeout(`${BASE_PATH}/${id}`, {
+    next: {
+      tags: ["incidentes"],
+    }
+  });
 
   if (!req.ok) {
     throw new Error("No se pudo obtener el incidente.");

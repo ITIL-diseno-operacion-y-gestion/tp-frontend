@@ -1,6 +1,6 @@
 "use server";
 
-import { revalidatePath } from "next/cache";
+import { revalidateTag } from "next/cache";
 import { redirect } from "next/navigation";
 
 import { ProblemaCreate, problemaCreateSchema } from "@/models/problemas";
@@ -37,7 +37,7 @@ export const crearProblema = async (
   searchParams.set("success", "true");
   searchParams.set("message", "Problema guardado correctamente!");
 
-  revalidatePath("/problemas");
+  revalidateTag("/problemas");
   redirect(`/problemas?${searchParams.toString()}`);
 };
 
@@ -50,7 +50,7 @@ export const actualizarProblema = async (
 
   const problemaCreate = problemaCreateSchema.safeParse({
     ...rawFormData,
-    ids_incidentes: formData.getAll("id_incidentes"),
+    ids_incidentes: formData.getAll("ids_incidentes"),
   });
 
   if (!problemaCreate.success) {
@@ -71,7 +71,7 @@ export const actualizarProblema = async (
   searchParams.set("success", "true");
   searchParams.set("message", "Problema actualizado correctamente!");
 
-  revalidatePath("/problemas");
+  revalidateTag("problemas");
   redirect(`/problemas?${searchParams.toString()}`);
 };
 
@@ -86,6 +86,6 @@ export async function borrarProblema(id: number): Promise<void> {
   searchParams.set("success", "true");
   searchParams.set("message", "Problema borrado correctamente!");
 
-  revalidatePath("/problemas");
+  revalidateTag("/problemas");
   redirect(`/problemas?${searchParams.toString()}`);
 }

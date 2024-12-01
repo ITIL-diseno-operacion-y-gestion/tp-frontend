@@ -1,6 +1,6 @@
 "use server";
 
-import { revalidatePath } from "next/cache";
+import { revalidateTag } from "next/cache";
 import { redirect } from "next/navigation";
 
 import { CambioCreate, cambioCreateSchema } from "@/models/cambios";
@@ -36,7 +36,7 @@ export const crearCambio = async (
   searchParams.set("success", "true");
   searchParams.set("message", "Articulo guardado correctamente!");
 
-  revalidatePath("/cambios");
+  revalidateTag("/cambios");
   redirect(`/cambios?${searchParams.toString()}`);
 };
 
@@ -69,7 +69,7 @@ export const actualizarCambio = async (
   searchParams.set("success", "true");
   searchParams.set("message", "Articulo actualizado correctamente!");
 
-  revalidatePath("/cambios");
+  revalidateTag("/cambios");
   redirect(`/cambios?${searchParams.toString()}`);
 };
 
@@ -84,6 +84,6 @@ export async function borrarCambio(id: number) {
   searchParams.set("success", "true");
   searchParams.set("message", "Articulo borrado correctamente!");
 
-  revalidatePath("/cambios");
+  revalidateTag("/cambios");
   redirect(`/cambios?${searchParams.toString()}`);
 }

@@ -7,7 +7,11 @@ import { Cambio, CambioCreate } from "@/models/cambios";
 const BASE_PATH = `${env.NEXT_PUBLIC_API_URL}/cambios`;
 
 export async function getCambios(): Promise<Cambio[]> {
-  const req = await fetchWithTimeout(BASE_PATH);
+  const req = await fetchWithTimeout(BASE_PATH, {
+    next: {
+      tags: ["cambios"],
+    }
+  });
 
   if (!req.ok) {
     throw new Error("No se pudo obtener los cambios.");
@@ -18,7 +22,11 @@ export async function getCambios(): Promise<Cambio[]> {
 }
 
 export async function getCambio(id: number): Promise<Cambio> {
-  const req = await fetchWithTimeout(`${BASE_PATH}/${id}`);
+  const req = await fetchWithTimeout(`${BASE_PATH}/${id}`, {
+    next: {
+      tags: ["cambios"],
+    }
+  });
 
   if (!req.ok) {
     throw new Error("No se pudo obtener el cambio.");

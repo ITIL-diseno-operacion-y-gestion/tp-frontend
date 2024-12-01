@@ -1,6 +1,6 @@
 "use server";
 
-import { revalidatePath } from "next/cache";
+import { revalidateTag } from "next/cache";
 import { redirect } from "next/navigation";
 
 import {
@@ -16,11 +16,6 @@ export const crearErrorConocido = async (
   formData: FormData,
 ): Promise<FormState<ErrorConocidoCreate>> => {
   const rawFormData = Object.fromEntries(formData);
-  console.log({
-    ...rawFormData,
-    ids_incidentes: formData.getAll("ids_articulos"),
-    ids_problemas: formData.getAll("ids_problemas"),
-  });
 
   const errorConocido = errorConocidoCreateSchema.safeParse({
     ...rawFormData,
@@ -45,6 +40,6 @@ export const crearErrorConocido = async (
   searchParams.set("success", "true");
   searchParams.set("message", "Error guardado correctamente!");
 
-  revalidatePath("/errores-conocidos");
+  revalidateTag("/errores-conocidos");
   redirect(`/errores-conocidos?${searchParams.toString()}`);
 };

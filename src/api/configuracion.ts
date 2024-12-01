@@ -14,7 +14,11 @@ const BASE_PATH = `${env.NEXT_PUBLIC_API_URL}/configuracion/articulos`;
 export async function getArticulosConfiguracion(): Promise<
   ItemConfiguracion[]
 > {
-  const req = await fetchWithTimeout(BASE_PATH);
+  const req = await fetchWithTimeout(BASE_PATH, {
+    next: {
+      tags: ["configuracion"],
+    },
+  });
 
   if (!req.ok) {
     throw new Error("No se pudo obtener la configuración.");
@@ -27,7 +31,11 @@ export async function getArticulosConfiguracion(): Promise<
 export async function getArticuloConfiguracion(
   id: number,
 ): Promise<ItemConfiguracion> {
-  const req = await fetchWithTimeout(`${BASE_PATH}/${id}`);
+  const req = await fetchWithTimeout(`${BASE_PATH}/${id}`, {
+    next: {
+      tags: ["configuracion"],
+    },
+  });
 
   if (!req.ok) {
     throw new Error("No se pudo obtener la configuración.");

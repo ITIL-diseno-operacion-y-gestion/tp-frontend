@@ -7,7 +7,11 @@ import { ErrorConocido, ErrorConocidoCreate } from "@/models/errores-conocidos";
 const BASE_PATH = `${env.NEXT_PUBLIC_API_URL}/errores-conocidos`;
 
 export async function getErroresConocidos(): Promise<ErrorConocido[]> {
-  const req = await fetchWithTimeout(BASE_PATH);
+  const req = await fetchWithTimeout(BASE_PATH, {
+    next: {
+      tags: ["errores-conocidos"],
+    }
+  });
 
   if (!req.ok) {
     throw new Error("No se pudo obtener los errores conocidos.");

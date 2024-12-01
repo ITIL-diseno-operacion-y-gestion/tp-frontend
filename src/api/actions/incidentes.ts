@@ -1,6 +1,6 @@
 "use server";
 
-import { revalidatePath } from "next/cache";
+import { revalidateTag } from "next/cache";
 import { redirect } from "next/navigation";
 
 import { IncidenteCreate, incidenteCreateSchema } from "@/models/incidentes";
@@ -36,7 +36,7 @@ export const crearIncidente = async (
   searchParams.set("success", "true");
   searchParams.set("message", "Incidente guardado correctamente!");
 
-  revalidatePath("/incidentes");
+  revalidateTag("/incidentes");
   redirect(`/incidentes?${searchParams.toString()}`);
 };
 
@@ -51,7 +51,7 @@ export const borrarIncidente = async (id: number): Promise<void> => {
   searchParams.set("success", "true");
   searchParams.set("message", "Incidente borrado correctamente!");
 
-  revalidatePath("/incidentes");
+  revalidateTag("/incidentes");
   redirect(`/incidentes?${searchParams.toString()}`);
 };
 
@@ -84,6 +84,6 @@ export const actualizarIncidente = async (
   searchParams.set("success", "true");
   searchParams.set("message", "Incidente actualizado correctamente!");
 
-  revalidatePath("/incidentes");
+  revalidateTag("/incidentes");
   redirect(`/incidentes?${searchParams.toString()}`);
 };

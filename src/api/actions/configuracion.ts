@@ -1,6 +1,6 @@
 "use server";
 
-import { revalidatePath } from "next/cache";
+import { revalidateTag } from "next/cache";
 import { redirect } from "next/navigation";
 
 import {
@@ -43,7 +43,7 @@ export const crearItemConfiguracion = async (
   searchParams.set("success", "true");
   searchParams.set("message", "Articulo guardado correctamente!");
 
-  revalidatePath("/configuracion");
+  revalidateTag("/configuracion");
   redirect(`/configuracion?${searchParams.toString()}`);
 };
 
@@ -78,7 +78,7 @@ export const actualizarItemConfiguracion = async (
   searchParams.set("success", "true");
   searchParams.set("message", "Articulo editado correctamente!");
 
-  revalidatePath(`/configuracion/${id}`);
+  revalidateTag("/configuracion");
   redirect(`/configuracion/${id}?${searchParams.toString()}`);
 };
 
@@ -92,6 +92,6 @@ export const borrarItemConfiguracion = async (id: number): Promise<void> => {
   const searchParams = new URLSearchParams();
   searchParams.set("success", "true");
   searchParams.set("message", "Articulo borrado correctamente!");
-  revalidatePath("/configuracion");
+  revalidateTag("/configuracion");
   redirect(`/configuracion?${searchParams.toString()}`);
 };
