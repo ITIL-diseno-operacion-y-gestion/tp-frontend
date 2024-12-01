@@ -5,13 +5,13 @@ import { Reporte } from "@/models/reportes";
 const BASE_PATH = `${env.NEXT_PUBLIC_API_URL}/reportes`;
 
 export async function getReporte(): Promise<Reporte> {
-  const req = await fetchWithTimeout(BASE_PATH, {
+  const [err, req] = await fetchWithTimeout(BASE_PATH, {
     next: {
       tags: ["reportes"],
     },
   });
 
-  if (!req.ok) {
+  if (err || !req.ok) {
     throw new Error("No se pudo obtener los reportes.");
   }
 

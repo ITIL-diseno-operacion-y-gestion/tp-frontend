@@ -8,13 +8,13 @@ import { ActionResponse, actionResponseToString } from "./actions/models";
 const BASE_PATH = `${env.NEXT_PUBLIC_API_URL}/problemas`;
 
 export async function getProblemas(): Promise<Problema[]> {
-  const req = await fetchWithTimeout(BASE_PATH, {
+  const [err, req] = await fetchWithTimeout(BASE_PATH, {
     next: {
       tags: ["problemas"],
     },
   });
 
-  if (!req.ok) {
+  if (err || !req.ok) {
     throw new Error("No se pudo obtener los problemas.");
   }
 
@@ -23,13 +23,13 @@ export async function getProblemas(): Promise<Problema[]> {
 }
 
 export async function getProblema(id: number): Promise<Problema> {
-  const req = await fetchWithTimeout(`${BASE_PATH}/${id}`, {
+  const [err, req] = await fetchWithTimeout(`${BASE_PATH}/${id}`, {
     next: {
       tags: ["problemas"],
     },
   });
 
-  if (!req.ok) {
+  if (err || !req.ok) {
     throw new Error("No se pudo obtener el problema.");
   }
 
@@ -38,13 +38,17 @@ export async function getProblema(id: number): Promise<Problema> {
 }
 
 export async function createProblema(problema: ProblemaCreate) {
-  const req = await fetchWithTimeout(BASE_PATH, {
+  const [err, req] = await fetchWithTimeout(BASE_PATH, {
     method: "POST",
     body: JSON.stringify(problema),
     headers: {
       "Content-Type": "application/json",
     },
   });
+
+  if (err) {
+    throw new Error("No se pudo crear el problema.");
+  }
 
   if (!req.ok) {
     const res = (await req.json()) as ActionResponse;
@@ -58,13 +62,17 @@ export async function updateProblema(
   idProblema: number,
   problema: Partial<Problema>,
 ) {
-  const req = await fetchWithTimeout(`${BASE_PATH}/${idProblema}`, {
+  const [err, req] = await fetchWithTimeout(`${BASE_PATH}/${idProblema}`, {
     method: "PATCH",
     body: JSON.stringify(problema),
     headers: {
       "Content-Type": "application/json",
     },
   });
+
+  if (err) {
+    throw new Error("No se pudo actualizar el problema.");
+  }
 
   if (!req.ok) {
     const res = (await req.json()) as ActionResponse;
@@ -75,11 +83,11 @@ export async function updateProblema(
 }
 
 export async function deleteProblema(id: number) {
-  const req = await fetchWithTimeout(`${BASE_PATH}/${id}`, {
+  const [err, req] = await fetchWithTimeout(`${BASE_PATH}/${id}`, {
     method: "DELETE",
   });
 
-  if (!req.ok) {
+  if (err || !req.ok) {
     throw new Error("No se pudo borrar el problema.");
   }
 }

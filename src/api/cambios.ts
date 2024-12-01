@@ -8,13 +8,13 @@ import { ActionResponse, actionResponseToString } from "./actions/models";
 const BASE_PATH = `${env.NEXT_PUBLIC_API_URL}/cambios`;
 
 export async function getCambios(): Promise<Cambio[]> {
-  const req = await fetchWithTimeout(BASE_PATH, {
+  const [err, req] = await fetchWithTimeout(BASE_PATH, {
     next: {
       tags: ["cambios"],
     }
   });
 
-  if (!req.ok) {
+  if (err || !req.ok) {
     throw new Error("No se pudo obtener los cambios.");
   }
 
@@ -23,13 +23,13 @@ export async function getCambios(): Promise<Cambio[]> {
 }
 
 export async function getCambio(id: number): Promise<Cambio> {
-  const req = await fetchWithTimeout(`${BASE_PATH}/${id}`, {
+  const [err, req] = await fetchWithTimeout(`${BASE_PATH}/${id}`, {
     next: {
       tags: ["cambios"],
     }
   });
 
-  if (!req.ok) {
+  if (err || !req.ok) {
     throw new Error("No se pudo obtener el cambio.");
   }
 
@@ -38,13 +38,17 @@ export async function getCambio(id: number): Promise<Cambio> {
 }
 
 export async function createCambio(cambio: CambioCreate) {
-  const req = await fetchWithTimeout(BASE_PATH, {
+  const [err, req] = await fetchWithTimeout(BASE_PATH, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(cambio),
   });
+
+  if (err) {
+    throw new Error("No se pudo crear el cambio.");
+  }
 
   if (!req.ok) {
     const res = (await req.json()) as ActionResponse;
@@ -55,13 +59,17 @@ export async function createCambio(cambio: CambioCreate) {
 }
 
 export async function updateCambio(id: number, cambio: CambioCreate) {
-  const req = await fetchWithTimeout(`${BASE_PATH}/${id}`, {
+  const [err, req] = await fetchWithTimeout(`${BASE_PATH}/${id}`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(cambio),
   });
+
+  if (err) {
+    throw new Error("No se pudo actualizar el cambio.");
+  }
 
   if (!req.ok) {
     const res = (await req.json()) as ActionResponse;
@@ -70,11 +78,11 @@ export async function updateCambio(id: number, cambio: CambioCreate) {
 }
 
 export async function deleteCambio(id: number) {
-  const req = await fetchWithTimeout(`${BASE_PATH}/${id}`, {
+  const [err, req] = await fetchWithTimeout(`${BASE_PATH}/${id}`, {
     method: "DELETE",
   });
 
-  if (!req.ok) {
+  if (err || !req.ok) {
     throw new Error("No se pudo borrar el cambio.");
   }
 }

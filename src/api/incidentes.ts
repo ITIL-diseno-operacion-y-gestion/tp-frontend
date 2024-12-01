@@ -8,13 +8,13 @@ import { ActionResponse, actionResponseToString } from "./actions/models";
 const BASE_PATH = `${env.NEXT_PUBLIC_API_URL}/incidentes`;
 
 export async function getIncidentes(): Promise<Incidente[]> {
-  const req = await fetchWithTimeout(BASE_PATH, {
+  const [err, req] = await fetchWithTimeout(BASE_PATH, {
     next: {
       tags: ["incidentes"],
     }
   });
 
-  if (!req.ok) {
+  if (err || !req.ok) {
     throw new Error("No se pudo obtener los incidentes.");
   }
 
@@ -23,13 +23,13 @@ export async function getIncidentes(): Promise<Incidente[]> {
 }
 
 export async function getIncidente(id: number): Promise<Incidente> {
-  const req = await fetchWithTimeout(`${BASE_PATH}/${id}`, {
+  const [err, req] = await fetchWithTimeout(`${BASE_PATH}/${id}`, {
     next: {
       tags: ["incidentes"],
     }
   });
 
-  if (!req.ok) {
+  if (err || !req.ok) {
     throw new Error("No se pudo obtener el incidente");
   }
 
@@ -38,13 +38,17 @@ export async function getIncidente(id: number): Promise<Incidente> {
 }
 
 export async function createIncidente(incidente: IncidenteCreate) {
-  const req = await fetchWithTimeout(BASE_PATH, {
+  const [err, req] = await fetchWithTimeout(BASE_PATH, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(incidente),
   });
+
+  if (err) {
+    throw new Error("No se pudo crear el incidente.");
+  }
 
   if (!req.ok) {
     const res = (await req.json()) as ActionResponse;
@@ -55,13 +59,17 @@ export async function createIncidente(incidente: IncidenteCreate) {
 }
 
 export async function updateIncidente(id: number, incidente: IncidenteCreate) {
-  const req = await fetchWithTimeout(`${BASE_PATH}/${id}`, {
+  const [err, req] = await fetchWithTimeout(`${BASE_PATH}/${id}`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(incidente),
   });
+
+  if (err) {
+    throw new Error("No se pudo actualizar el incidente.");
+  }
 
   if (!req.ok) {
     const res = (await req.json()) as ActionResponse;
@@ -72,11 +80,11 @@ export async function updateIncidente(id: number, incidente: IncidenteCreate) {
 }
 
 export async function deleteIncidente(id: number) {
-  const req = await fetchWithTimeout(`${BASE_PATH}/${id}`, {
+  const [err, req] = await fetchWithTimeout(`${BASE_PATH}/${id}`, {
     method: "DELETE",
   });
 
-  if (!req.ok) {
+  if (err || !req.ok) {
     throw new Error("No se pudo borrar el incidente.");
   }
 }

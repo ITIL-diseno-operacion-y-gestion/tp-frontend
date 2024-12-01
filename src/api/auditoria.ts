@@ -5,13 +5,13 @@ import { Auditoria, auditoriaSchema } from "@/models/auditorias";
 const BASE_PATH = `${env.NEXT_PUBLIC_API_URL}/auditorias`;
 
 export async function getAuditorias(): Promise<Auditoria[]> {
-  const req = await fetchWithTimeout(BASE_PATH, {
+  const [err, req] = await fetchWithTimeout(BASE_PATH, {
     next: {
       tags: ["auditorias"],
     },
   });
 
-  if (!req.ok) {
+  if (err || !req.ok) {
     throw new Error("No se pudo obtener las auditorias.");
   }
 
@@ -23,14 +23,13 @@ export async function getAuditorias(): Promise<Auditoria[]> {
 
 export async function getAuditoria(id: number, entidad: Auditoria["clase_entidad"]): Promise<Auditoria[]> {
   const queryParams = new URLSearchParams({ entidad });
-  const req = await fetchWithTimeout(`${BASE_PATH}/${id}?${queryParams.toString()}`, {
+  const [err, req] = await fetchWithTimeout(`${BASE_PATH}/${id}?${queryParams.toString()}`, {
     next: {
       tags: ["auditorias"],
     },
   });
 
-  if (!req.ok) {
-    console.log(await req.text());
+  if (err || !req.ok) {
     throw new Error("No se pudo obtener la auditoria.");
   }
 

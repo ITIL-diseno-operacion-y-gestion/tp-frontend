@@ -14,13 +14,13 @@ import { ActionResponse, actionResponseToString } from "./actions/models";
 const BASE_PATH = `${env.NEXT_PUBLIC_API_URL}/usuarios`;
 
 export async function getUsers(): Promise<User[]> {
-  const req = await fetchWithTimeout(BASE_PATH, {
+  const [err, req] = await fetchWithTimeout(BASE_PATH, {
     next: {
       tags: ["users"],
     },
   });
 
-  if (!req.ok) {
+  if (err || !req.ok) {
     throw new Error("No se pudo obtener los usuarios.");
   }
 
@@ -29,13 +29,17 @@ export async function getUsers(): Promise<User[]> {
 }
 
 export async function register(user: UserRegister): Promise<User> {
-  const req = await fetchWithTimeout(BASE_PATH, {
+  const [err, req] = await fetchWithTimeout(BASE_PATH, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(user),
   });
+
+  if (err) {
+    throw new Error("No se pudo registrar el usuario.");
+  }
 
   if (!req.ok) {
     const res = (await req.json()) as ActionResponse;
@@ -47,13 +51,17 @@ export async function register(user: UserRegister): Promise<User> {
 }
 
 export async function login(user: UserLogin): Promise<UserLoginResponse> {
-  const req = await fetchWithTimeout(`${BASE_PATH}/login`, {
+  const [err, req] = await fetchWithTimeout(`${BASE_PATH}/login`, {
     method: "POST",
     body: JSON.stringify(user),
     headers: {
       "Content-Type": "application/json",
     },
   });
+
+  if (err) {
+    throw new Error("No se pudo iniciar sesión.");
+  }
 
   if (!req.ok) {
     const res = (await req.json()) as ActionResponse;

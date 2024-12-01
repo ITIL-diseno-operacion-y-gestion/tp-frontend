@@ -14,13 +14,13 @@ const BASE_PATH = `${env.NEXT_PUBLIC_API_URL}/configuracion/articulos`;
 export async function getArticulosConfiguracion(): Promise<
   ItemConfiguracion[]
 > {
-  const req = await fetchWithTimeout(BASE_PATH, {
+  const [err, req] = await fetchWithTimeout(BASE_PATH, {
     next: {
       tags: ["configuracion"],
     },
   });
 
-  if (!req.ok) {
+  if (err || !req.ok) {
     throw new Error("No se pudo obtener los articulos de configuracion.");
   }
 
@@ -31,13 +31,13 @@ export async function getArticulosConfiguracion(): Promise<
 export async function getArticuloConfiguracion(
   id: number,
 ): Promise<ItemConfiguracion> {
-  const req = await fetchWithTimeout(`${BASE_PATH}/${id}`, {
+  const [err, req] = await fetchWithTimeout(`${BASE_PATH}/${id}`, {
     next: {
       tags: ["configuracion"],
     },
   });
 
-  if (!req.ok) {
+  if (err || !req.ok) {
     throw new Error("No se pudo obtener el articulo de configuracion.");
   }
 
@@ -48,13 +48,17 @@ export async function getArticuloConfiguracion(
 export async function createArticuloConfiguracion(
   articulo: ItemConfiguracionCreate,
 ) {
-  const req = await fetchWithTimeout(BASE_PATH, {
+  const [err, req] = await fetchWithTimeout(BASE_PATH, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(articulo),
   });
+
+  if (err) {
+    throw new Error("No se pudo crear el articulo de configuracion.");
+  }
 
   if (!req.ok) {
     const res = (await req.json()) as ActionResponse;
@@ -65,13 +69,17 @@ export async function createArticuloConfiguracion(
 }
 
 export async function updateArticuloConfiguracion(articulo: ItemConfiguracionCreate) {
-  const req = await fetchWithTimeout(BASE_PATH, {
+  const [err, req] = await fetchWithTimeout(BASE_PATH, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(articulo),
   });
+
+  if (err) {
+    throw new Error("No se pudo actualizar el articulo de configuracion.");
+  }
 
   if (!req.ok) {
     const res = (await req.json()) as ActionResponse;
@@ -82,11 +90,11 @@ export async function updateArticuloConfiguracion(articulo: ItemConfiguracionCre
 }
 
 export async function deleteArticuloConfiguracion(id: number) {
-  const req = await fetchWithTimeout(`${BASE_PATH}/${id}`, {
+  const [err, req] = await fetchWithTimeout(`${BASE_PATH}/${id}`, {
     method: "DELETE",
   });
 
-  if (!req.ok) {
+  if (err || !req.ok) {
     throw new Error("No se pudo eliminar el articulo de configuracion.");
   }
 
