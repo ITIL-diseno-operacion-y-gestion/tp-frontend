@@ -27,7 +27,7 @@ export default function Header({
           {loggedIn && rol ? (
             <>
               {rutasPermitidas[rol].map((ruta) => (
-                <NavLink key={ruta} href={ruta} active={pathname === ruta}>
+                <NavLink key={ruta} href={ruta} active={pathname.startsWith(ruta)}>
                   {formatRoute(ruta)}
                 </NavLink>
               ))}

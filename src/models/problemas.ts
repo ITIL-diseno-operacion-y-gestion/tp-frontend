@@ -16,7 +16,7 @@ const problemaBaseSchema = z.object({
 });
 
 export const problemaCreateSchema = problemaBaseSchema.extend({
-  ids_incidentes: z.array(z.coerce.number()),
+  ids_incidentes: z.array(z.coerce.number()).min(1),
 });
 
 export const problemaSchema = problemaBaseSchema.extend({
