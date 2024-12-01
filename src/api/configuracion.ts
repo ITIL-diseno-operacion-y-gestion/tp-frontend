@@ -21,7 +21,7 @@ export async function getArticulosConfiguracion(): Promise<
   });
 
   if (!req.ok) {
-    throw new Error("No se pudo obtener la configuración.");
+    throw new Error("No se pudo obtener los articulos de configuracion.");
   }
 
   const data = await req.json();
@@ -38,7 +38,7 @@ export async function getArticuloConfiguracion(
   });
 
   if (!req.ok) {
-    throw new Error("No se pudo obtener la configuración.");
+    throw new Error("No se pudo obtener el articulo de configuracion.");
   }
 
   const data = await req.json();
@@ -58,14 +58,13 @@ export async function createArticuloConfiguracion(
 
   if (!req.ok) {
     const res = (await req.json()) as ActionResponse;
-    console.error(res);
     throw new Error(actionResponseToString(res));
   }
 
   return req.json();
 }
 
-export async function updateArticuloConfiguracion(articulo: ItemConfiguracion) {
+export async function updateArticuloConfiguracion(articulo: ItemConfiguracionCreate) {
   const req = await fetchWithTimeout(BASE_PATH, {
     method: "PUT",
     headers: {
@@ -76,7 +75,6 @@ export async function updateArticuloConfiguracion(articulo: ItemConfiguracion) {
 
   if (!req.ok) {
     const res = (await req.json()) as ActionResponse;
-    console.error(res);
     throw new Error(actionResponseToString(res));
   }
 
@@ -89,9 +87,7 @@ export async function deleteArticuloConfiguracion(id: number) {
   });
 
   if (!req.ok) {
-    const res = (await req.json()) as ActionResponse;
-    console.error(res);
-    throw new Error(actionResponseToString(res));
+    throw new Error("No se pudo eliminar el articulo de configuracion.");
   }
 
   return req.json();

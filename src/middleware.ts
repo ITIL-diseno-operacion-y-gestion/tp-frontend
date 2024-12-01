@@ -8,10 +8,20 @@ export default async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
   const session = await getSession();
 
+  // Redirect to login if the user is not authenticated
   if (!PUBLIC_ROUTES.includes(pathname) && !session?.token) {
     return NextResponse.redirect(new URL("/auth/login", req.nextUrl));
-  } else if (PUBLIC_ROUTES.includes(pathname) && session?.token) {
-    return NextResponse.redirect(new URL("/configuracion", req.nextUrl));
+  }
+
+  const esCliente = session?.user.rol === "cliente";
+  
+  // Si es cliente, no permitir acceder a rutas que no sean de incidentes
+  if (esCliente && !pathname.startsWith("/incidentes")) {
+    return NextResponse.redirect(new URL("/incidentes", req.nextUrl));
+  }
+  
+  if (PUBLIC_ROUTES.includes(pathname) && session?.token) {
+    return NextResponse.redirect(new URL("/incidentes", req.nextUrl));
   }
 
   return NextResponse.next();

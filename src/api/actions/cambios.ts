@@ -27,16 +27,15 @@ export const crearCambio = async (
   try {
     await createCambio(cambio.data);
   } catch (error) {
-    return {
-      message: (error as Error).message,
-    };
+    const message = (error as Error).message;
+    return { message };
   }
 
   const searchParams = new URLSearchParams();
   searchParams.set("success", "true");
   searchParams.set("message", "Articulo guardado correctamente!");
 
-  revalidateTag("/cambios");
+  revalidateTag("cambios");
   redirect(`/cambios?${searchParams.toString()}`);
 };
 
@@ -60,16 +59,15 @@ export const actualizarCambio = async (
   try {
     await updateCambio(id, cambio.data);
   } catch (error) {
-    return {
-      message: (error as Error).message,
-    };
+    const message = (error as Error).message;
+    return { message };
   }
 
   const searchParams = new URLSearchParams();
   searchParams.set("success", "true");
   searchParams.set("message", "Articulo actualizado correctamente!");
 
-  revalidateTag("/cambios");
+  revalidateTag("cambios");
   redirect(`/cambios?${searchParams.toString()}`);
 };
 
@@ -84,6 +82,6 @@ export async function borrarCambio(id: number) {
   searchParams.set("success", "true");
   searchParams.set("message", "Articulo borrado correctamente!");
 
-  revalidateTag("/cambios");
+  revalidateTag("cambios");
   redirect(`/cambios?${searchParams.toString()}`);
 }

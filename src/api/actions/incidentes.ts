@@ -26,17 +26,15 @@ export const crearIncidente = async (
   try {
     await createIncidente(incidenteCreate.data);
   } catch (error) {
-    console.error("ERROR: ", error);
-    return {
-      message: (error as Error).message,
-    };
+    const message = (error as Error).message;
+    return { message };
   }
 
   const searchParams = new URLSearchParams();
   searchParams.set("success", "true");
   searchParams.set("message", "Incidente guardado correctamente!");
 
-  revalidateTag("/incidentes");
+  revalidateTag("incidentes");
   redirect(`/incidentes?${searchParams.toString()}`);
 };
 
@@ -51,7 +49,7 @@ export const borrarIncidente = async (id: number): Promise<void> => {
   searchParams.set("success", "true");
   searchParams.set("message", "Incidente borrado correctamente!");
 
-  revalidateTag("/incidentes");
+  revalidateTag("incidentes");
   redirect(`/incidentes?${searchParams.toString()}`);
 };
 
@@ -74,16 +72,14 @@ export const actualizarIncidente = async (
   try {
     await updateIncidente(id, incidenteCreate.data);
   } catch (error) {
-    console.error("ERROR: ", error);
-    return {
-      message: (error as Error).message,
-    };
+    const message = (error as Error).message;
+    return { message };
   }
 
   const searchParams = new URLSearchParams();
   searchParams.set("success", "true");
   searchParams.set("message", "Incidente actualizado correctamente!");
 
-  revalidateTag("/incidentes");
+  revalidateTag("incidentes");
   redirect(`/incidentes?${searchParams.toString()}`);
 };

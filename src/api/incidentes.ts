@@ -3,6 +3,7 @@
 import { env } from "@/env/client";
 import { fetchWithTimeout } from "@/lib/utils";
 import { Incidente, IncidenteCreate } from "@/models/incidentes";
+import { ActionResponse, actionResponseToString } from "./actions/models";
 
 const BASE_PATH = `${env.NEXT_PUBLIC_API_URL}/incidentes`;
 
@@ -29,7 +30,7 @@ export async function getIncidente(id: number): Promise<Incidente> {
   });
 
   if (!req.ok) {
-    throw new Error("No se pudo obtener el incidente.");
+    throw new Error("No se pudo obtener el incidente");
   }
 
   const data = await req.json();
@@ -46,7 +47,8 @@ export async function createIncidente(incidente: IncidenteCreate) {
   });
 
   if (!req.ok) {
-    throw new Error("No se pudo crear el incidente.");
+    const res = (await req.json()) as ActionResponse;
+    throw new Error(actionResponseToString(res));
   }
 
   return req.json();
@@ -62,8 +64,8 @@ export async function updateIncidente(id: number, incidente: IncidenteCreate) {
   });
 
   if (!req.ok) {
-    console.error("ERROR: ", await req.text());
-    throw new Error("No se pudo actualizar el incidente.");
+    const res = (await req.json()) as ActionResponse;
+    throw new Error(actionResponseToString(res));
   }
 
   return req.json();

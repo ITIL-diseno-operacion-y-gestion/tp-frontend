@@ -3,6 +3,7 @@
 import { env } from "@/env/client";
 import { fetchWithTimeout } from "@/lib/utils";
 import { ErrorConocido, ErrorConocidoCreate } from "@/models/errores-conocidos";
+import { ActionResponse, actionResponseToString } from "./actions/models";
 
 const BASE_PATH = `${env.NEXT_PUBLIC_API_URL}/errores-conocidos`;
 
@@ -31,7 +32,8 @@ export async function createErrorConocido(errorConocido: ErrorConocidoCreate) {
   });
 
   if (!req.ok) {
-    throw new Error("No se pudo crear el error conocido.");
+    const res = (await req.json()) as ActionResponse;
+    throw new Error(actionResponseToString(res));
   }
 
   return req.json();

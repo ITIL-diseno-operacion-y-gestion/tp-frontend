@@ -3,6 +3,7 @@
 import { env } from "@/env/client";
 import { fetchWithTimeout } from "@/lib/utils";
 import { Cambio, CambioCreate } from "@/models/cambios";
+import { ActionResponse, actionResponseToString } from "./actions/models";
 
 const BASE_PATH = `${env.NEXT_PUBLIC_API_URL}/cambios`;
 
@@ -46,8 +47,8 @@ export async function createCambio(cambio: CambioCreate) {
   });
 
   if (!req.ok) {
-    console.error("ERROR: ", await req.text());
-    throw new Error("No se pudo crear el cambio.");
+    const res = (await req.json()) as ActionResponse;
+    throw new Error(actionResponseToString(res));
   }
 
   return req.json();
@@ -63,8 +64,8 @@ export async function updateCambio(id: number, cambio: CambioCreate) {
   });
 
   if (!req.ok) {
-    console.error("ERROR: ", await req.text());
-    throw new Error("No se pudo actualizar el cambio.");
+    const res = (await req.json()) as ActionResponse;
+    throw new Error(actionResponseToString(res));
   }
 }
 

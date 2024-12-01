@@ -3,6 +3,7 @@
 import { env } from "@/env/client";
 import { fetchWithTimeout } from "@/lib/utils";
 import { Problema, ProblemaCreate } from "@/models/problemas";
+import { ActionResponse, actionResponseToString } from "./actions/models";
 
 const BASE_PATH = `${env.NEXT_PUBLIC_API_URL}/problemas`;
 
@@ -46,8 +47,8 @@ export async function createProblema(problema: ProblemaCreate) {
   });
 
   if (!req.ok) {
-    console.error("ERROR: ", await req.text());
-    throw new Error("No se pudo crear el problema.");
+    const res = (await req.json()) as ActionResponse;
+    throw new Error(actionResponseToString(res));
   }
 
   return req.json();
@@ -66,7 +67,8 @@ export async function updateProblema(
   });
 
   if (!req.ok) {
-    throw new Error("No se pudo actualizar el problema.");
+    const res = (await req.json()) as ActionResponse;
+    throw new Error(actionResponseToString(res));
   }
 
   return req.json();

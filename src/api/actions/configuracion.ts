@@ -6,7 +6,6 @@ import { redirect } from "next/navigation";
 import {
   ItemConfiguracionCreate,
   itemConfiguracionCreateSchema,
-  itemConfiguracionSchema,
 } from "@/models/configuracion";
 import { FormState } from "@/models/schemas";
 
@@ -34,16 +33,15 @@ export const crearItemConfiguracion = async (
   try {
     await createArticuloConfiguracion(itemConfiguracion.data);
   } catch (error) {
-    return {
-      message: (error as Error).message,
-    };
+    const message = (error as Error).message;
+    return { message };
   }
 
   const searchParams = new URLSearchParams();
   searchParams.set("success", "true");
   searchParams.set("message", "Articulo guardado correctamente!");
 
-  revalidateTag("/configuracion");
+  revalidateTag("configuracion");
   redirect(`/configuracion?${searchParams.toString()}`);
 };
 
@@ -54,7 +52,7 @@ export const actualizarItemConfiguracion = async (
 ): Promise<FormState<ItemConfiguracionCreate>> => {
   const rawFormData = Object.fromEntries(formData);
 
-  const itemConfiguracion = itemConfiguracionSchema.safeParse({
+  const itemConfiguracion = itemConfiguracionCreateSchema.safeParse({
     ...rawFormData,
     id,
   });
@@ -69,16 +67,15 @@ export const actualizarItemConfiguracion = async (
   try {
     await updateArticuloConfiguracion(itemConfiguracion.data);
   } catch (error) {
-    return {
-      message: (error as Error).message,
-    };
+    const message = (error as Error).message;
+    return { message };
   }
 
   const searchParams = new URLSearchParams();
   searchParams.set("success", "true");
   searchParams.set("message", "Articulo editado correctamente!");
 
-  revalidateTag("/configuracion");
+  revalidateTag("configuracion");
   redirect(`/configuracion/${id}?${searchParams.toString()}`);
 };
 
@@ -92,6 +89,6 @@ export const borrarItemConfiguracion = async (id: number): Promise<void> => {
   const searchParams = new URLSearchParams();
   searchParams.set("success", "true");
   searchParams.set("message", "Articulo borrado correctamente!");
-  revalidateTag("/configuracion");
+  revalidateTag("configuracion");
   redirect(`/configuracion?${searchParams.toString()}`);
 };

@@ -30,16 +30,14 @@ export const crearErrorConocido = async (
   try {
     await createErrorConocido(errorConocido.data);
   } catch (error) {
-    console.error("ERROR: ", error);
-    return {
-      message: (error as Error).message,
-    };
+    const message = (error as Error).message;
+    return { message };
   }
 
   const searchParams = new URLSearchParams();
   searchParams.set("success", "true");
   searchParams.set("message", "Error guardado correctamente!");
 
-  revalidateTag("/errores-conocidos");
+  revalidateTag("errores-conocidos");
   redirect(`/errores-conocidos?${searchParams.toString()}`);
 };

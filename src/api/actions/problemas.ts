@@ -27,17 +27,15 @@ export const crearProblema = async (
   try {
     await createProblema(problemaCreate.data);
   } catch (error) {
-    console.error("ERROR: ", error);
-    return {
-      message: (error as Error).message,
-    };
+    const message = (error as Error).message;
+    return { message };
   }
 
   const searchParams = new URLSearchParams();
   searchParams.set("success", "true");
   searchParams.set("message", "Problema guardado correctamente!");
 
-  revalidateTag("/problemas");
+  revalidateTag("problemas");
   redirect(`/problemas?${searchParams.toString()}`);
 };
 
@@ -61,10 +59,8 @@ export const actualizarProblema = async (
   try {
     await updateProblema(id, problemaCreate.data);
   } catch (error) {
-    console.error("ERROR: ", error);
-    return {
-      message: (error as Error).message,
-    };
+    const message = (error as Error).message;
+    return { message };
   }
 
   const searchParams = new URLSearchParams();
@@ -86,6 +82,6 @@ export async function borrarProblema(id: number): Promise<void> {
   searchParams.set("success", "true");
   searchParams.set("message", "Problema borrado correctamente!");
 
-  revalidateTag("/problemas");
+  revalidateTag("problemas");
   redirect(`/problemas?${searchParams.toString()}`);
 }
