@@ -4,9 +4,9 @@ import { Route } from "next";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
+import { rutasPermitidas } from "@/lib/rutas-permitidas";
 import { cn, uppercaseFirst } from "@/lib/utils";
 import { UserRole } from "@/models/users";
-import { rutasPermitidas } from "@/lib/rutas-permitidas";
 
 export default function Header({
   loggedIn,
@@ -28,7 +28,7 @@ export default function Header({
             <>
               {rutasPermitidas[rol].map((ruta) => (
                 <NavLink key={ruta} href={ruta} active={pathname === ruta}>
-                  {uppercaseFirst(ruta.slice(1))}
+                  {formatRoute(ruta)}
                 </NavLink>
               ))}
             </>
@@ -68,4 +68,9 @@ const NavLink = ({
       {children}
     </Link>
   );
+};
+
+/** Function to convert from /errores-conocidos to Errores Conocidos */
+const formatRoute = (route: string) => {
+  return route.slice(1).split("-").map(uppercaseFirst).join(" ");
 };
