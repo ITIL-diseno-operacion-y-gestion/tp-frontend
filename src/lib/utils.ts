@@ -24,8 +24,6 @@ export async function fetchWithTimeout(
   }
 }
 
-// return fetch(url, { ...options, signal: AbortSignal.timeout(timeout) });
-
 export function formatDate(date: string | Date) {
   return new Date(date).toLocaleDateString("es-AR");
 }
