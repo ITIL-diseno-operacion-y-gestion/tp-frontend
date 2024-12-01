@@ -8,6 +8,7 @@ interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
   label: string;
   name: string;
   error?: string[];
+  className?: string;
 }
 
 export const TextField = forwardRef<HTMLInputElement, Props>(
@@ -18,7 +19,7 @@ export const TextField = forwardRef<HTMLInputElement, Props>(
           {label} {props.required && <span className="text-red-500">*</span>}
         </label>
         <input
-          className="w-full rounded border border-gray-300 px-3 py-2"
+          className={cn("w-full rounded border border-gray-300 px-3 py-2", className)}
           ref={ref}
           id={id || name}
           name={name}
