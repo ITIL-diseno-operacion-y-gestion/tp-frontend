@@ -1,4 +1,4 @@
-# TP Fronted
+# TP Frontend
 
 Esta es una aplicación realizada en [Next.js](https://nextjs.org) utilizando [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
