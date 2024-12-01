@@ -20,13 +20,14 @@ export function LoginForm() {
   const [state, action] = useActionState(handleLogin, initialState);
 
   return (
-    <form action={action} className="space-y-4">
+    <form action={action}>
       <TextField
         name="email"
         type="email"
         label="Email"
         autoComplete="email"
         error={state.errors?.email}
+        className="mb-2"
         required
       />
       <PasswordField error={state.errors?.contrasenia} />
@@ -40,6 +41,7 @@ export function LoginForm() {
       <SubmitButton
         label="Iniciar sesión"
         pendingLabel="Espere un momento..."
+        className="mt-8"
       />
     </form>
   );

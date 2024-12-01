@@ -60,7 +60,7 @@ export function SignupForm() {
           description={state.message}
         />
       )}
-      <SubmitButton label="Registrarse" />
+      <SubmitButton label="Registrarse" className="!mt-8" />
     </form>
   );
 }
