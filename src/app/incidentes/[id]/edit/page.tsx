@@ -10,10 +10,12 @@ export default async function EditIncidentePage(props: {
   params: Promise<{ id: string }>;
 }) {
   const id = parseInt((await props.params).id, 10);
-  const articulos = await getArticulosConfiguracion();
-  const user = await getSession();
-  const incidente = await getIncidente(id);
-
+  const [articulos, user, incidente] = await Promise.all([
+    getArticulosConfiguracion(),
+    getSession(),
+    getIncidente(id),
+  ]);
+  
   if (!user) throw new Error("No hay usuario logueado");
 
   return (
