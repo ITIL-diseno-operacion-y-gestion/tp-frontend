@@ -23,6 +23,9 @@ export function TablaErroresConocidos({
           <TableHead>Nombre</TableHead>
           <TableHead>Descripción</TableHead>
           <TableHead>Fecha de Creación</TableHead>
+          <TableHead>Síntomas</TableHead>
+          <TableHead>Solución Provisoria</TableHead>
+          <TableHead>Solución Definitiva</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
@@ -31,6 +34,9 @@ export function TablaErroresConocidos({
             <TableCell>{error.sintomas}</TableCell>
             <TableCell>{error.descripcion}</TableCell>
             <TableCell>{formatDate(error.fecha_de_creacion)}</TableCell>
+            <TableCell>{error.sintomas}</TableCell>
+            <TableCell>{error.solucion_provisoria}</TableCell>
+            <TableCell>{error.solucion_definitiva}</TableCell>
           </TableRow>
         ))}
       </TableBody>
