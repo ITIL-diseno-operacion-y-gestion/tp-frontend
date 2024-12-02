@@ -20,4 +20,10 @@ export const rutasPermitidas: Record<UserRole, Route[]> = {
   ],
 };
 
+export const metricasPermitidas: Record<UserRole, Route[]> = {
+  cliente: [],
+  agente: ["/reportes", "/auditorias"],
+  supervisor: ["/reportes", "/auditorias", "/usuarios"],
+};
+
 // TODO: Todavía pueden acceder si usan la URL directamente

@@ -13,7 +13,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import { rutasPermitidas } from "@/lib/rutas-permitidas";
+import { metricasPermitidas, rutasPermitidas } from "@/lib/rutas-permitidas";
 import { deleteSession } from "@/lib/session";
 import { User } from "@/models/users";
 
@@ -106,6 +106,9 @@ export function AppSidebar({ user }: { user?: User }) {
   if (!user) return null;
 
   const rutas = rutasPermitidas[user.rol];
+  const metricasUsuario = metricas.filter((item) =>
+    metricasPermitidas[user.rol].includes(item.href),
+  );
 
   return (
     <Sidebar>
@@ -145,7 +148,7 @@ export function AppSidebar({ user }: { user?: User }) {
             <SidebarGroupLabel>Métricas</SidebarGroupLabel>
             <SidebarGroupContent>
               <SidebarMenu>
-                {metricas.map((item) => (
+                {metricasUsuario.map((item) => (
                   <SidebarMenuItem key={item.title}>
                     <SidebarMenuButton asChild>
                       <Link href={item.href}>
