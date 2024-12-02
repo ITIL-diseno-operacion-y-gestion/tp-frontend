@@ -69,7 +69,6 @@ export function ActualizarConfiguracionForm({
             initialValues.version === null ? "" : initialValues.version
           }
           error={state.errors?.version}
-          required
         />
       </div>
       <div className="flex flex-wrap gap-x-3 md:flex-nowrap">

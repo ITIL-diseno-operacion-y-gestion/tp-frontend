@@ -1,5 +1,7 @@
 import { useState } from "react";
 
+import { cn } from "@/lib/utils";
+
 import { Eye, EyeClosed } from "lucide-react";
 
 import { TextField } from "./form/text-field";
@@ -7,9 +9,11 @@ import { TextField } from "./form/text-field";
 export function PasswordField({
   error,
   name = "contrasenia",
+  className,
 }: {
   error?: string[];
   name?: string;
+  className?: string;
 }) {
   const [passwordType, setPasswordType] = useState<"text" | "password">(
     "password",
@@ -20,7 +24,9 @@ export function PasswordField({
   };
 
   return (
-    <div className="relative flex items-end justify-between gap-4">
+    <div
+      className={cn("relative flex items-end justify-between gap-4", className)}
+    >
       <TextField
         name={name}
         type={passwordType}

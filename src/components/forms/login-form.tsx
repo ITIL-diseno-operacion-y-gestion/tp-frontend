@@ -30,7 +30,7 @@ export function LoginForm() {
         className="mb-2"
         required
       />
-      <PasswordField error={state.errors?.contrasenia} />
+      <PasswordField error={state.errors?.contrasenia} className="mb-4" />
 
       {state.message && (
         <ErrorAlert
@@ -41,7 +41,7 @@ export function LoginForm() {
       <SubmitButton
         label="Iniciar sesión"
         pendingLabel="Espere un momento..."
-        className="mt-8"
+        className="mt-4"
       />
     </form>
   );
