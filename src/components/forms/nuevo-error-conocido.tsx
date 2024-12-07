@@ -34,12 +34,14 @@ export function NuevoErrorConocidoForm({
         name="solucion_provisoria"
         label="Solución provisoria"
         error={state.errors?.solucion_provisoria}
+        defaultValue={state.fields?.solucion_provisoria}
         required
       />
       <TextField
         name="solucion_definitiva"
         label="Solución definitiva"
         error={state.errors?.solucion_definitiva}
+        defaultValue={state.fields?.solucion_definitiva}
         required
       />
 
@@ -47,6 +49,7 @@ export function NuevoErrorConocidoForm({
         name="sintomas"
         label="Síntomas"
         error={state.errors?.sintomas}
+        defaultValue={state.fields?.sintomas}
         required
       />
 
@@ -55,6 +58,7 @@ export function NuevoErrorConocidoForm({
           name="ids_problemas"
           label="Problemas Relacionados"
           error={state.errors?.ids_problemas}
+          defaultValue={state.fields?.ids_problemas?.map((id) => id.toString())}
           required
           multiple
         >
@@ -68,6 +72,7 @@ export function NuevoErrorConocidoForm({
           name="ids_incidentes"
           label="Artículos de configuración afectados"
           error={state.errors?.ids_incidentes}
+          defaultValue={state.fields?.ids_incidentes?.map((id) => id.toString())}
           required
           multiple
         >
@@ -83,6 +88,7 @@ export function NuevoErrorConocidoForm({
         name="descripcion"
         label="Descripción"
         error={state.errors?.descripcion}
+        defaultValue={state.fields?.descripcion}
         required
       />
       {state.message && (

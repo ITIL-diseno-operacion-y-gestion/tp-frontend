@@ -24,14 +24,15 @@ export const crearErrorConocido = async (
   });
 
   if (!errorConocido.success) {
-    return { errors: errorConocido.error.flatten().fieldErrors };
+    const errors = errorConocido.error.flatten().fieldErrors;
+    return { errors, fields: rawFormData as Partial<ErrorConocidoCreate> };
   }
 
   try {
     await createErrorConocido(errorConocido.data);
   } catch (error) {
     const message = (error as Error).message;
-    return { message };
+    return { message, fields: rawFormData as Partial<ErrorConocidoCreate> };
   }
 
   const searchParams = new URLSearchParams();
