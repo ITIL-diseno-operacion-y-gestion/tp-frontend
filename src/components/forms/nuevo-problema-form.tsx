@@ -42,7 +42,7 @@ export function NuevoProblemaForm({
           label="Categoría"
           name="categoria"
           error={state.errors?.categoria}
-          defaultValue={initialValues?.categoria}
+          defaultValue={state.fields?.categoria ?? initialValues?.categoria}
           required
         >
           {categoriasProblema.map((categoria) => (
@@ -54,7 +54,7 @@ export function NuevoProblemaForm({
         <SelectField
           label="Prioridad"
           name="prioridad"
-          defaultValue={initialValues?.prioridad}
+          defaultValue={state.fields?.prioridad ?? initialValues?.prioridad}
           error={state.errors?.prioridad}
           required
         >
@@ -67,7 +67,7 @@ export function NuevoProblemaForm({
         <SelectField
           label="Estado"
           name="estado"
-          defaultValue={initialValues?.estado}
+          defaultValue={state.fields?.estado ?? initialValues?.estado}
           error={state.errors?.estado}
           required
         >
@@ -83,14 +83,14 @@ export function NuevoProblemaForm({
           name="nombre"
           label="Nombre"
           error={state.errors?.nombre}
-          defaultValue={initialValues?.nombre}
+          defaultValue={state.fields?.nombre ?? initialValues?.nombre}
           required
         />
         <TextField
           name="sintomas"
           label="Síntomas"
           error={state.errors?.sintomas}
-          defaultValue={initialValues?.sintomas}
+          defaultValue={state.fields?.sintomas ?? initialValues?.sintomas}
           required
         />
       </div>
@@ -98,7 +98,10 @@ export function NuevoProblemaForm({
         label="Incidentes Relacionados"
         name="ids_incidentes"
         error={state.errors?.ids_incidentes}
-        defaultValue={initialValues?.incidentes.map((x) => x.id.toString())}
+        defaultValue={
+          state.fields?.ids_incidentes?.map((id) => id.toString()) ??
+          initialValues?.incidentes.map((x) => x.id.toString())
+        }
         multiple
         required
       >

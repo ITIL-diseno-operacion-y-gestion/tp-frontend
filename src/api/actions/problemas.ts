@@ -21,14 +21,14 @@ export const crearProblema = async (
 
   if (!problemaCreate.success) {
     const errors = problemaCreate.error.flatten().fieldErrors;
-    return { errors };
+    return { errors, fields: rawFormData as Partial<ProblemaCreate> };
   }
 
   try {
     await createProblema(problemaCreate.data);
   } catch (error) {
     const message = (error as Error).message;
-    return { message };
+    return { message, fields: rawFormData as Partial<ProblemaCreate> };
   }
 
   const searchParams = new URLSearchParams();
@@ -53,14 +53,14 @@ export const actualizarProblema = async (
 
   if (!problemaCreate.success) {
     const errors = problemaCreate.error.flatten().fieldErrors;
-    return { errors };
+    return { errors, fields: rawFormData as Partial<ProblemaCreate> };
   }
 
   try {
     await updateProblema(id, problemaCreate.data);
   } catch (error) {
     const message = (error as Error).message;
-    return { message };
+    return { message, fields: rawFormData as Partial<ProblemaCreate> };
   }
 
   const searchParams = new URLSearchParams();
