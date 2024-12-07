@@ -47,7 +47,7 @@ export function NuevoIncidenteForm({
           name="categoria"
           label="Categoría"
           error={state.errors?.categoria}
-          defaultValue={initialValues?.categoria}
+          defaultValue={state.fields?.categoria ?? initialValues?.categoria}
           required
         >
           {categoriasProblema.map((categoria) => (
@@ -59,7 +59,10 @@ export function NuevoIncidenteForm({
         <SelectField
           name="forma_de_notificacion"
           label="Forma de notificación"
-          error={state.errors?.forma_de_notificacion}
+          error={
+            state.errors?.forma_de_notificacion ??
+            state.errors?.forma_de_notificacion
+          }
           defaultValue={initialValues?.forma_de_notificacion}
           required
         >
@@ -74,6 +77,7 @@ export function NuevoIncidenteForm({
           name="prioridad"
           label="Prioridad"
           error={state.errors?.prioridad}
+          defaultValue={state.fields?.prioridad ?? initialValues?.prioridad}
           required
         >
           {prioridades.map((prioridad) => (
@@ -87,14 +91,17 @@ export function NuevoIncidenteForm({
         name="nombre"
         label="Nombre"
         error={state.errors?.nombre}
-        defaultValue={initialValues?.nombre}
+        defaultValue={state.fields?.nombre ?? initialValues?.nombre}
         required
       />
       <TextField
         name="servicios_afectados"
         label="Servicios afectados"
         error={state.errors?.servicios_afectados}
-        defaultValue={initialValues?.servicios_afectados}
+        defaultValue={
+          state.fields?.servicios_afectados ??
+          initialValues?.servicios_afectados
+        }
         required
       />
 
@@ -103,9 +110,10 @@ export function NuevoIncidenteForm({
           name="ids_articulos"
           label="Artículos de configuración afectados"
           error={state.errors?.ids_articulos}
-          defaultValue={initialValues?.articulos_afectados.map((x) =>
-            x.id.toString(),
-          )}
+          defaultValue={
+            state.fields?.ids_articulos?.map((id) => id.toString()) ??
+            initialValues?.articulos_afectados.map((x) => x.id.toString())
+          }
           required
           multiple
         >
@@ -121,7 +129,10 @@ export function NuevoIncidenteForm({
         name="informacion_adicional"
         label="Información adicional"
         error={state.errors?.informacion_adicional}
-        defaultValue={initialValues?.informacion_adicional}
+        defaultValue={
+          state.fields?.informacion_adicional ??
+          initialValues?.informacion_adicional
+        }
         required
       />
       {state.message && (

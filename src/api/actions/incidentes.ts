@@ -20,14 +20,14 @@ export const crearIncidente = async (
 
   if (!incidenteCreate.success) {
     const errors = incidenteCreate.error.flatten().fieldErrors;
-    return { errors };
+    return { errors, fields: rawFormData as Partial<IncidenteCreate> };
   }
 
   try {
     await createIncidente(incidenteCreate.data);
   } catch (error) {
     const message = (error as Error).message;
-    return { message };
+    return { message, fields: rawFormData as Partial<IncidenteCreate> };
   }
 
   const searchParams = new URLSearchParams();
@@ -66,14 +66,14 @@ export const actualizarIncidente = async (
 
   if (!incidenteCreate.success) {
     const errors = incidenteCreate.error.flatten().fieldErrors;
-    return { errors };
+    return { errors, fields: rawFormData as Partial<IncidenteCreate> };
   }
 
   try {
     await updateIncidente(id, incidenteCreate.data);
   } catch (error) {
     const message = (error as Error).message;
-    return { message };
+    return { message, fields: rawFormData as Partial<IncidenteCreate> };
   }
 
   const searchParams = new URLSearchParams();
