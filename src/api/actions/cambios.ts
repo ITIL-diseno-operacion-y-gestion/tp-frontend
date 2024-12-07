@@ -21,14 +21,14 @@ export const crearCambio = async (
 
   if (!cambio.success) {
     const errors = cambio.error.flatten().fieldErrors;
-    return { errors };
+    return { errors, fields: rawFormData as Partial<CambioCreate> };
   }
 
   try {
     await createCambio(cambio.data);
   } catch (error) {
     const message = (error as Error).message;
-    return { message };
+    return { message, fields: rawFormData as Partial<CambioCreate> };
   }
 
   const searchParams = new URLSearchParams();
@@ -53,14 +53,14 @@ export const actualizarCambio = async (
 
   if (!cambio.success) {
     const errors = cambio.error.flatten().fieldErrors;
-    return { errors };
+    return { errors, fields: rawFormData as Partial<CambioCreate> };
   }
 
   try {
     await updateCambio(id, cambio.data);
   } catch (error) {
     const message = (error as Error).message;
-    return { message };
+    return { message, fields: rawFormData as Partial<CambioCreate> };
   }
 
   const searchParams = new URLSearchParams();
