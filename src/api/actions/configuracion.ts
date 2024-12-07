@@ -25,8 +25,10 @@ export const crearItemConfiguracion = async (
     itemConfiguracionCreateSchema.safeParse(rawFormData);
 
   if (!itemConfiguracion.success) {
+    const errors = itemConfiguracion.error.flatten().fieldErrors;
     return {
-      errors: itemConfiguracion.error.flatten().fieldErrors,
+      errors,
+      fields: rawFormData as Partial<ItemConfiguracionCreate>,
     };
   }
 
@@ -34,7 +36,7 @@ export const crearItemConfiguracion = async (
     await createArticuloConfiguracion(itemConfiguracion.data);
   } catch (error) {
     const message = (error as Error).message;
-    return { message };
+    return { message, fields: rawFormData as Partial<ItemConfiguracionCreate> };
   }
 
   const searchParams = new URLSearchParams();
@@ -61,14 +63,14 @@ export const actualizarItemConfiguracion = async (
 
   if (!itemConfiguracion.success) {
     const errors = itemConfiguracion.error.flatten().fieldErrors;
-    return { errors };
+    return { errors, fields: rawFormData as Partial<ItemConfiguracionCreate> };
   }
 
   try {
     await updateArticuloConfiguracion(itemConfiguracion.data);
   } catch (error) {
     const message = (error as Error).message;
-    return { message };
+    return { message, fields: rawFormData as Partial<ItemConfiguracionCreate> };
   }
 
   const searchParams = new URLSearchParams();

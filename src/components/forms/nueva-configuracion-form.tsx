@@ -31,12 +31,14 @@ export function NuevaConfiguracionForm({ id_titular }: { id_titular: number }) {
           name="nombre"
           label="Nombre"
           error={state.errors?.nombre}
+          defaultValue={state.fields?.nombre}
           required
         />
         <SelectField
           name="tipo"
           label="Tipo"
           error={state.errors?.tipo}
+          defaultValue={state.fields?.tipo}
           required
         >
           {tiposItemConfiguracion.map((tipo) => (
@@ -49,6 +51,7 @@ export function NuevaConfiguracionForm({ id_titular }: { id_titular: number }) {
           name="version"
           label="Versión"
           type="number"
+          defaultValue={state.fields?.version}
           error={state.errors?.version}
         />
       </div>
@@ -58,12 +61,14 @@ export function NuevaConfiguracionForm({ id_titular }: { id_titular: number }) {
           name="localizacion"
           label="Localización"
           error={state.errors?.localizacion}
+          defaultValue={state.fields?.localizacion}
           required
         />
         <TextField
           name="relacion_items"
           label="Relación de items"
           error={state.errors?.relacion_items}
+          defaultValue={state.fields?.relacion_items}
           required
         />
       </div>
@@ -71,18 +76,21 @@ export function NuevaConfiguracionForm({ id_titular }: { id_titular: number }) {
         name="descripcion"
         label="Descripción"
         error={state.errors?.descripcion}
+        defaultValue={state.fields?.descripcion}
         required
       />
       <TextAreaField
         name="info_fabricacion"
         label="Información de fabricación"
         error={state.errors?.info_fabricacion}
+        defaultValue={state.fields?.info_fabricacion}
         required
       />
       <SelectField
         name="estado"
         label="Estado"
         error={state.errors?.estado}
+        defaultValue={state.fields?.estado}
         required
       >
         {estadoItemConfiguracion.map((estado) => (
