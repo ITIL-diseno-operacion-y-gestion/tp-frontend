@@ -3,15 +3,25 @@
 import { env } from "@/env/client";
 import { fetchWithTimeout } from "@/lib/utils";
 import { Incidente, IncidenteCreate } from "@/models/incidentes";
+
 import { ActionResponse, actionResponseToString } from "./actions/models";
 
 const BASE_PATH = `${env.NEXT_PUBLIC_API_URL}/incidentes`;
 
-export async function getIncidentes(): Promise<Incidente[]> {
-  const [err, req] = await fetchWithTimeout(BASE_PATH, {
+export async function getIncidentes(usuarioId?: number): Promise<Incidente[]> {
+  const searchParams = new URLSearchParams();
+  if (usuarioId) {
+    searchParams.set("id_usuario", usuarioId.toString());
+  }
+
+  let url = BASE_PATH;
+  if (searchParams.toString()) {
+    url += `?${searchParams.toString()}`;
+  }
+  const [err, req] = await fetchWithTimeout(url, {
     next: {
       tags: ["incidentes"],
-    }
+    },
   });
 
   if (err || !req.ok) {
@@ -26,7 +36,7 @@ export async function getIncidente(id: number): Promise<Incidente> {
   const [err, req] = await fetchWithTimeout(`${BASE_PATH}/${id}`, {
     next: {
       tags: ["incidentes"],
-    }
+    },
   });
 
   if (err || !req.ok) {
