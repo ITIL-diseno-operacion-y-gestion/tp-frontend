@@ -19,12 +19,15 @@ export function ItemConfiguracionView({ item }: { item: ItemConfiguracion }) {
   } = item;
 
   return (
-    <div className="rounded bg-white p-8 shadow-md">
+    <div className="mx-auto max-w-lg rounded bg-white p-8 shadow-md">
       <h1 className="text-2xl font-bold">{nombre}</h1>
       <p className="text-sm text-gray-600">{descripcion}</p>
       <div className="mt-4">
         <p>
           <span className="font-semibold">Tipo:</span> <ChipTipo tipo={tipo} />
+        </p>
+        <p>
+          <span className="font-semibold"> Estado:</span> {estado}
         </p>
         <p>
           <span className="font-semibold">Versión:</span> {version}
@@ -53,9 +56,6 @@ export function ItemConfiguracionView({ item }: { item: ItemConfiguracion }) {
         <p>
           <span className="font-semibold">Relación de items:</span>{" "}
           {relacion_items}
-        </p>
-        <p>
-          <span className="font-semibold"> Estado:</span> {estado}
         </p>
       </div>
     </div>
