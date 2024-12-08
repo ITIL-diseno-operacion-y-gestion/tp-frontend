@@ -17,7 +17,7 @@ export const columns: ColDef<Incidente>[] = [
     width: 120,
     cellRenderer: AccionesIncidente,
   },
-  { field: "prioridad", width: 90, cellRenderer: PrioridadCell },
+  { field: "prioridad", width: 100, cellRenderer: PrioridadCell },
   { field: "id_usuario", headerName: "ID Usuario", width: 100 },
   {
     field: "fecha_de_alta",
@@ -29,7 +29,7 @@ export const columns: ColDef<Incidente>[] = [
   {
     field: "categoria",
     headerName: "Categoría",
-    width: 150,
+    width: 170,
     cellRenderer: CategoriaCell,
   },
   {
@@ -41,16 +41,16 @@ export const columns: ColDef<Incidente>[] = [
   {
     field: "servicios_afectados",
     headerName: "Servicios afectados",
-    width: 200,
+    width: 250,
   },
   {
     field: "informacion_adicional",
     headerName: "Información adicional",
-    width: 200,
+    width: 220,
   },
   {
     field: "id_agente_asignado",
     headerName: "Agente asignado",
-    width: 200,
+    width: 150,
   }
 ];
