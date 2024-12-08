@@ -22,10 +22,14 @@ export default function IncidenteView({ incidente }: { incidente: Incidente }) {
             <h3 className="font-semibold">Prioridad</h3>
             <ChipPrioridad prioridad={incidente.prioridad} />
           </div>
-
           <div>
             <h3 className="font-semibold">Categoría</h3>
             <ChipCategoria categoria={incidente.categoria} />
+          </div>
+
+          <div>
+            <h3 className="font-semibold">Agente asignado</h3>
+            <ChipCategoria categoria={incidente.id_agente_asignado} />
           </div>
           <div>
             <h3 className="font-semibold">Forma de Notificación</h3>
