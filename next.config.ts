@@ -5,11 +5,7 @@ const nextConfig: NextConfig = {
     typedRoutes: process.env.TURBOPACK ? false : true,
     reactCompiler: true,
     serverActions: {
-      allowedOrigins: [
-        "proxy.proxy-production.svc.cluster.local:80",
-        "*",
-        "proxy-production.svc.cluster.local:80",
-      ],
+      allowedOrigins: ["proxy.proxy-production.svc.cluster.local"],
     },
   },
 };
