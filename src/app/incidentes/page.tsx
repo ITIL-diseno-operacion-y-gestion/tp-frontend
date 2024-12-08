@@ -3,12 +3,20 @@ import Link from "next/link";
 import { getIncidentes } from "@/api/incidentes";
 import { ButtonActualizar } from "@/components/button-actualizar";
 import { Title } from "@/components/common/title";
+import { getSession } from "@/lib/session";
 
 import { TablaIncidentes } from "./_components/tabla-incidentes";
 import { columns } from "./columns";
 
 export default async function IncidentesPage() {
-  const incidentes = await getIncidentes();
+  const user = await getSession();
+  if (!user) throw new Error("No se pudo obtener la sesión del usuario");
+
+  const userRole = user.user.rol;
+  const userId = user.user.id;
+  const incidentes = await getIncidentes(
+    userRole === "cliente" ? userId : undefined,
+  );
 
   return (
     <div>
