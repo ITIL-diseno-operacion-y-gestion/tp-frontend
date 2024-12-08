@@ -18,7 +18,7 @@ export const columns: ColDef<Incidente>[] = [
     cellRenderer: LinkIncidente,
   },
   { field: "prioridad", width: 100, cellRenderer: PrioridadCell },
-  { field: "id_usuario", headerName: "ID Usuario", width: 150 },
+  { field: "id_usuario", headerName: "ID Reportador", width: 150 },
   {
     field: "fecha_de_alta",
     headerName: "Fecha de alta",

@@ -22,6 +22,7 @@ export default function IncidenteView({ incidente }: { incidente: Incidente }) {
             <h3 className="font-semibold">Prioridad</h3>
             <ChipPrioridad prioridad={incidente.prioridad} />
           </div>
+
           <div>
             <h3 className="font-semibold">Categoría</h3>
             <ChipCategoria categoria={incidente.categoria} />
@@ -40,7 +41,7 @@ export default function IncidenteView({ incidente }: { incidente: Incidente }) {
             <ChipFecha fecha={incidente.fecha_de_alta} />
           </div>
           <div>
-            <h3 className="font-semibold">ID de Usuario</h3>
+            <h3 className="font-semibold">ID reportador</h3>
             <p>{incidente.id_usuario}</p>
           </div>
         </div>
