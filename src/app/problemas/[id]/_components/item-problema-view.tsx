@@ -9,37 +9,14 @@ import { EditarItem } from "@/components/editar-item";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Problema } from "@/models/problemas";
 
-import {
-  AlertTriangle,
-  CheckCircle,
-  Clock,
-  Eye,
-  Search,
-  Shield,
-} from "lucide-react";
+import { ChipEstadoProblema } from "@/components/chips/chip-estado-problema";
 
 export function ItemProblemaView({ problema }: { problema: Problema }) {
-  const categoriaIcon: Record<Problema["categoria"], React.ReactNode> = {
-    "de seguridad": <Shield className="h-4 w-4" />,
-    tecnico: <AlertTriangle className="h-4 w-4" />,
-    "de disponibilidad": <Clock className="h-4 w-4" />,
-    "de datos": <Search className="h-4 w-4" />,
-    legal: <Eye className="h-4 w-4" />,
-  };
-
-  const estadoIcon: Record<Problema["estado"], React.ReactNode> = {
-    detectado: <Eye className="h-4 w-4" />,
-    analizandose: <Search className="h-4 w-4" />,
-    asignado: <Clock className="h-4 w-4" />,
-    resuelto: <CheckCircle className="h-4 w-4" />,
-    cerrado: <CheckCircle className="h-4 w-4" />,
-  };
-
   return (
-    <Card className="mx-auto w-full max-w-xl">
+    <Card className="mx-auto w-full max-w-lg">
       <CardHeader>
         <CardTitle className="flex items-center justify-between">
-          <span>Problema #{problema.id}</span>
+          {problema.nombre}
           <ChipPrioridad prioridad={problema.prioridad} />
         </CardTitle>
       </CardHeader>
@@ -47,21 +24,15 @@ export function ItemProblemaView({ problema }: { problema: Problema }) {
         <section className="space-y-4">
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <h3 className="text-sm font-semibold">Nombre</h3>
-              <p>{problema.nombre}</p>
-            </div>
-            <div>
               <h3 className="text-sm font-semibold">Categoría</h3>
               <div className="flex items-center space-x-1">
-                {categoriaIcon[problema.categoria]}
                 <ChipCategoria categoria={problema.categoria} />
               </div>
             </div>
             <div>
               <h3 className="text-sm font-semibold">Estado</h3>
               <div className="flex items-center space-x-1">
-                {estadoIcon[problema.estado]}
-                <span>{problema.estado}</span>
+                <ChipEstadoProblema estado={problema.estado} />
               </div>
             </div>
           </div>
@@ -82,7 +53,7 @@ export function ItemProblemaView({ problema }: { problema: Problema }) {
                     href={`/incidentes/${incidente.id}`}
                     className="text-blue-500"
                   >
-                    {incidente.id}
+                    {incidente.nombre}
                   </Link>
                 </li>
               ))}

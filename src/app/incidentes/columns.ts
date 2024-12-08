@@ -1,11 +1,11 @@
 "use client";
 
-import { formatDate } from "@/lib/utils";
 import { Incidente } from "@/models/incidentes";
 
 import { ColDef } from "ag-grid-community";
 
 import { CategoriaCell } from "./_components/categoria-cell";
+import { FechaAltaCell } from "./_components/fecha-alta-cell";
 import { FormaNotificacionCell } from "./_components/forma-notificacion-cell";
 import { LinkIncidente } from "./_components/link-incidente";
 import { PrioridadCell } from "./_components/prioridad-cell";
@@ -24,7 +24,7 @@ export const columns: ColDef<Incidente>[] = [
     headerName: "Fecha de alta",
     width: 200,
     type: "date",
-    valueFormatter: (params) => formatDate(params.value),
+    cellRenderer: FechaAltaCell,
   },
   {
     field: "categoria",

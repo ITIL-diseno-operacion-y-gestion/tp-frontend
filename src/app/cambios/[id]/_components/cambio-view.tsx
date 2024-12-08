@@ -3,16 +3,16 @@ import Link from "next/link";
 import { borrarCambio } from "@/api/actions/cambios";
 import { BorrarItem } from "@/components/borrar-item";
 import { ChipCategoria } from "@/components/chips/chip-categoria";
+import { ChipEstadoCambio } from "@/components/chips/chip-estado-cambio";
+import { ChipFecha } from "@/components/chips/chip-fecha";
+import { ChipImpacto } from "@/components/chips/chip-impacto";
 import { ChipPrioridad } from "@/components/chips/chip-prioridad";
 import { SubTitle } from "@/components/common/subtitle";
 import { EditarItem } from "@/components/editar-item";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { formatDate } from "@/lib/utils";
 import { Cambio } from "@/models/cambios";
 
-import { CalendarIcon, ClockIcon, DollarSignIcon } from "lucide-react";
-import { ChipImpacto } from "@/components/chips/chip-impacto";
-import { ChipEstadoCambio } from "@/components/chips/chip-estado-cambio";
+import { ClockIcon, DollarSignIcon } from "lucide-react";
 
 export function CambioView({ cambio }: { cambio: Cambio }) {
   return (
@@ -39,17 +39,11 @@ export function CambioView({ cambio }: { cambio: Cambio }) {
         <div className="grid grid-cols-2 gap-4">
           <div>
             <h3 className="font-semibold">Fecha de Implementación</h3>
-            <div className="flex items-center">
-              <CalendarIcon className="mr-2 h-4 w-4" />
-              {formatDate(cambio.fecha_de_implementacion)}
-            </div>
+            <ChipFecha fecha={cambio.fecha_de_implementacion} />
           </div>
           <div>
             <h3 className="font-semibold">Fecha de Creacion: </h3>
-            <div className="flex items-center">
-              <CalendarIcon className="mr-2 h-4 w-4" />
-              {formatDate(cambio.fecha_de_creacion)}
-            </div>
+            <ChipFecha fecha={cambio.fecha_de_creacion} />
           </div>
         </div>
 

@@ -3,14 +3,12 @@ import Link from "next/link";
 import { borrarIncidente } from "@/api/actions/incidentes";
 import { BorrarItem } from "@/components/borrar-item";
 import { ChipCategoria } from "@/components/chips/chip-categoria";
+import { ChipFecha } from "@/components/chips/chip-fecha";
 import { ChipFormaNotificacion } from "@/components/chips/chip-forma-notificacion";
 import { ChipPrioridad } from "@/components/chips/chip-prioridad";
 import { EditarItem } from "@/components/editar-item";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { formatDate } from "@/lib/utils";
 import { Incidente } from "@/models/incidentes";
-
-import { CalendarIcon } from "lucide-react";
 
 export default function IncidenteView({ incidente }: { incidente: Incidente }) {
   return (
@@ -19,7 +17,7 @@ export default function IncidenteView({ incidente }: { incidente: Incidente }) {
         <CardTitle>{incidente.nombre}</CardTitle>
       </CardHeader>
       <CardContent className="grid gap-4">
-      <div className="grid grid-cols-3 gap-4">
+        <div className="grid grid-cols-3 gap-4">
           <div>
             <h3 className="font-semibold">Prioridad</h3>
             <ChipPrioridad prioridad={incidente.prioridad} />
@@ -39,10 +37,7 @@ export default function IncidenteView({ incidente }: { incidente: Incidente }) {
         <div className="grid grid-cols-2 gap-4">
           <div>
             <h3 className="font-semibold">Fecha de Alta</h3>
-            <div className="flex items-center">
-              <CalendarIcon className="mr-2 h-4 w-4" />
-              {formatDate(incidente.fecha_de_alta)}
-            </div>
+            <ChipFecha fecha={incidente.fecha_de_alta} />
           </div>
           <div>
             <h3 className="font-semibold">ID de Usuario</h3>

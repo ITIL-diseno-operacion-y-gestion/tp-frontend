@@ -13,14 +13,14 @@ export default async function ProblemaDetailsPage(props: {
   const problema = await getProblema(id);
 
   return (
-    <div className="space-y-4">
+    <>
       <Title>Problema</Title>
       <ItemProblemaView problema={problema} />
-      <Link href="/problemas" className="mt-6">
-        <button className="rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600">
+      <Link href="/problemas" className="">
+        <button className="rounded bg-blue-500 px-4 py-2 text-white mt-4 hover:bg-blue-600">
           Volver
         </button>
       </Link>
-    </div>
+    </>
   );
 }
