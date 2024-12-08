@@ -14,7 +14,7 @@ export default async function IncidentesDetailsPage(props: {
 
   return (
     <div>
-      <Title>Incidente {id}</Title>
+      <Title>Incidente #{id}</Title>
       <IncidenteView incidente={incidente} />
       <div className="mt-6 flex gap-x-4">
         <Link href="/incidentes" className="mt-6">

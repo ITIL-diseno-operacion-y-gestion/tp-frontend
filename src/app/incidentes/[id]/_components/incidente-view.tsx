@@ -2,6 +2,7 @@ import Link from "next/link";
 
 import { borrarIncidente } from "@/api/actions/incidentes";
 import { BorrarItem } from "@/components/borrar-item";
+import { ChipCategoria } from "@/components/chips/chip-categoria";
 import { ChipFormaNotificacion } from "@/components/chips/chip-forma-notificacion";
 import { ChipPrioridad } from "@/components/chips/chip-prioridad";
 import { EditarItem } from "@/components/editar-item";
@@ -9,17 +10,23 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { formatDate } from "@/lib/utils";
 import { Incidente } from "@/models/incidentes";
 
+import { CalendarIcon } from "lucide-react";
+
 export default function IncidenteView({ incidente }: { incidente: Incidente }) {
   return (
     <Card className="mx-auto w-full max-w-3xl">
       <CardHeader>
-        <CardTitle>Incidente #{incidente.id}</CardTitle>
+        <CardTitle>{incidente.nombre}</CardTitle>
       </CardHeader>
       <CardContent className="grid gap-4">
-        <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-3 gap-4">
           <div>
-            <h3 className="font-semibold">ID de Usuario</h3>
-            <p>{incidente.id_usuario}</p>
+            <h3 className="font-semibold">Prioridad</h3>
+            <ChipPrioridad prioridad={incidente.prioridad} />
+          </div>
+          <div>
+            <h3 className="font-semibold">Categoría</h3>
+            <ChipCategoria categoria={incidente.categoria} />
           </div>
           <div>
             <h3 className="font-semibold">Forma de Notificación</h3>
@@ -27,29 +34,27 @@ export default function IncidenteView({ incidente }: { incidente: Incidente }) {
               formaNotificacion={incidente.forma_de_notificacion}
             />
           </div>
-          <div>
-            <h3 className="font-semibold">Nombre</h3>
-            <p>{incidente.nombre}</p>
-          </div>
+        </div>
+
+        <div className="grid grid-cols-2 gap-4">
           <div>
             <h3 className="font-semibold">Fecha de Alta</h3>
-            <p>{formatDate(incidente.fecha_de_alta)}</p>
+            <div className="flex items-center">
+              <CalendarIcon className="mr-2 h-4 w-4" />
+              {formatDate(incidente.fecha_de_alta)}
+            </div>
+          </div>
+          <div>
+            <h3 className="font-semibold">ID de Usuario</h3>
+            <p>{incidente.id_usuario}</p>
           </div>
         </div>
+
         <div>
           <h3 className="font-semibold">Servicios Afectados</h3>
           <p>{incidente.servicios_afectados}</p>
         </div>
-        <div className="grid grid-cols-2 gap-4">
-          <div>
-            <h3 className="font-semibold">Prioridad</h3>
-            <ChipPrioridad prioridad={incidente.prioridad} />
-          </div>
-          <div>
-            <h3 className="font-semibold">Categoría</h3>
-            <p>{incidente.categoria}</p>
-          </div>
-        </div>
+
         <div>
           <h3 className="font-semibold">Información Adicional</h3>
           <p>{incidente.informacion_adicional}</p>
