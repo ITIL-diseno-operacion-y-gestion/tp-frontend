@@ -11,6 +11,8 @@ import { formatDate } from "@/lib/utils";
 import { Cambio } from "@/models/cambios";
 
 import { CalendarIcon, ClockIcon, DollarSignIcon } from "lucide-react";
+import { ChipImpacto } from "@/components/chips/chip-impacto";
+import { ChipEstadoCambio } from "@/components/chips/chip-estado-cambio";
 
 export function CambioView({ cambio }: { cambio: Cambio }) {
   return (
@@ -30,29 +32,8 @@ export function CambioView({ cambio }: { cambio: Cambio }) {
           </div>
           <div>
             <h3 className="font-semibold">Impacto</h3>
-            <>{cambio.impacto}</>
+            <ChipImpacto impacto={cambio.impacto} />
           </div>
-        </div>
-
-        <div className="grid grid-cols-2 gap-4">
-          <div>
-            <h3 className="font-semibold">ID Solicitante</h3>
-            <p>{cambio.id_solicitante}</p>
-          </div>
-          <div>
-            <h3 className="font-semibold">Estado</h3>
-            {cambio.estado}
-          </div>
-        </div>
-
-        <div>
-          <h3 className="font-semibold">Motivo de Implementación</h3>
-          <p>{cambio.motivo_de_implementacion}</p>
-        </div>
-
-        <div>
-          <h3 className="font-semibold">Descripción</h3>
-          <p>{cambio.descripcion}</p>
         </div>
 
         <div className="grid grid-cols-2 gap-4">
@@ -90,6 +71,27 @@ export function CambioView({ cambio }: { cambio: Cambio }) {
               })}
             </div>
           </div>
+        </div>
+
+        <div className="grid grid-cols-2 gap-4">
+          <div>
+            <h3 className="font-semibold">ID Solicitante</h3>
+            <p>{cambio.id_solicitante}</p>
+          </div>
+          <div>
+            <h3 className="font-semibold">Estado</h3>
+            <ChipEstadoCambio estado={cambio.estado} />
+          </div>
+        </div>
+
+        <div>
+          <h3 className="font-semibold">Motivo de Implementación</h3>
+          <p>{cambio.motivo_de_implementacion}</p>
+        </div>
+
+        <div>
+          <h3 className="font-semibold">Descripción</h3>
+          <p>{cambio.descripcion}</p>
         </div>
 
         <div>

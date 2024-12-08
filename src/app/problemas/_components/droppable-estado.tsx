@@ -1,10 +1,9 @@
-import { cn } from "@/lib/utils";
+import { cn, uppercaseFirst } from "@/lib/utils";
 import { EstadoProblema } from "@/models/incidentes";
 
 import { useDroppable } from "@dnd-kit/core";
 
-import { ChipEstado } from "../../../components/chips/chip-estado";
-import { bgEstado } from "../_lib/colores";
+import { bgEstado, colorEstado } from "../_lib/colores";
 
 export function DroppableEstado({
   estado,
@@ -29,5 +28,15 @@ export function DroppableEstado({
         {children}
       </ul>
     </section>
+  );
+}
+
+function ChipEstado({ estado }: { estado: EstadoProblema }) {
+  return (
+    <h3
+      className={`min-w-52 px-2 py-1 text-center text-lg font-semibold text-white ${colorEstado[estado]}`}
+    >
+      {uppercaseFirst(estado)}
+    </h3>
   );
 }

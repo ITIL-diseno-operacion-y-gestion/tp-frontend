@@ -1,34 +1,17 @@
 import { TipoItemConfiguracion } from "@/models/configuracion";
 
-export const ChipTipo = ({ tipo }: { tipo: TipoItemConfiguracion }) => {
-  let color = "";
+const colorTipo: Record<TipoItemConfiguracion, string> = {
+  documentacion: "bg-blue-500",
+  hardware: "bg-yellow-500",
+  instalacion: "bg-green-500",
+  network: "bg-purple-500",
+  proveedor: "bg-indigo-500",
+  "servicio tecnico": "bg-pink-500",
+  software: "bg-red-500",
+};
 
-  switch (tipo) {
-    case "documentacion":
-      color = "bg-blue-500";
-      break;
-    case "hardware":
-      color = "bg-yellow-500";
-      break;
-    case "instalacion":
-      color = "bg-green-500";
-      break;
-    case "network":
-      color = "bg-purple-500";
-      break;
-    case "proveedor":
-      color = "bg-indigo-500";
-      break;
-    case "servicio tecnico":
-      color = "bg-pink-500";
-      break;
-    case "software":
-      color = "bg-red-500";
-      break;
-    default:
-      color = "bg-gray-500";
-  }
+export const ChipTipo = ({ tipo }: { tipo: TipoItemConfiguracion }) => {
   return (
-    <span className={`rounded-full px-2 py-1 text-white ${color}`}>{tipo}</span>
+    <span className={`rounded-full px-2 py-1 text-white ${colorTipo[tipo]}`}>{tipo}</span>
   );
 };
