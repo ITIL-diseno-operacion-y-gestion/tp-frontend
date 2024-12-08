@@ -29,10 +29,10 @@ export function ItemConfiguracionView({ item }: { item: ItemConfiguracion }) {
         <p>
           <span className="font-semibold">Versión:</span> {version}
         </p>
-        <p className="flex gap-2">
+        <div className="flex gap-2">
           <span className="font-semibold">Fecha de alta:</span>
           <ChipFecha fecha={fecha_de_alta} />
-        </p>
+        </div>
         <p>
           <span className="font-semibold">Activo:</span>{" "}
           {esta_activo ? "Sí" : "No"}
