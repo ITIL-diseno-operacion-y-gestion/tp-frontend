@@ -29,12 +29,7 @@ export default function IncidenteView({ incidente }: { incidente: Incidente }) {
 
           <div>
             <h3 className="font-semibold">Agente asignado</h3>
-            <ul className="space-y-4">
-            {incidente.id_agente_asignado == null ? (
-              <p>No hay agente asignado</p>
-            ) : (<p>{incidente.id_agente_asignado}</p>)
-            }
-            </ul>
+            {incidente.id_agente_asignado}
           </div>
           <div>
             <h3 className="font-semibold">Forma de Notificación</h3>

@@ -50,7 +50,7 @@ export const columns: ColDef<Incidente>[] = [
   },
   
   {
-    field: "agente asignado",
+    field: "id_agente_asignado",
     headerName: "Agente asignado",
     width: 200,
   },
