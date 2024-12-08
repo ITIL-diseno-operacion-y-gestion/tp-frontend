@@ -67,7 +67,7 @@ export const actualizarItemConfiguracion = async (
   }
 
   try {
-    await updateArticuloConfiguracion(itemConfiguracion.data);
+    await updateArticuloConfiguracion(id, itemConfiguracion.data);
   } catch (error) {
     const message = (error as Error).message;
     return { message, fields: rawFormData as Partial<ItemConfiguracionCreate> };

@@ -68,9 +68,12 @@ export async function createArticuloConfiguracion(
   return req.json();
 }
 
-export async function updateArticuloConfiguracion(articulo: ItemConfiguracionCreate) {
-  const [err, req] = await fetchWithTimeout(BASE_PATH, {
-    method: "PUT",
+export async function updateArticuloConfiguracion(
+  id: number,
+  articulo: ItemConfiguracionCreate,
+) {
+  const [err, req] = await fetchWithTimeout(`${BASE_PATH}/${id}`, {
+    method: "PATCH",
     headers: {
       "Content-Type": "application/json",
     },
