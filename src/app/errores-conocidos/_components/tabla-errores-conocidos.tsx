@@ -1,3 +1,4 @@
+import { ChipFecha } from "@/components/chips/chip-fecha";
 import {
   Table,
   TableBody,
@@ -7,7 +8,6 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { formatDate } from "@/lib/utils";
 import { ErrorConocido } from "@/models/errores-conocidos";
 
 export function TablaErroresConocidos({
@@ -33,7 +33,9 @@ export function TablaErroresConocidos({
           <TableRow key={error.id}>
             <TableCell>{error.sintomas}</TableCell>
             <TableCell>{error.descripcion}</TableCell>
-            <TableCell>{formatDate(error.fecha_de_creacion)}</TableCell>
+            <TableCell>
+              <ChipFecha fecha={error.fecha_de_creacion} />
+            </TableCell>
             <TableCell>{error.sintomas}</TableCell>
             <TableCell>{error.solucion_provisoria}</TableCell>
             <TableCell>{error.solucion_definitiva}</TableCell>
