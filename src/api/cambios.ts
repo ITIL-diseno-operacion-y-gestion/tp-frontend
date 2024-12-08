@@ -1,11 +1,10 @@
 "use server";
 
-import { env } from "@/env/client";
 import { fetchWithTimeout } from "@/lib/utils";
 import { Cambio, CambioCreate } from "@/models/cambios";
 import { ActionResponse, actionResponseToString } from "./actions/models";
 
-const BASE_PATH = `${env.NEXT_PUBLIC_API_URL}/cambios`;
+const BASE_PATH = `${process.env.NEXT_PUBLIC_API_URL}/cambios`;
 
 export async function getCambios(): Promise<Cambio[]> {
   const [err, req] = await fetchWithTimeout(BASE_PATH, {

@@ -1,5 +1,4 @@
 import { Title } from "@/components/common/title";
-import { env } from "@/env/client";
 import { getSession } from "@/lib/session";
 
 export default async function Home() {
@@ -13,7 +12,7 @@ export default async function Home() {
         Nombre: {session?.user.nombre} {session?.user.apellido}
       </p>
       <p>Email: {session?.user.email}</p>
-      {env.NEXT_PUBLIC_API_URL}
+      {process.env.NEXT_PUBLIC_API_URL}
     </div>
   );
 }

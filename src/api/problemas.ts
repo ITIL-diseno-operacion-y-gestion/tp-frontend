@@ -1,11 +1,10 @@
 "use server";
 
-import { env } from "@/env/client";
 import { fetchWithTimeout } from "@/lib/utils";
 import { Problema, ProblemaCreate } from "@/models/problemas";
 import { ActionResponse, actionResponseToString } from "./actions/models";
 
-const BASE_PATH = `${env.NEXT_PUBLIC_API_URL}/problemas`;
+const BASE_PATH = `${process.env.NEXT_PUBLIC_API_URL}/problemas`;
 
 export async function getProblemas(): Promise<Problema[]> {
   const [err, req] = await fetchWithTimeout(BASE_PATH, {

@@ -1,6 +1,5 @@
 "use server";
 
-import { env } from "@/env/client";
 import { fetchWithTimeout } from "@/lib/utils";
 import {
   ItemConfiguracion,
@@ -9,7 +8,7 @@ import {
 
 import { ActionResponse, actionResponseToString } from "./actions/models";
 
-const BASE_PATH = `${env.NEXT_PUBLIC_API_URL}/configuracion/articulos`;
+const BASE_PATH = `${process.env.NEXT_PUBLIC_API_URL}/configuracion/articulos`;
 
 export async function getArticulosConfiguracion(): Promise<
   ItemConfiguracion[]

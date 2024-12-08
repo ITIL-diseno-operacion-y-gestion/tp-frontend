@@ -1,12 +1,11 @@
 "use server";
 
-import { env } from "@/env/client";
 import { fetchWithTimeout } from "@/lib/utils";
 import { Incidente, IncidenteCreate } from "@/models/incidentes";
 
 import { ActionResponse, actionResponseToString } from "./actions/models";
 
-const BASE_PATH = `${env.NEXT_PUBLIC_API_URL}/incidentes`;
+const BASE_PATH = `${process.env.NEXT_PUBLIC_API_URL}/incidentes`;
 
 export async function getIncidentes(usuarioId?: number): Promise<Incidente[]> {
   const searchParams = new URLSearchParams();

@@ -61,7 +61,7 @@ TODO
 
 ## Variables de entorno
 
-El proyecto requiere la configuración de variables de entorno definidos en `src/env/client.ts` y `src/env/server.ts`. Sin aquellos, la aplicación no compila (TODO). Copiar del `env.example` en un `.env`.
+El proyecto requiere la configuración de variables de entorno. Sin aquellos, la aplicación no compila (TODO). Copiar del `env.example` en un `.env`.
 
 ## Extensiones de VSCode
 

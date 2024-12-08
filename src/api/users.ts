@@ -1,6 +1,5 @@
 "use server";
 
-import { env } from "@/env/client";
 import { fetchWithTimeout } from "@/lib/utils";
 import {
   User,
@@ -11,7 +10,7 @@ import {
 
 import { ActionResponse, actionResponseToString } from "./actions/models";
 
-const BASE_PATH = `${env.NEXT_PUBLIC_API_URL}/usuarios`;
+const BASE_PATH = `${process.env.NEXT_PUBLIC_API_URL}/usuarios`;
 
 export async function getUsers(): Promise<User[]> {
   const [err, req] = await fetchWithTimeout(BASE_PATH, {

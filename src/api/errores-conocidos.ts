@@ -1,11 +1,10 @@
 "use server";
 
-import { env } from "@/env/client";
 import { fetchWithTimeout } from "@/lib/utils";
 import { ErrorConocido, ErrorConocidoCreate } from "@/models/errores-conocidos";
 import { ActionResponse, actionResponseToString } from "./actions/models";
 
-const BASE_PATH = `${env.NEXT_PUBLIC_API_URL}/errores-conocidos`;
+const BASE_PATH = `${process.env.NEXT_PUBLIC_API_URL}/errores-conocidos`;
 
 export async function getErroresConocidos(): Promise<ErrorConocido[]> {
   const [err, req] = await fetchWithTimeout(BASE_PATH, {

@@ -5,7 +5,6 @@ import { useEffect } from "react";
 import { SubTitle } from "@/components/common/subtitle";
 import { Title } from "@/components/common/title";
 import { Button } from "@/components/ui/button";
-import { env } from "@/env/client";
 
 export default function ErrorPage({
   error,
@@ -27,7 +26,7 @@ export default function ErrorPage({
         )}
         <Button onClick={() => reset()}>Intentar devuelta</Button>
       </div>
-      {env.NODE_ENV === "development" && (
+      {process.env.NODE_ENV === "development" && (
         <SubTitle>
           {error.name} {error.message}
         </SubTitle>

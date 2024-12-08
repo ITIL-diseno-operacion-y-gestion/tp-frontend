@@ -1,8 +1,7 @@
-import { env } from "@/env/client";
 import { fetchWithTimeout } from "@/lib/utils";
 import { Auditoria, auditoriaSchema } from "@/models/auditorias";
 
-const BASE_PATH = `${env.NEXT_PUBLIC_API_URL}/auditorias`;
+const BASE_PATH = `${process.env.NEXT_PUBLIC_API_URL}/auditorias`;
 
 export async function getAuditorias(): Promise<Auditoria[]> {
   const [err, req] = await fetchWithTimeout(BASE_PATH, {
