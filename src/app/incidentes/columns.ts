@@ -7,22 +7,22 @@ import { ColDef } from "ag-grid-community";
 import { CategoriaCell } from "./_components/categoria-cell";
 import { FechaAltaCell } from "./_components/fecha-alta-cell";
 import { FormaNotificacionCell } from "./_components/forma-notificacion-cell";
-import { LinkIncidente } from "./_components/link-incidente";
+import { AccionesIncidente } from "./_components/acciones-incidente";
 import { PrioridadCell } from "./_components/prioridad-cell";
 
 export const columns: ColDef<Incidente>[] = [
   {
     field: "id",
     headerName: "Acciones",
-    width: 200,
-    cellRenderer: LinkIncidente,
+    width: 120,
+    cellRenderer: AccionesIncidente,
   },
-  { field: "prioridad", width: 100, cellRenderer: PrioridadCell },
-  { field: "id_usuario", headerName: "ID Reportador", width: 150 },
+  { field: "prioridad", width: 90, cellRenderer: PrioridadCell },
+  { field: "id_usuario", headerName: "ID Usuario", width: 100 },
   {
     field: "fecha_de_alta",
     headerName: "Fecha de alta",
-    width: 200,
+    width: 120,
     type: "date",
     cellRenderer: FechaAltaCell,
   },
@@ -35,7 +35,7 @@ export const columns: ColDef<Incidente>[] = [
   {
     field: "forma_de_notificacion",
     headerName: "Forma de notificación",
-    width: 250,
+    width: 180,
     cellRenderer: FormaNotificacionCell,
   },
   {
