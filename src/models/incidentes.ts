@@ -46,6 +46,7 @@ export const incidenteSchema = incidenteBaseSchema.extend({
   id: z.number(),
   fecha_de_alta: z.string(),
   articulos_afectados: z.array(itemConfiguracionSchema),
+  id_agente_asignado: z.coerce.number().nullable(),
 });
 
 export type Prioridad = (typeof prioridades)[number];
