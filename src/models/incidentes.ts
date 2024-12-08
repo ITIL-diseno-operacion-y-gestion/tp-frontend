@@ -36,6 +36,8 @@ const incidenteBaseSchema = z.object({
   prioridad: z.enum(prioridades),
   categoria: z.enum(categoriasProblema),
   informacion_adicional: z.string(),
+  id_agente_asignado: z.string(),
+  
 });
 
 export const incidenteCreateSchema = incidenteBaseSchema.extend({
