@@ -5,8 +5,29 @@ const nextConfig: NextConfig = {
     typedRoutes: process.env.TURBOPACK ? false : true,
     reactCompiler: true,
     serverActions: {
-      allowedOrigins: ["proxy.proxy-production.svc.cluster.local"],
+      allowedOrigins: ["*", "itil-frontend.netlify.app", "localhost:3000"],
     },
+  },
+  headers: async () => {
+    return [
+      {
+        source: "*",
+        headers: [
+          {
+            key: "Access-Control-Allow-Origin",
+            value: "https://itil-frontend.netlify.app",
+          },
+          {
+            key: "Access-Control-Allow-Methods",
+            value: "GET,POST,PUT,DELETE,OPTIONS",
+          },
+          {
+            key: "Access-Control-Allow-Headers",
+            value: "Content-Type, Authorization",
+          },
+        ],
+      },
+    ];
   },
 };
 
