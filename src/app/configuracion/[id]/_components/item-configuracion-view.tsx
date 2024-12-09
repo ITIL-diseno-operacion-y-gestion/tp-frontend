@@ -1,3 +1,4 @@
+import { ChipEstadoConfiguracion } from "@/components/chips/chip-estado-configuracion";
 import { ChipFecha } from "@/components/chips/chip-fecha";
 import { ChipTipo } from "@/components/chips/chip-tipo";
 import { ItemConfiguracion } from "@/models/configuracion";
@@ -27,7 +28,8 @@ export function ItemConfiguracionView({ item }: { item: ItemConfiguracion }) {
           <span className="font-semibold">Tipo:</span> <ChipTipo tipo={tipo} />
         </p>
         <p>
-          <span className="font-semibold"> Estado:</span> {estado}
+          <span className="font-semibold"> Estado:</span>
+          <ChipEstadoConfiguracion estado={estado} />
         </p>
         <p>
           <span className="font-semibold">Versión:</span> {version}
