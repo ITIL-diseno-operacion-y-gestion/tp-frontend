@@ -70,9 +70,11 @@ export function NuevoErrorConocidoForm({
         </SelectField>
         <SelectField
           name="ids_incidentes"
-          label="Artículos de configuración afectados"
+          label="Incidentes relacionados"
           error={state.errors?.ids_incidentes}
-          defaultValue={state.fields?.ids_incidentes?.map((id) => id.toString())}
+          defaultValue={state.fields?.ids_incidentes?.map((id) =>
+            id.toString(),
+          )}
           required
           multiple
         >
