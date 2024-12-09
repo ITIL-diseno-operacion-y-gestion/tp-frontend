@@ -38,16 +38,14 @@ export function AsignarAgenteDialog({
             className="my-6"
             required
           >
-            <>
-              <option value="">Seleccione un agente</option>
-              <optgroup label="Agentes">
-                {agentes.map((agente) => (
-                  <option key={agente.id} value={agente.id}>
-                    {agente.nombre}
-                  </option>
-                ))}
-              </optgroup>
-            </>
+            <option value="">Seleccione un agente</option>
+            <optgroup label="Agentes">
+              {agentes.map((agente) => (
+                <option key={agente.id} value={agente.id}>
+                  {agente.nombre} {agente.apellido}
+                </option>
+              ))}
+            </optgroup>
           </SelectField>
           <DialogFooter>
             <Button type="submit">Asignar</Button>

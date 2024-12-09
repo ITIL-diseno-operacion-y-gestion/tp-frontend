@@ -3,15 +3,16 @@ import Link from "next/link";
 import { borrarIncidente } from "@/api/actions/incidentes";
 import { BorrarItem } from "@/components/borrar-item";
 import { ChipCategoria } from "@/components/chips/chip-categoria";
+import { ChipEstadoProblema } from "@/components/chips/chip-estado-problema";
 import { ChipFecha } from "@/components/chips/chip-fecha";
 import { ChipFormaNotificacion } from "@/components/chips/chip-forma-notificacion";
 import { ChipPrioridad } from "@/components/chips/chip-prioridad";
 import { EditarItem } from "@/components/editar-item";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Incidente } from "@/models/incidentes";
+import { User } from "@/models/users";
 
 import { AsignarAgenteDialog } from "./asignar-agente-dialog";
-import { User } from "@/models/users";
 
 export default function IncidenteView({
   incidente,
@@ -22,6 +23,9 @@ export default function IncidenteView({
   esSupervisor: boolean;
   usuarios: User[];
 }) {
+  const agenteAsignado = incidente.id_agente_asignado
+    ? usuarios.find((usuario) => usuario.id === incidente.id_agente_asignado)
+    : null;
   return (
     <Card className="mx-auto w-full max-w-3xl">
       <CardHeader>
@@ -45,19 +49,15 @@ export default function IncidenteView({
           </div>
         </div>
 
-        <div>
-          <h3 className="font-semibold">Agente asignado</h3>
-          <p>{incidente.id_agente_asignado ?? "No hay agente asignado"}</p>
-          {esSupervisor && (
-            <AsignarAgenteDialog
-              incidenteId={incidente.id}
-              agenteAsignado={incidente.id_agente_asignado}
-              usuarios={usuarios}
-            />
-          )}
-        </div>
-
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-3 gap-4">
+          <div>
+            <h3 className="font-semibold">Estado</h3>
+            {incidente.estado ? (
+              <ChipEstadoProblema estado={incidente.estado} />
+            ) : (
+              "No tiene asignado un estado"
+            )}
+          </div>
           <div>
             <h3 className="font-semibold">Fecha de Alta</h3>
             <ChipFecha fecha={incidente.fecha_de_alta} />
@@ -66,6 +66,22 @@ export default function IncidenteView({
             <h3 className="font-semibold">ID reportador</h3>
             <p>{incidente.id_usuario}</p>
           </div>
+        </div>
+
+        <div>
+          <h3 className="font-semibold">Agente asignado</h3>
+          <p>
+            {agenteAsignado
+              ? `${agenteAsignado.nombre} ${agenteAsignado.apellido}`
+              : "No hay agente asignado"}
+          </p>
+          {esSupervisor && (
+            <AsignarAgenteDialog
+              incidenteId={incidente.id}
+              agenteAsignado={incidente.id_agente_asignado}
+              usuarios={usuarios}
+            />
+          )}
         </div>
 
         <div>

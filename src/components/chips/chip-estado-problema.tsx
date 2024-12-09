@@ -20,7 +20,7 @@ const estadoIcon: Record<EstadoProblema, React.ReactNode> = {
 export function ChipEstadoProblema({ estado }: { estado: EstadoProblema }) {
   return (
     <span
-      className={`rounded-full px-2 py-1 flex gap-1 items-center text-sm text-white ${colorEstado[estado]}`}
+      className={`rounded-full px-2 py-1 flex gap-1 items-center text-sm max-w-max text-white ${colorEstado[estado]}`}
     >
       {estadoIcon[estado]}
       {estado}
