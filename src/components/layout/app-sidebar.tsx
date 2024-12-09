@@ -93,7 +93,7 @@ const UserHeader = ({ user }: { user: User }) => {
         </AvatarFallback>
       </Avatar>
       <div className="grid text-sm leading-tight">
-        <span className="truncate font-semibold">
+        <span className="font-semibold">
           {user.nombre} {user.apellido}
         </span>
         <span className="truncate text-xs">{user.rol?.toUpperCase()}</span>
