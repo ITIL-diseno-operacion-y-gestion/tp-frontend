@@ -24,10 +24,10 @@ export function ItemConfiguracionView({ item }: { item: ItemConfiguracion }) {
       <h1 className="text-2xl font-bold">{nombre}</h1>
       <p className="text-sm text-gray-600">{descripcion}</p>
       <div className="mt-4">
-        <p>
+        <p className="mb-1">
           <span className="font-semibold">Tipo:</span> <ChipTipo tipo={tipo} />
         </p>
-        <p>
+        <p className="flex gap-2">
           <span className="font-semibold"> Estado:</span>
           <ChipEstadoConfiguracion estado={estado} />
         </p>
