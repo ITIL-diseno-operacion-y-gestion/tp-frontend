@@ -29,7 +29,7 @@ export const columns: ColDef<Incidente>[] = [
   {
     field: "categoria",
     headerName: "Categoría",
-    width: 170,
+    width: 180,
     cellRenderer: CategoriaCell,
   },
   {
@@ -41,7 +41,7 @@ export const columns: ColDef<Incidente>[] = [
   {
     field: "servicios_afectados",
     headerName: "Servicios afectados",
-    width: 250,
+    width: 270,
   },
   {
     field: "informacion_adicional",
