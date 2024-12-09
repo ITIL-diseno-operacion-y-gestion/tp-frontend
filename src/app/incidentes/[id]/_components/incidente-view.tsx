@@ -10,7 +10,18 @@ import { EditarItem } from "@/components/editar-item";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Incidente } from "@/models/incidentes";
 
-export default function IncidenteView({ incidente }: { incidente: Incidente }) {
+import { AsignarAgenteDialog } from "./asignar-agente-dialog";
+import { User } from "@/models/users";
+
+export default function IncidenteView({
+  incidente,
+  esSupervisor,
+  usuarios,
+}: {
+  incidente: Incidente;
+  esSupervisor: boolean;
+  usuarios: User[];
+}) {
   return (
     <Card className="mx-auto w-full max-w-3xl">
       <CardHeader>
@@ -26,22 +37,24 @@ export default function IncidenteView({ incidente }: { incidente: Incidente }) {
             <h3 className="font-semibold">Categoría</h3>
             <ChipCategoria categoria={incidente.categoria} />
           </div>
-
-          <div>
-            <h3 className="font-semibold">Agente asignado</h3>
-            <ul className="space-y-4">
-            {incidente.id_agente_asignado == null ? (
-              <p>No hay agente asignado</p>
-            ) : (<p>{incidente.id_agente_asignado}</p>)
-            }
-            </ul>
-          </div>
           <div>
             <h3 className="font-semibold">Forma de Notificación</h3>
             <ChipFormaNotificacion
               formaNotificacion={incidente.forma_de_notificacion}
             />
           </div>
+        </div>
+
+        <div>
+          <h3 className="font-semibold">Agente asignado</h3>
+          <p>{incidente.id_agente_asignado ?? "No hay agente asignado"}</p>
+          {esSupervisor && (
+            <AsignarAgenteDialog
+              incidenteId={incidente.id}
+              agenteAsignado={incidente.id_agente_asignado}
+              usuarios={usuarios}
+            />
+          )}
         </div>
 
         <div className="grid grid-cols-2 gap-4">

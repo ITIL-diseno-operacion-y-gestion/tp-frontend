@@ -1,7 +1,7 @@
 "use server";
 
 import { fetchWithTimeout } from "@/lib/utils";
-import { Incidente, IncidenteCreate } from "@/models/incidentes";
+import { Incidente, IncidenteCreate, IncidenteUpdate } from "@/models/incidentes";
 
 import { ActionResponse, actionResponseToString } from "./actions/models";
 
@@ -67,7 +67,7 @@ export async function createIncidente(incidente: IncidenteCreate) {
   return req.json();
 }
 
-export async function updateIncidente(id: number, incidente: IncidenteCreate) {
+export async function updateIncidente(id: number, incidente: Partial<IncidenteUpdate>) {
   const [err, req] = await fetchWithTimeout(`${BASE_PATH}/${id}`, {
     method: "PATCH",
     headers: {

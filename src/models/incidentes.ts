@@ -42,11 +42,15 @@ export const incidenteCreateSchema = incidenteBaseSchema.extend({
   ids_articulos: z.array(z.coerce.number()),
 });
 
-export const incidenteSchema = incidenteBaseSchema.extend({
+export const incidenteUpdateSchema = incidenteBaseSchema.extend({
+  id_agente_asignado: z.coerce.number().nullable(),
+  estado: z.enum(estadosProblema).nullable(),
+});
+
+export const incidenteSchema = incidenteUpdateSchema.extend({
   id: z.number(),
   fecha_de_alta: z.string(),
   articulos_afectados: z.array(itemConfiguracionSchema),
-  id_agente_asignado: z.coerce.number().nullable(),
 });
 
 export type Prioridad = (typeof prioridades)[number];
@@ -58,5 +62,7 @@ export type EstadoProblema = (typeof estadosProblema)[number];
 export type FormaNotificacion = (typeof formasNotificacion)[number];
 
 export type IncidenteCreate = z.infer<typeof incidenteCreateSchema>;
+
+export type IncidenteUpdate = z.infer<typeof incidenteUpdateSchema>;
 
 export type Incidente = z.infer<typeof incidenteSchema>;

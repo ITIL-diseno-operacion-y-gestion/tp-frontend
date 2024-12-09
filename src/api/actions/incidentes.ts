@@ -6,7 +6,11 @@ import { redirect } from "next/navigation";
 import { IncidenteCreate, incidenteCreateSchema } from "@/models/incidentes";
 import { FormState } from "@/models/schemas";
 
-import { createIncidente, deleteIncidente, updateIncidente } from "../incidentes";
+import {
+  createIncidente,
+  deleteIncidente,
+  updateIncidente,
+} from "../incidentes";
 
 export const crearIncidente = async (
   formState: FormState<IncidenteCreate>,
@@ -83,3 +87,26 @@ export const actualizarIncidente = async (
   revalidateTag("incidentes");
   redirect(`/incidentes?${searchParams.toString()}`);
 };
+
+export async function asignarAgente(
+  incidenteId: number,
+  formData: FormData,
+): Promise<void> {
+  const agente = formData.get("agente") as string;
+
+  if (!agente) {
+    throw new Error("No se ha seleccionado un usuario");
+  }
+
+  try {
+    await updateIncidente(incidenteId, {
+      id_agente_asignado: +agente,
+      estado: "asignado",
+    });
+  } catch (error) {
+    console.error("ERROR: ", error);
+  }
+
+  revalidateTag("incidentes");
+  redirect(`/incidentes/${incidenteId}`);
+}

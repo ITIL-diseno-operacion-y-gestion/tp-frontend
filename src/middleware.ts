@@ -7,8 +7,6 @@ const PUBLIC_ROUTES = ["/auth/login", "/auth/register"];
 export default async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
   const session = await getSession();
-  console.log("Origin:", req.headers.get("origin"));
-  console.log("X-Forwarded-Host:", req.headers.get("x-forwarded-host"));
 
   // Redirect to login if the user is not authenticated
   if (!PUBLIC_ROUTES.includes(pathname) && !session?.token) {
