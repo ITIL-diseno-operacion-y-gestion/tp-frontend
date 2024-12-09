@@ -1,5 +1,3 @@
-import Link from "next/link";
-
 import { ChipFecha } from "@/components/chips/chip-fecha";
 import {
   Table,
@@ -27,8 +25,6 @@ export function TablaErroresConocidos({
           <TableHead>Fecha de Creación</TableHead>
           <TableHead>Solución Provisoria</TableHead>
           <TableHead>Solución Definitiva</TableHead>
-          <TableHead>Problemas Relacionados</TableHead>
-          <TableHead>Incidentes Relacionados</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
@@ -41,35 +37,39 @@ export function TablaErroresConocidos({
             </TableCell>
             <TableCell>{error.solucion_provisoria}</TableCell>
             <TableCell>{error.solucion_definitiva}</TableCell>
-            <TableCell>
-              <div className="space-x-2">
-                {error.problemas.map((problema) => (
-                  <Link
-                    href={`/problemas/${problema.id}`}
-                    key={problema.id}
-                    className="text-blue-500"
-                  >
-                    {problema.nombre}
-                  </Link>
-                ))}
-              </div>
-            </TableCell>
-            <TableCell>
-              <div className="space-x-2">
-                {error.incidentes.map((incidente) => (
-                  <Link
-                    href={`/incidentes/${incidente.id}`}
-                    key={incidente.id}
-                    className="text-blue-500"
-                  >
-                    {incidente.nombre}
-                  </Link>
-                ))}
-              </div>
-            </TableCell>
           </TableRow>
         ))}
       </TableBody>
     </Table>
   );
 }
+
+/*
+
+<TableCell>
+  <div className="space-x-2">
+    {error.problemas.map((problema) => (
+      <Link
+        href={`/problemas/${problema.id}`}
+        key={problema.id}
+        className="text-blue-500"
+      >
+        {problema.nombre}
+      </Link>
+    ))}
+  </div>
+</TableCell>
+<TableCell>
+  <div className="space-x-2">
+    {error.incidentes.map((incidente) => (
+      <Link
+        href={`/incidentes/${incidente.id}`}
+        key={incidente.id}
+        className="text-blue-500"
+      >
+        {incidente.nombre}
+      </Link>
+    ))}
+  </div>
+</TableCell>
+*/
