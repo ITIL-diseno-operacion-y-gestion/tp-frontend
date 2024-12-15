@@ -33,10 +33,9 @@ export function NuevoIncidenteForm({
   id_titular: number;
   initialValues?: Incidente;
 }) {
+  const editing = !!initialValues;
   const [state, action] = useActionState(
-    initialValues
-      ? actualizarIncidente.bind(null, initialValues.id)
-      : crearIncidente,
+    editing ? actualizarIncidente.bind(null, initialValues.id) : crearIncidente,
     initialState,
   );
 
@@ -141,7 +140,9 @@ export function NuevoIncidenteForm({
           description={state.message}
         />
       )}
-      <SubmitButton label="Crear Incidente" />
+      <SubmitButton
+        label={editing ? "Actualizar Incidente" : "Crear Incidente"}
+      />
     </form>
   );
 }

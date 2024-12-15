@@ -118,7 +118,7 @@ export function NuevoProblemaForm({
         />
       )}
       <SubmitButton
-        label={editing ? "Actualizar Problema" : " Crear Problema"}
+        label={editing ? "Actualizar Problema" : "Crear Problema"}
       />
     </form>
   );
