@@ -16,7 +16,7 @@ export const crearProblema = async (
 
   const problemaCreate = problemaCreateSchema.safeParse({
     ...rawFormData,
-    ids_incidentes: formData.getAll("id_incidentes"),
+    ids_incidentes: formData.getAll("ids_incidentes"),
   });
 
   if (!problemaCreate.success) {
