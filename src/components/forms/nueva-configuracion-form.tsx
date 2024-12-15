@@ -51,7 +51,7 @@ export function NuevaConfiguracionForm({ id_titular }: { id_titular: number }) {
           name="version"
           label="Versión"
           type="number"
-          defaultValue={state.fields?.version}
+          defaultValue={state.fields?.version || undefined}
           error={state.errors?.version}
         />
       </div>
