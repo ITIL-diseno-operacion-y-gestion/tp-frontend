@@ -30,7 +30,7 @@ export const itemConfiguracionCreateSchema = z.object({
   id_titular: z.string(),
   tipo: z.enum(tiposItemConfiguracion),
   info_fabricacion: z.string(),
-  version: z.coerce.number().optional(),
+  version: z.coerce.number().nullable().optional(),
   localizacion: z.string(),
   relacion_items: z.string(),
   estado: z.enum(estadoItemConfiguracion),

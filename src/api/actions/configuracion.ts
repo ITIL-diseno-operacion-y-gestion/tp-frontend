@@ -32,8 +32,13 @@ export const crearItemConfiguracion = async (
     };
   }
 
+  const data = itemConfiguracion.data;
+  if (data.version === 0) {
+    data.version = null;
+  }
+
   try {
-    await createArticuloConfiguracion(itemConfiguracion.data);
+    await createArticuloConfiguracion(data);
   } catch (error) {
     const message = (error as Error).message;
     return { message, fields: rawFormData as Partial<ItemConfiguracionCreate> };
