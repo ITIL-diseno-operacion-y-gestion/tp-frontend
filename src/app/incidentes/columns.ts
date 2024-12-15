@@ -31,9 +31,12 @@ export const columns: ColDef<Incidente>[] = [
     cellRenderer: EstadoCell,
   },
   {
-    field: "id_agente_asignado",
     headerName: "Agente asignado",
-    width: 150,
+    width: 160,
+    valueGetter: (params) => {
+      const agente = params.data?.agente_asignado;
+      return agente ? `${agente.nombre} ${agente.apellido}` : "";
+    }
   },
   {
     field: "categoria",

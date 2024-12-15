@@ -1,6 +1,7 @@
 import { z } from "zod";
 
 import { itemConfiguracionSchema } from "./configuracion";
+import { userSchema } from "./users";
 
 export const prioridades = ["baja", "media", "alta"] as const;
 
@@ -47,10 +48,11 @@ export const incidenteUpdateSchema = incidenteBaseSchema.extend({
   id_agente_asignado: z.coerce.number().nullable(),
 });
 
-export const incidenteSchema = incidenteUpdateSchema.extend({
+export const incidenteSchema = incidenteBaseSchema.extend({
   id: z.number(),
   fecha_de_alta: z.string(),
   articulos_afectados: z.array(itemConfiguracionSchema),
+  agente_asignado: userSchema.nullable(),
 });
 
 export type Prioridad = (typeof prioridades)[number];

@@ -26,11 +26,7 @@ export default function IncidenteView({
 }) {
   const esAgente = usuario.rol === "agente";
   const esSupervisor = usuario.rol === "supervisor";
-  const agenteId = usuario.id;
 
-  const agenteAsignado = incidente.id_agente_asignado
-    ? usuarios.find((usuario) => usuario.id === incidente.id_agente_asignado)
-    : null;
   const reportador = usuarios.find((usuario) => usuario.id === incidente.id_usuario);
   const nombreReportador = reportador ? `${reportador.nombre} ${reportador.apellido}` : "";
 
@@ -79,19 +75,19 @@ export default function IncidenteView({
         <div>
           <h3 className="font-semibold">Agente asignado</h3>
           <p>
-            {agenteAsignado
-              ? `${agenteAsignado.nombre} ${agenteAsignado.apellido}`
+            {incidente.agente_asignado
+              ? `${incidente.agente_asignado.nombre} ${incidente.agente_asignado.apellido}`
               : "No hay agente asignado"}
           </p>
           {esSupervisor && (
             <AsignarAgenteDialog
               incidenteId={incidente.id}
-              agenteAsignado={incidente.id_agente_asignado}
+              agenteAsignado={incidente.agente_asignado?.id || null}
               usuarios={usuarios}
             />
           )}
-          {esAgente && !incidente.id_agente_asignado && (
-            <AsignarAMiMismoDialog incidenteId={incidente.id} agenteId={agenteId} />
+          {esAgente && !incidente.agente_asignado && (
+            <AsignarAMiMismoDialog incidenteId={incidente.id} agenteId={usuario.id} />
           )}
         </div>
 
