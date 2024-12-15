@@ -137,20 +137,6 @@ export function NuevoCambioForm({
         type="date"
         required
       />
-
-      <SelectField
-        name="categoria"
-        label="Categoría"
-        error={state.errors?.categoria}
-        defaultValue={state.fields?.categoria ?? initialValues?.categoria}
-        required
-      >
-        {categoriasProblema.map((categoria) => (
-          <option key={categoria} value={categoria}>
-            {categoria}
-          </option>
-        ))}
-      </SelectField>
       <div className="flex gap-x-3">
         <input name="id_solicitante" value={id_titular} hidden readOnly />
         <SelectField
