@@ -57,6 +57,7 @@ export async function createIncidente(incidente: IncidenteCreate) {
   });
 
   if (err) {
+    console.error(err);
     throw new Error("No se pudo crear el incidente.");
   }
 

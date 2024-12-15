@@ -8,6 +8,7 @@ import {
   Incidente,
   IncidenteCreate,
   categoriasProblema,
+  estadosProblema,
   formasNotificacion,
   prioridades,
 } from "@/models/incidentes";
@@ -86,13 +87,30 @@ export function NuevoIncidenteForm({
           ))}
         </SelectField>
       </div>
-      <TextField
-        name="nombre"
-        label="Nombre"
-        error={state.errors?.nombre}
-        defaultValue={state.fields?.nombre ?? initialValues?.nombre}
-        required
-      />
+      <div className="grid gap-3 sm:grid-cols-2">
+        <TextField
+          name="nombre"
+          label="Nombre"
+          error={state.errors?.nombre}
+          defaultValue={state.fields?.nombre ?? initialValues?.nombre}
+          required
+        />
+        <SelectField
+          name="estado"
+          label="Estado"
+          error={state.errors?.estado}
+          defaultValue={
+            state.fields?.estado ?? initialValues?.estado ?? undefined
+          }
+          required
+        >
+          {estadosProblema.map((estado) => (
+            <option key={estado} value={estado}>
+              {estado}
+            </option>
+          ))}
+        </SelectField>
+      </div>
       <TextField
         name="servicios_afectados"
         label="Servicios afectados"

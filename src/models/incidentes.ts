@@ -36,6 +36,7 @@ const incidenteBaseSchema = z.object({
   prioridad: z.enum(prioridades),
   categoria: z.enum(categoriasProblema),
   informacion_adicional: z.string(),
+  estado: z.enum(estadosProblema).nullable(),
 });
 
 export const incidenteCreateSchema = incidenteBaseSchema.extend({
@@ -44,7 +45,6 @@ export const incidenteCreateSchema = incidenteBaseSchema.extend({
 
 export const incidenteUpdateSchema = incidenteBaseSchema.extend({
   id_agente_asignado: z.coerce.number().nullable(),
-  estado: z.enum(estadosProblema).nullable(),
 });
 
 export const incidenteSchema = incidenteUpdateSchema.extend({
