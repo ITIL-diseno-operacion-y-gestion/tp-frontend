@@ -20,6 +20,11 @@ export const columns: ColDef<Incidente>[] = [
   },
   { field: "prioridad", width: 100, cellRenderer: PrioridadCell },
   {
+    field: "nombre",
+    headerName: "Nombre",
+    width: 200,
+  },
+  {
     field: "estado",
     headerName: "Estado",
     width: 160,
