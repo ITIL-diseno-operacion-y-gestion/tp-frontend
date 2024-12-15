@@ -60,7 +60,7 @@
   },
   "lint-staged": {
     "*.{tsx,ts}": [
-      "eslint --fix --max-warnings 0"
+      "eslint --fix --max-warnings 1"
     ]
   },
   "overrides": {

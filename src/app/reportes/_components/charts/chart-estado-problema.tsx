@@ -12,7 +12,11 @@ import { EstadoProblema } from "@/models/incidentes";
 
 import { Pie, PieChart } from "recharts";
 
-export const ChartEstado = ({ estado }: { estado: EstadoProblema }) => {
+export const ChartEstadoProblema = ({
+  estado,
+}: {
+  estado: Record<EstadoProblema, number | undefined>;
+}) => {
   if (!estado) return null;
   // "detectado" | "analizandose" | "asignado" | "resuelto" | "cerrado"
   const chartConfig = {

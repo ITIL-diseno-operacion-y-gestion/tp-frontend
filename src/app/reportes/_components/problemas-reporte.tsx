@@ -1,6 +1,6 @@
-
 import { Reporte } from "@/models/reportes";
 
+import { ChartEstadoProblema } from "./charts/chart-estado-problema";
 
 export function ProblemasReporteView({
   problemas,
@@ -30,13 +30,7 @@ export function ProblemasReporteView({
         <p>
           <strong>Estado:</strong>
         </p>
-        {Object.entries(estado).map(([key, value]) => (
-          <ul key={key}>
-            <li>
-              {key}: {value || 0}
-            </li>
-          </ul>
-        ))}
+        <ChartEstadoProblema estado={estado} />
 
         <p>
           <strong>Categoría:</strong>
@@ -61,4 +55,3 @@ export function ProblemasReporteView({
     </>
   );
 }
-
