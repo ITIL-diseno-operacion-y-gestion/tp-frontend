@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { EstadoCambio } from "./cambios";
 import {
   EstadoItemConfiguracion,
@@ -14,30 +15,47 @@ export interface Reporte {
 }
 
 interface Errores {
-  incidente: object; // Q carajo va acá
-  problema: object;
+  incidente: any;
+  problema: any;
+  total: number;
 }
 
 interface Problemas {
+  generales: ProblemasGeneralOPersonal;
+  personales: ProblemasGeneralOPersonal;
+}
+
+interface ProblemasGeneralOPersonal {
   categoria: Record<CategoriaProblema, number | undefined>;
   estado: Record<EstadoProblema, number | undefined>;
-  incidente: Record<string, number | undefined>;
+  incidente: Record<string, number>;
+  total: number;
+  tiempo_promedio_resolucion: string;
 }
 
 interface Incidentes {
+  generales: GeneralOPersonal;
+  personales: GeneralOPersonal;
+}
+
+interface GeneralOPersonal {
   prioridad: Record<Prioridad, number | undefined>;
   categoria: Record<CategoriaProblema, number | undefined>;
-  articulo: Record<string, number | undefined>;
+  articulo: Record<string, number>;
+  conformidad_resolucion_promedio: number;
+  total: number;
 }
 
 interface Cambios {
   estado: Record<EstadoCambio, number | undefined>;
-  categoria: Record<CategoriaProblema, number | undefined>;
-  articulo: Record<string, number | undefined>;
   prioridad: Record<Prioridad, number | undefined>;
+  categoria: Record<any, number | undefined>;
+  articulo: any;
+  total: number;
 }
 
 interface Articulos {
   tipo: Record<TipoItemConfiguracion, number | undefined>;
   estado: Record<EstadoItemConfiguracion, number | undefined>;
+  total: number;
 }

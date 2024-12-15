@@ -23,10 +23,10 @@ export function CambiosReporteView({
       <p>
         <strong>Artículo:</strong>
       </p>
-      {Object.entries(articulo).map(([key, value]) => (
+      {articulo && Object.entries(articulo).map(([key, value]) => (
         <ul key={key}>
           <li>
-            {key}: {value || 0}
+            {key}: {JSON.stringify(value) || 0}
           </li>
         </ul>
       ))}

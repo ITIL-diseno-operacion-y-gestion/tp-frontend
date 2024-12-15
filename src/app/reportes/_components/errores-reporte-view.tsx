@@ -15,7 +15,7 @@ export function ErroresReporteView({
       {Object.entries(incidente).map(([key, value]) => (
         <ul key={key}>
           <li>
-            {key}: {value || 0}
+            {key}: {JSON.stringify(value) || 0}
           </li>
         </ul>
       ))}
@@ -26,7 +26,7 @@ export function ErroresReporteView({
       {Object.entries(problema).map(([key, value]) => (
         <ul key={key}>
           <li>
-            {key}: {value || 0}
+            {key}: {JSON.stringify(value) || 0}
           </li>
         </ul>
       ))}
