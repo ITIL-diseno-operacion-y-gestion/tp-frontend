@@ -13,16 +13,21 @@ import { Incidente } from "@/models/incidentes";
 import { User } from "@/models/users";
 
 import { AsignarAgenteDialog } from "./asignar-agente-dialog";
+import { AsignarAMiMismoDialog } from "./asignar-a-mi-mismo-dialog";
 
 export default function IncidenteView({
   incidente,
-  esSupervisor,
   usuarios,
+  usuario,
 }: {
   incidente: Incidente;
-  esSupervisor: boolean;
   usuarios: User[];
+  usuario: User;
 }) {
+  const esAgente = usuario.rol === "agente";
+  const esSupervisor = usuario.rol === "supervisor";
+  const agenteId = usuario.id;
+
   const agenteAsignado = incidente.id_agente_asignado
     ? usuarios.find((usuario) => usuario.id === incidente.id_agente_asignado)
     : null;
@@ -81,6 +86,9 @@ export default function IncidenteView({
               agenteAsignado={incidente.id_agente_asignado}
               usuarios={usuarios}
             />
+          )}
+          {esAgente && !incidente.id_agente_asignado && (
+            <AsignarAMiMismoDialog incidenteId={incidente.id} agenteId={agenteId} />
           )}
         </div>
 

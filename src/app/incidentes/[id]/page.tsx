@@ -17,14 +17,15 @@ export default async function IncidentesDetailsPage(props: {
     getIncidente(id),
     getUsers(),
   ]);
-  const esSupervisor = session?.user.rol === "supervisor";
 
+  if (!session?.user) throw new Error("No hay usuario logueado");
+  
   return (
     <div>
       <Title>Incidente #{id}</Title>
       <IncidenteView
         incidente={incidente}
-        esSupervisor={esSupervisor}
+        usuario={session.user}
         usuarios={usuarios}
       />
       <div className="mt-6 flex gap-x-4">
