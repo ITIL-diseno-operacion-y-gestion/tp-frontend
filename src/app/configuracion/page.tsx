@@ -23,7 +23,7 @@ export default async function ConfiguaracionPage(props: {
 
   return (
     <div className="space-y-8">
-      <Title>Configuracion</Title>
+      <Title>Configuración</Title>
       <div className="flex justify-between">
         <Link href="/configuracion/new">
           <button className="rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600">

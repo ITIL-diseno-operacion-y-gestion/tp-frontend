@@ -24,6 +24,7 @@ export async function getIncidentes(usuarioId?: number): Promise<Incidente[]> {
   });
 
   if (err || !req.ok) {
+    console.error(err);
     throw new Error("No se pudo obtener los incidentes.");
   }
 
