@@ -31,6 +31,9 @@ export default function IncidenteView({
   const agenteAsignado = incidente.id_agente_asignado
     ? usuarios.find((usuario) => usuario.id === incidente.id_agente_asignado)
     : null;
+  const reportador = usuarios.find((usuario) => usuario.id === incidente.id_usuario);
+  const nombreReportador = reportador ? `${reportador.nombre} ${reportador.apellido}` : "";
+
   return (
     <Card className="mx-auto w-full max-w-3xl">
       <CardHeader>
@@ -69,7 +72,7 @@ export default function IncidenteView({
           </div>
           <div>
             <h3 className="font-semibold">ID reportador</h3>
-            <p>{incidente.id_usuario}</p>
+            <p>{nombreReportador}</p>
           </div>
         </div>
 
