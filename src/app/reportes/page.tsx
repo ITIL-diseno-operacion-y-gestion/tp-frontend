@@ -1,8 +1,8 @@
 import { getReporte } from "@/api/reportes";
+import { ButtonActualizar } from "@/components/button-actualizar";
 import { Title } from "@/components/common/title";
 
 import ReporteView from "./_components/reporte-view";
-import { FiltroGeneralesParticulares } from "./_components/filtro-generales-particulares";
 
 export default async function ReportesPage() {
   const reporte = await getReporte();
@@ -10,7 +10,9 @@ export default async function ReportesPage() {
   return (
     <>
       <Title>Reportes</Title>
-      <FiltroGeneralesParticulares />
+      <div className="flex justify-end mb-4">
+        <ButtonActualizar path="/reportes" />
+      </div>
       <ReporteView reporte={reporte} />
     </>
   );

@@ -8,21 +8,23 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
-import { EstadoProblema } from "@/models/incidentes";
+import { EstadoItemConfiguracion } from "@/models/configuracion";
 
 import { Pie, PieChart } from "recharts";
 
-export const ChartEstadoProblema = ({
+export const ChartEstadoArticulosConfiguracion = ({
   estado,
 }: {
-  estado: Record<EstadoProblema, number | undefined>;
+  estado: Record<EstadoItemConfiguracion, number | undefined>;
 }) => {
   const chartConfig = {
-    detectado: { color: "pink", label: "Detectado" },
-    analizandose: { color: "blue", label: "Analizandose" },
-    asignado: { color: "purple", label: "Asignado" },
-    resuelto: { color: "red", label: "Resuelto" },
-    cerrado: { color: "orange", label: "Cerrado" },
+    planeado: { color: "pink", label: "Planeado" },
+    encargado: { color: "blue", label: "Encargado" },
+    "en_creacion": { color: "purple", label: "En creación" },
+    "en_prueba": { color: "red", label: "En prueba" },
+    "en_almacen": { color: "orange", label: "En almacén" },
+    "en_produccion": { color: "yellow", label: "En producción" },
+    "en_mantenimiento": { color: "gray", label: "En mantenimiento" },
     value: {
       label: "Cantidad",
     },
@@ -34,6 +36,7 @@ export const ChartEstadoProblema = ({
     fill: `var(--color-${key.split(" ").join("_")})`,
   }));
 
+  console.log(data);
   return (
     <ChartContainer
       config={chartConfig}
@@ -45,7 +48,7 @@ export const ChartEstadoProblema = ({
           content={<ChartLegendContent nameKey="name" />}
           className="-translate-y-2 flex-wrap gap-2"
         />
-        <Pie dataKey="value" nameKey="name" data={data} />
+        <Pie dataKey="value" nameKey="name" innerRadius={30} data={data} />
       </PieChart>
     </ChartContainer>
   );

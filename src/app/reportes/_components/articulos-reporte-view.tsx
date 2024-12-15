@@ -2,25 +2,20 @@
 
 import { Reporte } from "@/models/reportes";
 
+import { ChartEstadoArticulosConfiguracion } from "./charts/chart-estado-articulos";
+
 export function ArticuloReporteView({
   articulos,
 }: {
   articulos: Reporte["articulos"];
 }) {
   const { estado, tipo } = articulos;
-
   return (
     <div className="border p-6">
       <p>
         <strong>Estado:</strong>
       </p>
-      {Object.entries(estado).map(([key, value]) => (
-        <ul key={key}>
-          <li>
-            {key}: {value || 0}
-          </li>
-        </ul>
-      ))}
+      <ChartEstadoArticulosConfiguracion estado={estado} />
 
       <p>
         <strong>Tipo:</strong>
