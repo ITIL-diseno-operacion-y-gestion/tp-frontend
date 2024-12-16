@@ -35,7 +35,6 @@ export const ChartEstadoCambios = ({
     fill: `var(--color-${key.split(" ").join("_")})`,
   }));
 
-  console.log(data);
   return (
     <ChartContainer
       config={chartConfig}

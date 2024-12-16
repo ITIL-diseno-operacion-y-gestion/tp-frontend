@@ -1,6 +1,7 @@
 import { Reporte } from "@/models/reportes";
 
 import { ChartEstadoProblema } from "./charts/chart-estado-problema";
+import { ChartCategoria } from "./charts/chart-categoria";
 
 export function ProblemasReporteView({
   problemas,
@@ -15,33 +16,27 @@ export function ProblemasReporteView({
     incidente,
   }: Reporte["problemas"]["generales"]) => {
     return (
-      <div className="border p-6">
-        <p>
-          <strong>Incidente:</strong>
-        </p>
-        {Object.entries(incidente).map(([key, value]) => (
-          <ul key={key}>
-            <li>
-              {key}: {value || 0}
-            </li>
-          </ul>
-        ))}
+      <div className="grid border p-6 sm:grid-cols-2 md:grid-cols-3">
+        <div>
+          <h3 className="text-lg font-bold">Incidentes</h3>
+          {Object.entries(incidente).map(([key, value]) => (
+            <ul key={key}>
+              <li>
+                {key}: {value || 0}
+              </li>
+            </ul>
+          ))}
+        </div>
 
-        <p>
-          <strong>Estado:</strong>
-        </p>
-        <ChartEstadoProblema estado={estado} />
+        <div>
+          <h3 className="text-lg font-bold">Estado</h3>
+          <ChartEstadoProblema estado={estado} />
+        </div>
 
-        <p>
-          <strong>Categoría:</strong>
-        </p>
-        {Object.entries(categoria).map(([key, value]) => (
-          <ul key={key}>
-            <li>
-              {key}: {value || 0}
-            </li>
-          </ul>
-        ))}
+        <div>
+          <h3 className="text-lg font-bold">Categoría</h3>
+          <ChartCategoria categoria={categoria} />
+        </div>
       </div>
     );
   };

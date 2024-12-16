@@ -18,7 +18,7 @@ export const ChartCategoria = ({
   const chartConfig = {
     de_seguridad: { color: "pink", label: "De seguridad" },
     tecnico: { color: "blue", label: "tecnico" },
-    de_disponibilidad: { color: "purple", label: "De disponibilidad" },
+    de_disponibilidad: { color: "purple", label: "De disponib." },
     de_datos: { color: "red", label: "De datos" },
     legal: { color: "orange", label: "legal" },
     value: {
@@ -32,9 +32,8 @@ export const ChartCategoria = ({
     fill: `var(--color-${key.split(" ").join("_")})`,
   }));
 
-  console.log(data);
   return (
-    <ChartContainer config={chartConfig} className="aspect-video max-h-[300px]">
+    <ChartContainer config={chartConfig} className="aspect-[20/9] max-h-[400px]">
       <BarChart accessibilityLayer data={data}>
         <CartesianGrid vertical={false} />
         <XAxis
