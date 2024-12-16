@@ -1,4 +1,5 @@
 import { Reporte } from "@/models/reportes";
+import { ChartCategoria } from "./charts/chart-categoria";
 
 export function IncidentesReporteView({
   incidentes,
@@ -29,14 +30,7 @@ export function IncidentesReporteView({
         <p>
           <strong>Categoría:</strong>
         </p>
-        {categoria &&
-          Object.entries(categoria).map(([key, value]) => (
-            <ul key={key}>
-              <li>
-                {key}: {value || 0}
-              </li>
-            </ul>
-          ))}
+        <ChartCategoria categoria={categoria} />
 
         <p>
           <strong>Prioridad:</strong>
