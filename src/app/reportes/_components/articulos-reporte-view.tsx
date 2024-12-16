@@ -3,6 +3,7 @@
 import { Reporte } from "@/models/reportes";
 
 import { ChartEstadoArticulosConfiguracion } from "./charts/chart-estado-articulos";
+import { ChartTipoArticulos } from "./charts/chart-tipo-articulos";
 
 export function ArticuloReporteView({
   articulos,
@@ -11,22 +12,16 @@ export function ArticuloReporteView({
 }) {
   const { estado, tipo } = articulos;
   return (
-    <div className="border p-6">
-      <p>
-        <strong>Estado:</strong>
-      </p>
-      <ChartEstadoArticulosConfiguracion estado={estado} />
+    <div className="grid grid-cols-2 gap-6 border p-6">
+      <div>
+        <h3 className="text-xl font-bold">Estado</h3>
+        <ChartEstadoArticulosConfiguracion estado={estado} />
+      </div>
 
-      <p>
-        <strong>Tipo:</strong>
-      </p>
-      {Object.entries(tipo).map(([key, value]) => (
-        <ul key={key}>
-          <li>
-            {key}: {value || 0}
-          </li>
-        </ul>
-      ))}
+      <div>
+        <h3 className="text-xl font-bold">Tipo</h3>
+        <ChartTipoArticulos tipo={tipo} />
+      </div>
     </div>
   );
 }
