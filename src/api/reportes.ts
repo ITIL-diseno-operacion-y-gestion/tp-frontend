@@ -3,8 +3,13 @@ import { Reporte } from "@/models/reportes";
 
 const BASE_PATH = `${process.env.NEXT_PUBLIC_API_URL}/reportes`;
 
-export async function getReporte(): Promise<Reporte> {
-  const [err, req] = await fetchWithTimeout(BASE_PATH, {
+export async function getReporte(id_agente_asociado: number | undefined): Promise<Reporte> {
+  const path = new URL(BASE_PATH);
+
+  if (id_agente_asociado) {
+    path.searchParams.append("id_agente_asociado", id_agente_asociado.toString());
+  }
+  const [err, req] = await fetchWithTimeout(path.toString(), {
     next: {
       tags: ["reportes"],
     },
