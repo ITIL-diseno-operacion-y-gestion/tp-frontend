@@ -1,5 +1,6 @@
 import { Reporte } from "@/models/reportes";
 import { ChartCategoria } from "./charts/chart-categoria";
+import { ChartPrioridad } from "./charts/chart-prioridad";
 
 export function IncidentesReporteView({
   incidentes,
@@ -35,14 +36,7 @@ export function IncidentesReporteView({
         <p>
           <strong>Prioridad:</strong>
         </p>
-        {prioridad &&
-          Object.entries(prioridad).map(([key, value]) => (
-            <ul key={key}>
-              <li>
-                {key}: {value || 0}
-              </li>
-            </ul>
-          ))}
+        <ChartPrioridad prioridad={prioridad} />
       </div>
     );
   };
