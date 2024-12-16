@@ -1,4 +1,5 @@
 import { Reporte } from "@/models/reportes";
+
 import { ChartCategoria } from "./charts/chart-categoria";
 import { ChartPrioridad } from "./charts/chart-prioridad";
 
@@ -15,28 +16,28 @@ export function IncidentesReporteView({
     articulo,
   }: Reporte["incidentes"]["generales"]) => {
     return (
-      <div className="border p-6">
-        <p>
-          <strong>Artículo:</strong>
-        </p>
-        {articulo &&
-          Object.entries(articulo).map(([key, value]) => (
-            <ul key={key}>
-              <li>
-                {key}: {value || 0}
-              </li>
-            </ul>
-          ))}
+      <div className="grid grid-cols-3 border p-6 sm:grid-cols-2 md:grid-cols-3">
+        <div>
+          <h3 className="text-lg font-bold">Artículo</h3>
+          {articulo &&
+            Object.entries(articulo).map(([key, value]) => (
+              <ul key={key}>
+                <li>
+                  {key}: {value || 0}
+                </li>
+              </ul>
+            ))}
+        </div>
 
-        <p>
-          <strong>Categoría:</strong>
-        </p>
-        <ChartCategoria categoria={categoria} />
+        <div>
+          <h3 className="text-lg font-bold">Categoría</h3>
+          <ChartCategoria categoria={categoria} />
+        </div>
 
-        <p>
-          <strong>Prioridad:</strong>
-        </p>
-        <ChartPrioridad prioridad={prioridad} />
+        <div>
+          <h3 className="text-lg font-bold">Prioridad</h3>
+          <ChartPrioridad prioridad={prioridad} />
+        </div>
       </div>
     );
   };
