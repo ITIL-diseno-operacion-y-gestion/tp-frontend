@@ -1,5 +1,6 @@
 import { Reporte } from "@/models/reportes";
 import { ChartEstadoCambios } from "./charts/chart-estado-cambios";
+import { ChartPrioridad } from "./charts/chart-prioridad";
 
 export function CambiosReporteView({
   cambios,
@@ -40,13 +41,7 @@ export function CambiosReporteView({
       <p>
         <strong>Prioridad:</strong>
       </p>
-      {Object.entries(prioridad).map(([key, value]) => (
-        <ul key={key}>
-          <li>
-            {key}: {value || 0}
-          </li>
-        </ul>
-      ))}
+      <ChartPrioridad prioridad={prioridad} />
     </div>
   );
 }
