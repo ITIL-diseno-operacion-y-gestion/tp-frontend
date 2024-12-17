@@ -1,7 +1,8 @@
 import { Reporte } from "@/models/reportes";
 
-import { ChartEstadoProblema } from "./charts/chart-estado-problema";
+import { ArticuloCantidadView } from "./articulo-cantidad-view";
 import { ChartCategoria } from "./charts/chart-categoria";
+import { ChartEstadoProblema } from "./charts/chart-estado-problema";
 
 export function ProblemasReporteView({
   problemas,
@@ -17,16 +18,11 @@ export function ProblemasReporteView({
   }: Reporte["problemas"]["generales"]) => {
     return (
       <div className="grid border p-6 sm:grid-cols-2 md:grid-cols-3">
-        <div>
-          <h3 className="text-lg font-bold">Incidentes</h3>
-          {Object.entries(incidente).map(([key, value]) => (
-            <ul key={key}>
-              <li>
-                {key}: {value || 0}
-              </li>
-            </ul>
-          ))}
-        </div>
+        <ArticuloCantidadView
+          listado={incidente}
+          entidad="problema"
+          entidadTiene="incidentes"
+        />
 
         <div>
           <h3 className="text-lg font-bold">Estado</h3>

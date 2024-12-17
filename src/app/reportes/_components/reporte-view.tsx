@@ -11,26 +11,19 @@ export default function ReporteView({ reporte }: { reporte: Reporte }) {
 
   return (
     <div className="border p-6 [&>div]:mb-6">
-      <p>
-        <strong>Artículos:</strong>
-      </p>
+      <h2 className="text-2xl font-bold">Artículos</h2>
       <ArticuloReporteView articulos={articulos} />
-      <p>
-        <strong>Cambios:</strong>
-      </p>
+      
+      <h2 className="text-2xl font-bold">Cambios</h2>
       <CambiosReporteView cambios={cambios} />
-      <p>
-        <strong>Errores:</strong>
-      </p>
+      
+      <h2 className="text-2xl font-bold">Errores</h2>
       <ErroresReporteView errores={errores} />
 
-      <p>
-        <strong>Incidentes:</strong>
-      </p>
+      <h2 className="text-2xl font-bold">Incidentes</h2>
       <IncidentesReporteView incidentes={incidentes} />
-      <p>
-        <strong>Problemas:</strong>
-      </p>
+      
+      <h2 className="text-2xl font-bold">Problemas</h2>
       <ProblemasReporteView problemas={problemas} />
     </div>
   );

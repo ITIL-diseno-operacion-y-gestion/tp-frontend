@@ -2,6 +2,7 @@ import { Reporte } from "@/models/reportes";
 
 import { ChartCategoria } from "./charts/chart-categoria";
 import { ChartPrioridad } from "./charts/chart-prioridad";
+import { ArticuloCantidadView } from "./articulo-cantidad-view";
 
 export function IncidentesReporteView({
   incidentes,
@@ -17,17 +18,7 @@ export function IncidentesReporteView({
   }: Reporte["incidentes"]["generales"]) => {
     return (
       <div className="grid grid-cols-3 border p-6 sm:grid-cols-2 md:grid-cols-3">
-        <div>
-          <h3 className="text-lg font-bold">Artículo</h3>
-          {articulo &&
-            Object.entries(articulo).map(([key, value]) => (
-              <ul key={key}>
-                <li>
-                  {key}: {value || 0}
-                </li>
-              </ul>
-            ))}
-        </div>
+        <ArticuloCantidadView listado={articulo} entidad="incidente" />
 
         <div>
           <h3 className="text-lg font-bold">Categoría</h3>

@@ -1,5 +1,7 @@
 import { Reporte } from "@/models/reportes";
 
+import { ArticuloCantidadView } from "./articulo-cantidad-view";
+
 export function ErroresReporteView({
   errores,
 }: {
@@ -9,27 +11,17 @@ export function ErroresReporteView({
 
   return (
     <div className="border p-6">
-      <p>
-        <strong>Incidente:</strong>
-      </p>
-      {Object.entries(incidente).map(([key, value]) => (
-        <ul key={key}>
-          <li>
-            {key}: {JSON.stringify(value) || 0}
-          </li>
-        </ul>
-      ))}
+      <ArticuloCantidadView
+        listado={incidente}
+        entidad="error"
+        entidadTiene="incidentes"
+      />
 
-      <p>
-        <strong>Problema:</strong>
-      </p>
-      {Object.entries(problema).map(([key, value]) => (
-        <ul key={key}>
-          <li>
-            {key}: {JSON.stringify(value) || 0}
-          </li>
-        </ul>
-      ))}
+      <ArticuloCantidadView
+        listado={problema}
+        entidad="error"
+        entidadTiene="problemas"
+      />
     </div>
   );
 }

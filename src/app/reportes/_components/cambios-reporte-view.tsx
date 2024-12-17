@@ -1,15 +1,17 @@
 import { Reporte } from "@/models/reportes";
 
+import { ArticuloCantidadView } from "./articulo-cantidad-view";
 import { ChartCategoria } from "./charts/chart-categoria";
 import { ChartEstadoCambios } from "./charts/chart-estado-cambios";
 import { ChartPrioridad } from "./charts/chart-prioridad";
+import { TotalView } from "./total-view";
 
 export function CambiosReporteView({
   cambios,
 }: {
   cambios: Reporte["cambios"];
 }) {
-  const { estado, articulo, categoria, prioridad } = cambios;
+  const { estado, articulo, categoria, prioridad, total } = cambios;
 
   return (
     <div className="grid border p-6 sm:grid-cols-2 md:grid-cols-3">
@@ -18,28 +20,19 @@ export function CambiosReporteView({
         <ChartEstadoCambios estado={estado} />
       </div>
 
-
       <div>
         <h3 className="text-xl font-bold">Categoría</h3>
         <ChartCategoria categoria={categoria} />
       </div>
+
+      <TotalView total={total} />
 
       <div>
         <h3 className="text-xl font-bold">Prioridad</h3>
         <ChartPrioridad prioridad={prioridad} />
       </div>
 
-      <div>
-        <h3 className="text-xl font-bold">Artículo</h3>
-        {articulo &&
-          Object.entries(articulo).map(([key, value]) => (
-            <ul key={key}>
-              <li>
-                {key}: {JSON.stringify(value) || 0}
-              </li>
-            </ul>
-          ))}
-      </div>
+      <ArticuloCantidadView listado={articulo} entidad="cambio" />
     </div>
   );
 }

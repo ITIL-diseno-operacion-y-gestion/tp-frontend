@@ -16,7 +16,7 @@ export interface Reporte {
 
 interface Errores {
   incidente: any;
-  problema: any;
+  problema: Record<string, number>;
   total: number;
 }
 
@@ -50,7 +50,7 @@ interface Cambios {
   estado: Record<EstadoCambio, number | undefined>;
   prioridad: Record<Prioridad, number | undefined>;
   categoria: Record<any, number | undefined>;
-  articulo: any;
+  articulo: Record<string, number>;
   total: number;
 }
 
