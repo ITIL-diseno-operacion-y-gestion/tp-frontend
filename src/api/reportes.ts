@@ -3,12 +3,28 @@ import { Reporte } from "@/models/reportes";
 
 const BASE_PATH = `${process.env.NEXT_PUBLIC_API_URL}/reportes`;
 
-export async function getReporte(id_agente_asociado: number | undefined): Promise<Reporte> {
+export async function getReporte(
+  id_agente_asociado: number | undefined,
+  desde: Date | undefined,
+  hasta: Date | undefined,
+): Promise<Reporte> {
   const path = new URL(BASE_PATH);
 
   if (id_agente_asociado) {
-    path.searchParams.append("id_agente_asociado", id_agente_asociado.toString());
+    path.searchParams.append(
+      "id_agente_asignado",
+      id_agente_asociado.toString(),
+    );
   }
+
+  if (desde) {
+    path.searchParams.append("desde", desde.toISOString());
+  }
+
+  if (hasta) {
+    path.searchParams.append("hasta", hasta.toISOString());
+  }
+  
   const [err, req] = await fetchWithTimeout(path.toString(), {
     next: {
       tags: ["reportes"],

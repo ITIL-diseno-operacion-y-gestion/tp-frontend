@@ -3,6 +3,8 @@ import { Reporte } from "@/models/reportes";
 import { ArticuloCantidadView } from "./articulo-cantidad-view";
 import { ChartCategoria } from "./charts/chart-categoria";
 import { ChartEstadoProblema } from "./charts/chart-estado-problema";
+import { TotalView } from "./total-view";
+import { TiempoResolucionPromedio } from "./tiempo-resolucion-promedio";
 
 export function ProblemasReporteView({
   problemas,
@@ -15,33 +17,38 @@ export function ProblemasReporteView({
     categoria,
     estado,
     incidente,
+    tiempo_promedio_resolucion,
+    total,
   }: Reporte["problemas"]["generales"]) => {
     return (
       <div className="grid border p-6 sm:grid-cols-2 md:grid-cols-3">
+        <div>
+          <h4 className="text-lg font-bold">Estado</h4>
+          <ChartEstadoProblema estado={estado} />
+        </div>
+
+        <div>
+          <h4 className="text-lg font-bold">Categoría</h4>
+          <ChartCategoria categoria={categoria} />
+        </div>
+        <TotalView total={total} />
+
         <ArticuloCantidadView
           listado={incidente}
           entidad="problema"
           entidadTiene="incidentes"
         />
 
-        <div>
-          <h3 className="text-lg font-bold">Estado</h3>
-          <ChartEstadoProblema estado={estado} />
-        </div>
-
-        <div>
-          <h3 className="text-lg font-bold">Categoría</h3>
-          <ChartCategoria categoria={categoria} />
-        </div>
+        <TiempoResolucionPromedio tiempo_promedio_resolucion={tiempo_promedio_resolucion} />
       </div>
     );
   };
 
   return (
     <>
-      <h2 className="text-2xl font-bold">Generales</h2>
+      <h3 className="text-xl font-bold">Generales</h3>
       <ProblemaView {...generales} />
-      <h2 className="text-2xl font-bold">Personales</h2>
+      <h3 className="text-xl font-bold">Personales</h3>
       <ProblemaView {...personales} />
     </>
   );

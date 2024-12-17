@@ -27,6 +27,11 @@ export async function getUsers(): Promise<User[]> {
   return data;
 }
 
+export async function getAgentes(): Promise<User[]> {
+  const users = await getUsers();
+  return users.filter((user) => user.rol === "agente");
+}
+
 export async function register(user: UserRegister): Promise<User> {
   const [err, req] = await fetchWithTimeout(BASE_PATH, {
     method: "POST",

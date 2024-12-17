@@ -12,7 +12,7 @@ export const ArticuloCantidadView = ({
 }) => {
   return (
     <div>
-      <h3 className="text-xl font-bold">{uppercaseFirst(entidadTiene)}</h3>
+      <h4 className="text-xl font-bold">{uppercaseFirst(entidadTiene)}</h4>
       <ul className="mt-2">
         {Object.entries(listado).map(([key, value]) => (
           <li key={key}>
