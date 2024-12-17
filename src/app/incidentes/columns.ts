@@ -47,7 +47,7 @@ export const columns: ColDef<Incidente>[] = [
   {
     field: "fecha_de_alta",
     headerName: "Fecha de alta",
-    width: 120,
+    width: 130,
     type: "date",
     cellRenderer: FechaAltaCell,
   },

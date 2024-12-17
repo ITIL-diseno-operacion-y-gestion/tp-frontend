@@ -28,6 +28,7 @@ export function SignupForm() {
           label="Nombre"
           autoComplete="given-name"
           error={state.errors?.nombre}
+          defaultValue={state.fields?.nombre}
           required
         />
         <TextField
@@ -35,6 +36,7 @@ export function SignupForm() {
           label="Apellido"
           autoComplete="family-name"
           error={state.errors?.apellido}
+          defaultValue={state.fields?.apellido}
           required
         />
       </div>
@@ -44,9 +46,16 @@ export function SignupForm() {
         label="Email"
         autoComplete="email"
         error={state.errors?.email}
+        defaultValue={state.fields?.email}
         required
       />
-      <SelectField name="rol" label="Rol" error={state.errors?.rol} required>
+      <SelectField
+        name="rol"
+        label="Rol"
+        error={state.errors?.rol}
+        defaultValue={state.fields?.rol}
+        required
+      >
         {userRoles.map((role) => (
           <option key={role} value={role}>
             {role}

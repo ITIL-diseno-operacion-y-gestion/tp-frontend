@@ -27,6 +27,7 @@ export function LoginForm() {
         label="Email"
         autoComplete="email"
         error={state.errors?.email}
+        defaultValue={state.fields?.email}
         className="mb-2"
         required
       />

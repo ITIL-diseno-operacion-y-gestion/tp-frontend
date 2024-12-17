@@ -25,6 +25,7 @@ export const handleSignUp = async (
   if (!userRegister.success) {
     return {
       errors: userRegister.error.flatten().fieldErrors,
+      fields: userRegisterRaw,
     };
   }
 
@@ -34,6 +35,7 @@ export const handleSignUp = async (
     console.error("ERROR: ", error);
     return {
       message: (error as Error).message,
+      fields: userRegister.data,
     };
   }
 
@@ -53,6 +55,7 @@ export const handleLogin = async (
     console.log(userLogin.data);
     return {
       errors: userLogin.error.flatten().fieldErrors,
+      fields: userRaw,
     };
   }
 
@@ -63,6 +66,7 @@ export const handleLogin = async (
     console.error("ERROR: ", error);
     return {
       message: (error as Error).message,
+      fields: userLogin.data,
     };
   }
 
